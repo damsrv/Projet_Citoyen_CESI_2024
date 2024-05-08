@@ -1,0 +1,16 @@
+name: CICD
+run-name: ${{ github.actor }} CICD
+on: 
+  push:
+    branches:
+      - develop
+
+jobs:
+    test:
+        runs-on: ubuntu-latest
+        steps:
+          - uses: actions/checkout@v4
+          - run: docker compose up -d --build 
+          - run: sleep 20
+          - run: docker compose exec next npm run test
+    

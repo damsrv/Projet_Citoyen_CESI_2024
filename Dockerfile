@@ -1,5 +1,5 @@
 # Utiliser une image Node.js Alpine comme base
-FROM node:22-alpine
+FROM node:22-alpine AS next
 
 # Créer le répertoire de travail dans l'image Docker
 WORKDIR /app
