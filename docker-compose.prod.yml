@@ -1,6 +1,6 @@
 
 services:
-  web:
+  app_prod:
     build:
       context: ./
       target: runner
@@ -10,7 +10,7 @@ services:
     ports:
       - "3000:3000"
     environment:
-      NODE_ENV: development
+      NODE_ENV: production
 
   postgres:
     image: postgres:16-alpine
