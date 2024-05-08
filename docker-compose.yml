@@ -1,16 +1,16 @@
 
 services:
-  app:
+  web:
     build:
-      context: .
-      dockerfile: Dockerfile
-    container_name: projet-citoyen-2024
-    ports:
-      - "3000:3000"
-    command: ["npm", "run", "start"]
+      context: ./
+      target: runner
     volumes:
       - .:/app
-      - /app/node_modules
+    command: npm run dev
+    ports:
+      - "3000:3000"
+    environment:
+      NODE_ENV: development
 
   postgres:
     image: postgres:16-alpine

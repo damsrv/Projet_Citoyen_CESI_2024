@@ -1,25 +1,36 @@
-# Utiliser une image Node.js Alpine comme base
-FROM node:22-alpine AS next
-
-# Créer le répertoire de travail dans l'image Docker
+FROM node:18-alpine AS deps
+RUN apk add --no-cache libc6-compat
 WORKDIR /app
 
-# Copier les fichiers package.json et package-lock.json
 COPY package.json package-lock.json ./
+RUN  npm install --production
 
-# Installer les dépendances
-RUN npm install
-
-# Copier le reste des fichiers du projet
+FROM node:18-alpine AS builder
+WORKDIR /app
+COPY --from=deps /app/node_modules ./node_modules
 COPY . .
 
-# Construire l'application Next.js pour la production
+ENV NEXT_TELEMETRY_DISABLED 1
+
 RUN npm run build
 
-COPY .next ./.next
+FROM node:18-alpine AS runner
+WORKDIR /app
 
-# Exposer le port 3000 utilisé par l'application Next.js
+ENV NODE_ENV production
+ENV NEXT_TELEMETRY_DISABLED 1
+
+RUN addgroup --system --gid 1001 nodejs
+RUN adduser --system --uid 1001 nextjs
+
+COPY --from=builder --chown=nextjs:nodejs /app/.next ./.next
+COPY --from=builder /app/node_modules ./node_modules
+COPY --from=builder /app/package.json ./package.json
+
+USER nextjs
+
 EXPOSE 3000
 
-# Commande de démarrage pour exécuter l'application Next.js
-CMD ["npm", "run", "dev"]
+ENV PORT 3000
+
+CMD ["npm", "start"]
