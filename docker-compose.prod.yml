@@ -3,10 +3,11 @@ services:
   app_prod:
     build:
       context: ./
+      dockerfile: Dockerfile.prod
       target: runner
     volumes:
       - .:/app
-    command: npm run dev
+    command: npm run build
     ports:
       - "3000:3000"
     environment:
