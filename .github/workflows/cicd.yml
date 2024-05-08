@@ -10,7 +10,7 @@ jobs:
         runs-on: ubuntu-latest
         steps:
           - uses: actions/checkout@v4
-          - run: docker compose up -d --build 
+          - run: docker compose up -f docker-compose.prod.yml -d --build 
           #- run: sleep 20
           ## Commande pour lancer des test dans le futur avec JEST ?
           #- run: docker compose exec web npm run test
