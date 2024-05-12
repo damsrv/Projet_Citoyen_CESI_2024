@@ -1,0 +1,187 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider  = "postgresql"
+  url       = env("POSTGRES_PRISMA_URL")
+  directUrl = env("POSTGRES_URL_NON_POOLING")
+}
+
+model category {
+  id               BigInt         @id @default(autoincrement())
+  name             String?        @db.VarChar
+  category_type_id BigInt?
+  category_type    category_type? @relation(fields: [category_type_id], references: [id], onDelete: Cascade)
+  offers           offers[]
+}
+
+model category_type {
+  id       BigInt     @id @default(autoincrement())
+  name     String?    @db.VarChar
+  category category[]
+}
+
+model evaluations {
+  id                                  BigInt   @id @default(autoincrement())
+  created_at                          DateTime @default(now()) @db.Timestamptz(6)
+  student_id                          String   @db.Uuid
+  mentor_id                           String   @db.Uuid
+  value                               Int?     @db.SmallInt
+  comment                             String?
+  users_evaluations_mentor_idTousers  users    @relation("evaluations_mentor_idTousers", fields: [mentor_id], references: [id], onDelete: Cascade, map: "evaluations_id_mentor_fkey")
+  users_evaluations_student_idTousers users    @relation("evaluations_student_idTousers", fields: [student_id], references: [id], onDelete: Cascade, map: "evaluations_id_student_fkey")
+}
+
+model messages {
+  id        BigInt   @id @default(autoincrement())
+  sent_at   DateTime @default(now()) @db.Timestamptz(6)
+  room_id   BigInt
+  sender_id String   @db.Uuid
+  content   String?
+  rooms     rooms    @relation(fields: [room_id], references: [id], onDelete: Cascade)
+  users     users    @relation(fields: [sender_id], references: [id], onDelete: Cascade)
+}
+
+model offer_student {
+  student_id String   @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  date       DateTime @default(now()) @db.Timestamptz(6)
+  offer_id   BigInt
+  message    String?
+  status     BigInt?
+  offers     offers   @relation(fields: [offer_id], references: [id], onDelete: Cascade)
+  users      users    @relation(fields: [student_id], references: [id], onDelete: Cascade)
+
+  @@id([offer_id, student_id])
+}
+
+/// This model or at least one of its fields has comments in the database, and requires an additional setup for migrations: Read more: https://pris.ly/d/database-comments
+model offers {
+  id            BigInt          @id @default(autoincrement())
+  created_at    DateTime        @default(now()) @db.Timestamptz(6)
+  content       String?
+  location      String?         @db.VarChar
+  type          Int?            @db.SmallInt
+  isVisible     Boolean?
+  mentor_id     String?         @db.Uuid
+  title         String?         @db.VarChar
+  category_id   BigInt?
+  offer_student offer_student[]
+  category      category?       @relation(fields: [category_id], references: [id], onDelete: Cascade)
+  users         users?          @relation(fields: [mentor_id], references: [id], onDelete: NoAction, onUpdate: NoAction)
+  saved_offer   saved_offer[]
+}
+
+model reports {
+  id                            BigInt    @id @default(autoincrement())
+  reporter                      String?   @db.Uuid
+  target                        String?   @db.Uuid
+  created_at                    DateTime? @db.Timestamptz(6)
+  message                       String?
+  reason                        String?   @db.VarChar
+  users_reports_reporterTousers users?    @relation("reports_reporterTousers", fields: [reporter], references: [id], onDelete: Cascade)
+  users_reports_targetTousers   users?    @relation("reports_targetTousers", fields: [target], references: [id], onDelete: Cascade)
+}
+
+model request_mentor {
+  mentor_id  String   @db.Uuid
+  date       DateTime @default(now()) @db.Timestamptz(6)
+  request_id BigInt
+  message    String?
+  status     Int?     @db.SmallInt
+  users      users    @relation(fields: [mentor_id], references: [id], onDelete: Cascade, map: "mentor_request_mentor_id_fkey")
+  requests   requests @relation(fields: [request_id], references: [id], onDelete: Cascade, map: "mentor_request_request_id_fkey")
+
+  @@id([mentor_id, request_id], map: "mentor_request_pkey")
+}
+
+model requests {
+  id             BigInt           @id @default(autoincrement())
+  created_at     DateTime         @default(now()) @db.Timestamptz(6)
+  content        String?          @db.VarChar
+  title          String?          @db.VarChar
+  location       String?          @db.VarChar
+  type           BigInt?
+  student_id     String?          @db.Uuid
+  isVisible      Boolean?
+  request_mentor request_mentor[]
+  users          users?           @relation(fields: [student_id], references: [id], onDelete: Cascade)
+  saved_request  saved_request[]
+}
+
+model roles {
+  id        BigInt      @id @default(autoincrement())
+  name      String      @db.VarChar
+  user_role user_role[]
+}
+
+model rooms {
+  id         BigInt      @id @default(autoincrement())
+  created_at DateTime    @default(now()) @db.Timestamptz(6)
+  name       String?     @db.VarChar
+  messages   messages[]
+  user_room  user_room[]
+}
+
+model saved_offer {
+  user_id  String @db.Uuid
+  offer_id BigInt
+  offers   offers @relation(fields: [offer_id], references: [id], onDelete: Cascade)
+  users    users  @relation(fields: [user_id], references: [id], onDelete: Cascade)
+
+  @@id([user_id, offer_id])
+}
+
+model saved_request {
+  user_id    String   @db.Uuid
+  request_id BigInt
+  requests   requests @relation(fields: [request_id], references: [id], onDelete: Cascade)
+  users      users    @relation(fields: [user_id], references: [id], onDelete: Cascade)
+
+  @@id([user_id, request_id])
+}
+
+model user_role {
+  user_id String @db.Uuid
+  role_id BigInt
+  roles   roles  @relation(fields: [role_id], references: [id], onDelete: Cascade)
+  users   users  @relation(fields: [user_id], references: [id], onDelete: Cascade)
+
+  @@id([user_id, role_id])
+}
+
+model user_room {
+  user_id String @db.Uuid
+  room_id BigInt
+  rooms   rooms  @relation(fields: [room_id], references: [id], onDelete: Cascade)
+  users   users  @relation(fields: [user_id], references: [id], onDelete: Cascade)
+
+  @@id([user_id, room_id])
+}
+
+model users {
+  firstname                                 String?          @db.VarChar
+  lastname                                  String?          @db.VarChar
+  email                                     String?          @db.VarChar
+  password                                  String?          @db.VarChar
+  id                                        String           @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  avatar                                    String?          @db.VarChar
+  isActive                                  Boolean?
+  description                               String?
+  birthdate                                 DateTime?        @db.Timestamptz(6)
+  skills                                    String?          @db.VarChar
+  experiences                               String?          @db.VarChar
+  evaluations_evaluations_mentor_idTousers  evaluations[]    @relation("evaluations_mentor_idTousers")
+  evaluations_evaluations_student_idTousers evaluations[]    @relation("evaluations_student_idTousers")
+  messages                                  messages[]
+  offer_student                             offer_student[]
+  offers                                    offers[]
+  reports_reports_reporterTousers           reports[]        @relation("reports_reporterTousers")
+  reports_reports_targetTousers             reports[]        @relation("reports_targetTousers")
+  request_mentor                            request_mentor[]
+  requests                                  requests[]
+  saved_offer                               saved_offer[]
+  saved_request                             saved_request[]
+  user_role                                 user_role[]
+  user_room                                 user_room[]
+}
