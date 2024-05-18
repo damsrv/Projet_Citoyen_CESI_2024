@@ -1,11 +1,15 @@
+"use client"
+
 import Image from "next/image";
 import styles from "./page.module.css";
-import { CredentialsForm } from "@/components/credentialsForm";
+import { SignOutButton } from "@/components/SignOutButton";
 
-export default function Home() {
+export default async function Home() {
+
   return (
     <main className={styles.main}>
-     <CredentialsForm/>
+      <h1>HomePage</h1>
+      <SignOutButton />
     </main>
   );
 }
