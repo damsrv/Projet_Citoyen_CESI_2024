@@ -326,8 +326,6 @@ model Users {
 
   birthdate                                 DateTime?        @db.Timestamptz(6)
 
-  skills                                    String?          @db.VarChar
-
   experiences                               String?
 
   role                                      BigInt?
