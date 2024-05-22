@@ -1,443 +1,341 @@
 generator client {
-
   provider = "prisma-client-js"
-
 }
-
-
 
 datasource db {
+  provider = "postgresql"
 
-  provider  = "postgresql"
+  url = env("POSTGRES_PRISMA_URL")
 
-  url       = env("POSTGRES_PRISMA_URL")
-
-  directUrl = env("POSTGRES_URL_NON_POOLING")
-
+  // directUrl = env("POSTGRES_URL_NON_POOLING")
 }
 
-
-
 model Category {
+  id Int @id @default(autoincrement())
 
-  id               Int           @id @default(autoincrement())
-
-  name             String?          @db.VarChar
+  name String? @db.VarChar
 
   category_type_id Int?
 
-  category_type    CategoryType?    @relation(fields: [category_type_id], references: [id], onDelete: Cascade)
+  category_type CategoryType? @relation(fields: [category_type_id], references: [id], onDelete: Cascade)
 
-  offers           Offers[]
+  offers Offers[]
 
-  skill_category   SkillCategory[]
-
+  skill_category SkillCategory[]
 }
-
-
 
 model CategoryType {
+  id Int @id @default(autoincrement())
 
-  id       Int     @id @default(autoincrement())
-
-  name     String?    @db.VarChar
+  name String? @db.VarChar
 
   category Category[]
-
 }
-
-
 
 model Evaluations {
+  id Int @id @default(autoincrement())
 
-  id                                  Int   @id @default(autoincrement())
+  created_at DateTime @default(now()) @db.Timestamptz(6)
 
-  created_at                          DateTime @default(now()) @db.Timestamptz(6)
+  student_id String @db.Uuid
 
-  student_id                          String   @db.Uuid
+  mentor_id String @db.Uuid
 
-  mentor_id                           String   @db.Uuid
+  value Int? @db.SmallInt
 
-  value                               Int?     @db.SmallInt
+  comment String?
 
-  comment                             String?
+  users_evaluations_mentor_idTousers Users @relation("evaluations_mentor_idTousers", fields: [mentor_id], references: [id], onDelete: Cascade, map: "evaluations_id_mentor_fkey")
 
-  users_evaluations_mentor_idTousers  Users    @relation("evaluations_mentor_idTousers", fields: [mentor_id], references: [id], onDelete: Cascade, map: "evaluations_id_mentor_fkey")
-
-  users_evaluations_student_idTousers Users    @relation("evaluations_student_idTousers", fields: [student_id], references: [id], onDelete: Cascade, map: "evaluations_id_student_fkey")
-
+  users_evaluations_student_idTousers Users @relation("evaluations_student_idTousers", fields: [student_id], references: [id], onDelete: Cascade, map: "evaluations_id_student_fkey")
 }
-
-
 
 model Messages {
+  id Int @id @default(autoincrement())
 
-  id        Int   @id @default(autoincrement())
+  sent_at DateTime @default(now()) @db.Timestamptz(6)
 
-  sent_at   DateTime @default(now()) @db.Timestamptz(6)
+  room_id Int
 
-  room_id   Int
+  sender_id String @db.Uuid
 
-  sender_id String   @db.Uuid
+  content String?
 
-  content   String?
+  status Int?
 
-  status    Int?
+  rooms Rooms @relation(fields: [room_id], references: [id], onDelete: Cascade)
 
-  rooms     Rooms    @relation(fields: [room_id], references: [id], onDelete: Cascade)
-
-  users     Users    @relation(fields: [sender_id], references: [id], onDelete: Cascade)
-
+  users Users @relation(fields: [sender_id], references: [id], onDelete: Cascade)
 }
-
-
 
 model OfferStudent {
+  student_id String @default(dbgenerated("gen_random_uuid()")) @db.Uuid
 
-  student_id String   @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  date DateTime @default(now()) @db.Timestamptz(6)
 
-  date       DateTime @default(now()) @db.Timestamptz(6)
+  offer_id Int
 
-  offer_id   Int
+  message String?
 
-  message    String?
+  status Int?
 
-  status     Int?
+  offers Offers @relation(fields: [offer_id], references: [id], onDelete: Cascade)
 
-  offers     Offers   @relation(fields: [offer_id], references: [id], onDelete: Cascade)
-
-  users      Users    @relation(fields: [student_id], references: [id], onDelete: Cascade)
-
-
+  users Users @relation(fields: [student_id], references: [id], onDelete: Cascade)
 
   @@id([offer_id, student_id])
-
 }
-
-
 
 /// This model or at least one of its fields has comments in the database, and requires an additional setup for migrations: Read more: https://pris.ly/d/database-comments
 
 model Offers {
+  id Int @id @default(autoincrement())
 
-  id            Int          @id @default(autoincrement())
+  created_at DateTime @default(now()) @db.Timestamptz(6)
 
-  created_at    DateTime        @default(now()) @db.Timestamptz(6)
+  content String?
 
-  content       String?
+  location String? @db.VarChar
 
-  location      String?         @db.VarChar
+  type Int? @db.SmallInt
 
-  type          Int?            @db.SmallInt
+  is_visible Boolean?
 
-  is_visible    Boolean?
+  mentor_id String? @db.Uuid
 
-  mentor_id     String?         @db.Uuid
+  title String? @db.VarChar
 
-  title         String?         @db.VarChar
-
-  category_id   Int?
+  category_id Int?
 
   offer_student OfferStudent[]
 
-  category      Category?       @relation(fields: [category_id], references: [id], onDelete: Cascade)
+  category Category? @relation(fields: [category_id], references: [id], onDelete: Cascade)
 
-  users         Users?          @relation(fields: [mentor_id], references: [id], onDelete: NoAction, onUpdate: NoAction)
+  users Users? @relation(fields: [mentor_id], references: [id], onDelete: NoAction, onUpdate: NoAction)
 
-  saved_offer   SavedOffer[]
-
+  saved_offer SavedOffer[]
 }
-
-
 
 model Reports {
+  id Int @id @default(autoincrement())
 
-  id                            Int    @id @default(autoincrement())
+  reporter String? @db.Uuid
 
-  reporter                      String?   @db.Uuid
+  target String? @db.Uuid
 
-  target                        String?   @db.Uuid
+  created_at DateTime? @db.Timestamptz(6)
 
-  created_at                    DateTime? @db.Timestamptz(6)
+  message String?
 
-  message                       String?
+  reason String? @db.VarChar
 
-  reason                        String?   @db.VarChar
+  users_reports_reporterTousers Users? @relation("reports_reporterTousers", fields: [reporter], references: [id], onDelete: Cascade)
 
-  users_reports_reporterTousers Users?    @relation("reports_reporterTousers", fields: [reporter], references: [id], onDelete: Cascade)
-
-  users_reports_targetTousers   Users?    @relation("reports_targetTousers", fields: [target], references: [id], onDelete: Cascade)
-
+  users_reports_targetTousers Users? @relation("reports_targetTousers", fields: [target], references: [id], onDelete: Cascade)
 }
 
-
-
 model RequestMentor {
+  mentor_id String @db.Uuid
 
-  mentor_id  String   @db.Uuid
-
-  date       DateTime @default(now()) @db.Timestamptz(6)
+  date DateTime @default(now()) @db.Timestamptz(6)
 
   request_id Int
 
-  message    String?
+  message String?
 
-  status     Int?     @db.SmallInt
+  status Int? @db.SmallInt
 
-  users      Users    @relation(fields: [mentor_id], references: [id], onDelete: Cascade, map: "mentor_request_mentor_id_fkey")
+  users Users @relation(fields: [mentor_id], references: [id], onDelete: Cascade, map: "mentor_request_mentor_id_fkey")
 
-  requests   Requests  @relation(fields: [request_id], references: [id], onDelete: Cascade, map: "mentor_request_request_id_fkey")
-
-
+  requests Requests @relation(fields: [request_id], references: [id], onDelete: Cascade, map: "mentor_request_request_id_fkey")
 
   @@id([mentor_id, request_id], map: "mentor_request_pkey")
-
 }
 
-
-
 model Requests {
+  id Int @id @default(autoincrement())
 
-  id             Int           @id @default(autoincrement())
+  created_at DateTime @default(now()) @db.Timestamptz(6)
 
-  created_at     DateTime         @default(now()) @db.Timestamptz(6)
+  content String? @db.VarChar
 
-  content        String?          @db.VarChar
+  title String? @db.VarChar
 
-  title          String?          @db.VarChar
+  location String? @db.VarChar
 
-  location       String?          @db.VarChar
+  type Int?
 
-  type           Int?
+  student_id String? @db.Uuid
 
-  student_id     String?          @db.Uuid
-
-  status         Int?
+  status Int?
 
   request_mentor RequestMentor[]
 
-  users          Users?           @relation(fields: [student_id], references: [id], onDelete: Cascade)
+  users Users? @relation(fields: [student_id], references: [id], onDelete: Cascade)
 
-  saved_request  SavedRequest[]
-
+  saved_request SavedRequest[]
 }
-
-
 
 model Roles {
+  id Int @id @default(autoincrement())
 
-  id    Int  @id @default(autoincrement())
-
-  name  String  @db.VarChar
+  name String @db.VarChar
 
   users Users[]
-
 }
-
-
 
 model Rooms {
+  id Int @id @default(autoincrement())
 
-  id         Int      @id @default(autoincrement())
+  created_at DateTime @default(now()) @db.Timestamptz(6)
 
-  created_at DateTime    @default(now()) @db.Timestamptz(6)
+  name String? @db.VarChar
 
-  name       String?     @db.VarChar
+  messages Messages[]
 
-  messages   Messages[]
-
-  user_room  UserRoom[]
-
+  user_room UserRoom[]
 }
 
-
-
 model SavedOffer {
-
-  user_id  String @db.Uuid
+  user_id String @db.Uuid
 
   offer_id Int
 
-  offers   Offers @relation(fields: [offer_id], references: [id], onDelete: Cascade)
+  offers Offers @relation(fields: [offer_id], references: [id], onDelete: Cascade)
 
-  users    Users  @relation(fields: [user_id], references: [id], onDelete: Cascade)
-
-
+  users Users @relation(fields: [user_id], references: [id], onDelete: Cascade)
 
   @@id([user_id, offer_id])
-
 }
 
-
-
 model SavedRequest {
-
-  user_id    String   @db.Uuid
+  user_id String @db.Uuid
 
   request_id Int
 
-  requests   Requests @relation(fields: [request_id], references: [id], onDelete: Cascade)
+  requests Requests @relation(fields: [request_id], references: [id], onDelete: Cascade)
 
-  users      Users    @relation(fields: [user_id], references: [id], onDelete: Cascade)
-
-
+  users Users @relation(fields: [user_id], references: [id], onDelete: Cascade)
 
   @@id([user_id, request_id])
-
 }
 
-
-
 model UserRoom {
-
   user_id String @db.Uuid
 
   room_id Int
 
-  rooms   Rooms  @relation(fields: [room_id], references: [id], onDelete: Cascade)
+  rooms Rooms @relation(fields: [room_id], references: [id], onDelete: Cascade)
 
-  users   Users  @relation(fields: [user_id], references: [id], onDelete: Cascade)
-
-
+  users Users @relation(fields: [user_id], references: [id], onDelete: Cascade)
 
   @@id([user_id, room_id])
-
 }
-
-
 
 model Users {
+  firstname String? @db.VarChar
 
-  firstname                                 String?          @db.VarChar
+  lastname String? @db.VarChar
 
-  lastname                                  String?          @db.VarChar
+  email String? @db.VarChar
 
-  email                                     String?          @db.VarChar
+  password String? @db.VarChar
 
-  password                                  String?          @db.VarChar
+  id String @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
 
-  id                                        String           @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  avatar String? @db.VarChar
 
-  avatar                                    String?          @db.VarChar
+  is_active Boolean?
 
-  is_active                                 Boolean?
+  description String?
 
-  description                               String?
+  birthdate DateTime? @db.Timestamptz(6)
 
-  birthdate                                 DateTime?        @db.Timestamptz(6)
+  experiences String?
 
-  experiences                               String?
+  role Int?
 
-  role                                      Int?
+  evaluations_evaluations_mentor_idTousers Evaluations[] @relation("evaluations_mentor_idTousers")
 
-  evaluations_evaluations_mentor_idTousers  Evaluations[]    @relation("evaluations_mentor_idTousers")
+  evaluations_evaluations_student_idTousers Evaluations[] @relation("evaluations_student_idTousers")
 
-  evaluations_evaluations_student_idTousers Evaluations[]    @relation("evaluations_student_idTousers")
+  messages Messages[]
 
-  messages                                  Messages[]
+  offer_student OfferStudent[]
 
-  offer_student                             OfferStudent[]
+  offers Offers[]
 
-  offers                                    Offers[]
+  reports_reports_reporterTousers Reports[] @relation("reports_reporterTousers")
 
-  reports_reports_reporterTousers           Reports[]        @relation("reports_reporterTousers")
+  reports_reports_targetTousers Reports[] @relation("reports_targetTousers")
 
-  reports_reports_targetTousers             Reports[]        @relation("reports_targetTousers")
+  request_mentor RequestMentor[]
 
-  request_mentor                            RequestMentor[]
+  requests Requests[]
 
-  requests                                  Requests[]
+  saved_offer SavedOffer[]
 
-  saved_offer                               SavedOffer[]
-
-  saved_request                             SavedRequest[]
-
-  user_com_type                             UserComType[]
-
-  user_room                                 UserRoom[]
-
-  user_skill                                UserSkill[]
-
-  roles                                     Roles?           @relation(fields: [role], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "users_roles_fk")
-
-}
-
-
-
-model ComType {
-
-  id            Int          @id
-
-  name          String?         @db.VarChar
+  saved_request SavedRequest[]
 
   user_com_type UserComType[]
 
+  user_room UserRoom[]
+
+  user_skill UserSkill[]
+
+  roles Roles? @relation(fields: [role], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "users_roles_fk")
 }
 
+model ComType {
+  id Int @id
 
+  name String? @db.VarChar
+
+  user_com_type UserComType[]
+}
 
 model SkillCategory {
-
-  skill_id    Int
+  skill_id Int
 
   category_id Int
 
-  category    Category @relation(fields: [category_id], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "skill_category_category_id_fk")
+  category Category @relation(fields: [category_id], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "skill_category_category_id_fk")
 
-  skills      Skills   @relation(fields: [skill_id], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "skill_category_skill_id_fk")
-
-
+  skills Skills @relation(fields: [skill_id], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "skill_category_skill_id_fk")
 
   @@id([category_id, skill_id])
-
 }
 
-
-
 model Skills {
+  id Int @id
 
-  id             Int           @id
-
-  name           String?          @db.VarChar
+  name String? @db.VarChar
 
   skill_category SkillCategory[]
 
-  user_skill     UserSkill[]
-
+  user_skill UserSkill[]
 }
 
-
-
 model UserComType {
-
-  user_id     String   @db.Uuid
+  user_id String @db.Uuid
 
   com_type_id Int
 
-  com_type    ComType  @relation(fields: [com_type_id], references: [id], onDelete: NoAction, onUpdate: NoAction)
+  com_type ComType @relation(fields: [com_type_id], references: [id], onDelete: NoAction, onUpdate: NoAction)
 
-  users       Users    @relation(fields: [user_id], references: [id], onDelete: NoAction, onUpdate: NoAction)
-
-
+  users Users @relation(fields: [user_id], references: [id], onDelete: NoAction, onUpdate: NoAction)
 
   @@id([user_id, com_type_id])
-
 }
 
-
-
 model UserSkill {
-
   skill_id Int
 
-  user_id  String @db.Uuid
+  user_id String @db.Uuid
 
-  skills   Skills @relation(fields: [skill_id], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "user_skill_skill_id_fk")
+  skills Skills @relation(fields: [skill_id], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "user_skill_skill_id_fk")
 
-  users    Users  @relation(fields: [user_id], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "user_skill_user_id_fk")
-
-
+  users Users @relation(fields: [user_id], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "user_skill_user_id_fk")
 
   @@id([user_id, skill_id])
-
 }
