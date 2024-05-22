@@ -33,11 +33,13 @@ const config = {
           foreground: "hsl(var(--primary-foreground))",
         },
         "primary-light": "hsl(var(--primary-light))",
+        "primary-background": "hsl(var(--primary-background))",
         secondary: {
           DEFAULT: "hsl(var(--secondary))",
           foreground: "hsl(var(--secondary-foreground))",
         },
         "secondary-light": "hsl(var(--secondary-light))",
+        "secondary-background": "hsl(var(--secondary-background))",
         destructive: {
           DEFAULT: "hsl(var(--destructive))",
           foreground: "hsl(var(--destructive-foreground))",

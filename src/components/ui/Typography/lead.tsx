@@ -1,8 +1,8 @@
 import {ReactNode} from "react";
 
-const Lead = ({children}: { children: ReactNode }) => {
+const Lead = ({children, className = ""}: { children: ReactNode, className?: String }) => {
     return (
-        <p className="text-xl text-muted-foreground">
+        <p className={className + " font-base"}>
             {children}
         </p>
     )

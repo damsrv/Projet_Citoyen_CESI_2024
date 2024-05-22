@@ -1,8 +1,8 @@
 import {ReactNode} from "react";
 
-const Muted = ({children}: { children: ReactNode }) => {
+const Muted = ({children, className = ""}: { children: ReactNode, className?: String }) => {
     return (
-        <p className="text-sm text-muted-foreground">{children}</p>
+        <p className={className + " text-sm text-muted-foreground"}>{children}</p>
     )
 }
 
