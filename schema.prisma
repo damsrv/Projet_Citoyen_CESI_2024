@@ -20,11 +20,11 @@ datasource db {
 
 model Category {
 
-  id               BigInt           @id @default(autoincrement())
+  id               Int           @id @default(autoincrement())
 
   name             String?          @db.VarChar
 
-  category_type_id BigInt?
+  category_type_id Int?
 
   category_type    CategoryType?    @relation(fields: [category_type_id], references: [id], onDelete: Cascade)
 
@@ -38,7 +38,7 @@ model Category {
 
 model CategoryType {
 
-  id       BigInt     @id @default(autoincrement())
+  id       Int     @id @default(autoincrement())
 
   name     String?    @db.VarChar
 
@@ -50,7 +50,7 @@ model CategoryType {
 
 model Evaluations {
 
-  id                                  BigInt   @id @default(autoincrement())
+  id                                  Int   @id @default(autoincrement())
 
   created_at                          DateTime @default(now()) @db.Timestamptz(6)
 
@@ -72,17 +72,17 @@ model Evaluations {
 
 model Messages {
 
-  id        BigInt   @id @default(autoincrement())
+  id        Int   @id @default(autoincrement())
 
   sent_at   DateTime @default(now()) @db.Timestamptz(6)
 
-  room_id   BigInt
+  room_id   Int
 
   sender_id String   @db.Uuid
 
   content   String?
 
-  status    BigInt?
+  status    Int?
 
   rooms     Rooms    @relation(fields: [room_id], references: [id], onDelete: Cascade)
 
@@ -98,11 +98,11 @@ model OfferStudent {
 
   date       DateTime @default(now()) @db.Timestamptz(6)
 
-  offer_id   BigInt
+  offer_id   Int
 
   message    String?
 
-  status     BigInt?
+  status     Int?
 
   offers     Offers   @relation(fields: [offer_id], references: [id], onDelete: Cascade)
 
@@ -120,7 +120,7 @@ model OfferStudent {
 
 model Offers {
 
-  id            BigInt          @id @default(autoincrement())
+  id            Int          @id @default(autoincrement())
 
   created_at    DateTime        @default(now()) @db.Timestamptz(6)
 
@@ -136,7 +136,7 @@ model Offers {
 
   title         String?         @db.VarChar
 
-  category_id   BigInt?
+  category_id   Int?
 
   offer_student OfferStudent[]
 
@@ -152,7 +152,7 @@ model Offers {
 
 model Reports {
 
-  id                            BigInt    @id @default(autoincrement())
+  id                            Int    @id @default(autoincrement())
 
   reporter                      String?   @db.Uuid
 
@@ -178,7 +178,7 @@ model RequestMentor {
 
   date       DateTime @default(now()) @db.Timestamptz(6)
 
-  request_id BigInt
+  request_id Int
 
   message    String?
 
@@ -198,7 +198,7 @@ model RequestMentor {
 
 model Requests {
 
-  id             BigInt           @id @default(autoincrement())
+  id             Int           @id @default(autoincrement())
 
   created_at     DateTime         @default(now()) @db.Timestamptz(6)
 
@@ -208,11 +208,11 @@ model Requests {
 
   location       String?          @db.VarChar
 
-  type           BigInt?
+  type           Int?
 
   student_id     String?          @db.Uuid
 
-  status         BigInt?
+  status         Int?
 
   request_mentor RequestMentor[]
 
@@ -226,7 +226,7 @@ model Requests {
 
 model Roles {
 
-  id    BigInt  @id @default(autoincrement())
+  id    Int  @id @default(autoincrement())
 
   name  String  @db.VarChar
 
@@ -238,7 +238,7 @@ model Roles {
 
 model Rooms {
 
-  id         BigInt      @id @default(autoincrement())
+  id         Int      @id @default(autoincrement())
 
   created_at DateTime    @default(now()) @db.Timestamptz(6)
 
@@ -256,7 +256,7 @@ model SavedOffer {
 
   user_id  String @db.Uuid
 
-  offer_id BigInt
+  offer_id Int
 
   offers   Offers @relation(fields: [offer_id], references: [id], onDelete: Cascade)
 
@@ -274,7 +274,7 @@ model SavedRequest {
 
   user_id    String   @db.Uuid
 
-  request_id BigInt
+  request_id Int
 
   requests   Requests @relation(fields: [request_id], references: [id], onDelete: Cascade)
 
@@ -292,7 +292,7 @@ model UserRoom {
 
   user_id String @db.Uuid
 
-  room_id BigInt
+  room_id Int
 
   rooms   Rooms  @relation(fields: [room_id], references: [id], onDelete: Cascade)
 
@@ -328,7 +328,7 @@ model Users {
 
   experiences                               String?
 
-  role                                      BigInt?
+  role                                      Int?
 
   evaluations_evaluations_mentor_idTousers  Evaluations[]    @relation("evaluations_mentor_idTousers")
 
@@ -366,7 +366,7 @@ model Users {
 
 model ComType {
 
-  id            BigInt          @id
+  id            Int          @id
 
   name          String?         @db.VarChar
 
@@ -378,9 +378,9 @@ model ComType {
 
 model SkillCategory {
 
-  skill_id    BigInt
+  skill_id    Int
 
-  category_id BigInt
+  category_id Int
 
   category    Category @relation(fields: [category_id], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "skill_category_category_id_fk")
 
@@ -396,7 +396,7 @@ model SkillCategory {
 
 model Skills {
 
-  id             BigInt           @id
+  id             Int           @id
 
   name           String?          @db.VarChar
 
@@ -412,7 +412,7 @@ model UserComType {
 
   user_id     String   @db.Uuid
 
-  com_type_id BigInt
+  com_type_id Int
 
   com_type    ComType  @relation(fields: [com_type_id], references: [id], onDelete: NoAction, onUpdate: NoAction)
 
@@ -428,7 +428,7 @@ model UserComType {
 
 model UserSkill {
 
-  skill_id BigInt
+  skill_id Int
 
   user_id  String @db.Uuid
 
