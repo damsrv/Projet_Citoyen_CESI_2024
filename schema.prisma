@@ -265,6 +265,8 @@ model User {
 
   roleId Int
 
+  registerAt DateTime @default(now())
+
   mentorEvaluations Evaluation[] @relation("mentorEvaluations")
 
   studentEvaluations Evaluation[] @relation("studentEvaluations")
