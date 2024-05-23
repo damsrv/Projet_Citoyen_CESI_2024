@@ -1,8 +1,8 @@
 import {ReactNode} from "react";
 
-const H3 = ({children}: { children: ReactNode }) => {
+const H3 = ({children, className = ""}: { children: ReactNode, className?: String }) => {
     return (
-        <h3 className="scroll-m-20 text-2xl font-semibold tracking-tight">
+        <h3 className={className + " scroll-m-20 text-2xl font-semibold tracking-tight"}>
             {children}
         </h3>
     )

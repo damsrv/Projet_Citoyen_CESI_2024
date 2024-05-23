@@ -79,3 +79,172 @@
         @apply bg-background text-foreground;
     }
 }
+
+.background-bubble-primary,
+.background-bubble-secondary {
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100% !important;
+    max-width: 600px !important;
+    padding-inline: 1.25rem;
+    padding-block: 7rem;
+    overflow: hidden;
+}
+
+.background-bubble-primary > .background {
+    background-image: url("/assets/bg-blue.svg");
+}
+
+.background-bubble-secondary > .background {
+    background-image: url("/assets/bg-yellow.svg");
+}
+
+.background-bubble-primary > .background,
+.background-bubble-secondary > .background {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    height: 130%;
+    width: 200%;
+    background-size: 100% 100%;
+    background-position: center;
+    background-repeat: no-repeat;
+}
+
+.background-bubble-primary > .content,
+.background-bubble-secondary > .content {
+    max-width: 300px;
+    text-align: start;
+}
+
+.illustration-home {
+    max-height: 300px;
+    width: auto;
+}
+
+@media (min-width: 576px) {
+    .container-custom {
+        width: 540px;
+        margin-inline: auto;
+    }
+    .background-bubble-primary > .content,
+    .background-bubble-secondary > .content {
+        text-align: center;
+        z-index: 5;
+    }
+}
+
+@media (min-width: 768px) {
+    .illustration-home {
+        max-height: unset;
+        height: 300px;
+    }
+    .container-custom {
+        width: 720px;
+        margin-inline: auto;
+    }
+}
+
+@media (min-width: 992px) {
+    .illustration-values {
+        min-height: 450px;
+        max-height: 450px;
+        min-width: 450px;
+        width: 450px;
+    }
+
+    .illustration-questions {
+        min-height: 300px;
+        max-height: 300px;
+        min-width: 300px;
+        width: 300px;
+    }
+
+    .illustration-home {
+        height: 400px;
+        margin-left: 50px;
+    }
+    .container-custom {
+        width: 960px;
+        margin-inline: auto;
+    }
+    .background-bubble-primary > .background,
+    .background-bubble-secondary > .background {
+        height: 122%;
+    }
+}
+
+@media (min-width: 1200px) {
+    .illustration-values {
+        min-height: 500px;
+        max-height: 500px;
+        min-width: 500px;
+        width: 500px;
+    }
+
+    .illustration-questions {
+        min-height: 400px;
+        max-height: 400px;
+        min-width: 400px;
+        width: 400px;
+    }
+
+    .illustration-home {
+        height: 400px;
+        margin-left: 100px;
+    }
+    .container-custom {
+        width: 1200px;
+        margin-inline: auto;
+    }
+
+    .background-illustration-values,
+    .background-illustration-questions {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        min-height: 600px;
+        height: 600px;
+        z-index: -1;
+        background-repeat: no-repeat;
+        background-size: contain;
+    }
+    .background-illustration-values {
+        background-image: url("/assets/bg-illustration-values.svg");
+    }
+    .background-illustration-questions {
+        background-image: url("/assets/bg-illustration-questions.svg");
+    }
+    .background-questions,
+    .background-values {
+        position: absolute;
+        top: 0;
+        left: 0;
+        height: 600px;
+        width: 50%;
+        background-color: hsl(var(--primary-background));
+        z-index: -1;
+    }
+    .background-values {
+        left: unset;
+        right: 0;
+        background-color: hsl(var(--secondary-background));
+    }
+}
+
+@media (min-width: 1400px) {
+    .illustration-home {
+        margin-left: 150px;
+    }
+    .container-custom {
+        width: 1320px;
+        margin-inline: auto;
+    }
+}
+
+@media (min-width: 1400px) {
+}
