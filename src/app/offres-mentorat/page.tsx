@@ -1,7 +1,7 @@
 import H2 from "@/components/ui/Typography/h2";
 import OfferCard from "@/components/OfferCard/OfferCard";
 import prisma from "@/lib/prisma";
-import {Offers, Prisma, Users} from "@prisma/client";
+import {Prisma} from "@prisma/client";
 import OffersGetPayload = Prisma.OffersGetPayload;
 
 type OfferWithUser = OffersGetPayload<{ include: { users: true } }>

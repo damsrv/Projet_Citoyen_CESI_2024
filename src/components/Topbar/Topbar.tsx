@@ -9,7 +9,9 @@ export default async function Topbar() {
     return (
         <div className="flex h-14 w-full p-2 justify-between border-b">
             <div className="relative h-full w-48">
-                <Image src={"/LeBonMentor.svg"} alt={"oui"} layout="fill" style={{objectFit: "contain"}} />
+                <a href="/">
+                    <Image src={"/LeBonMentor.svg"} alt={"oui"} layout="fill" style={{objectFit: "contain"}}/>
+                </a>
             </div>
 
             <nav>
@@ -28,8 +30,8 @@ export default async function Topbar() {
                                         and remove your data from our servers.
                                     </SheetDescription>
                                     <main className="flex">
-                                        <LoginButton />
-                                        <RegisterButton />
+                                        <LoginButton/>
+                                        <RegisterButton/>
                                     </main>
                                 </SheetHeader>
                             </SheetContent>
@@ -37,8 +39,8 @@ export default async function Topbar() {
                     </div>
                 </section>
                 <section className="hidden justify-between gap-3 sm:flex">
-                    <LoginButton />
-                    <RegisterButton />
+                    <LoginButton/>
+                    <RegisterButton/>
                 </section>
             </nav>
         </div>

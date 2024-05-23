@@ -1,32 +1,43 @@
 import prisma from "@/lib/prisma";
-import { Users } from "@prisma/client";
-import { PrismaClient, Prisma } from '@prisma/client'
-import { NextResponse } from "next/server";
+import {Prisma, Users} from "@prisma/client";
+import {NextResponse} from "next/server";
 import * as bcrypt from 'bcrypt';
+import PrismaClientKnownRequestError = Prisma.PrismaClientKnownRequestError;
 
 
 export async function POST(req: Request) {
+    const user: Users = await req.json();
 
-  const {data} = await req.json();
-  const user: Users = data;
+    try {
+        // hashage password user
+        const pass = user.password;
+        user.password = await bcrypt.hash(pass!, 10);
 
-  user.birthdate = new Date(user.birthdate!);
-  user.role = 2;
-  user.is_active = true;
+        const newUser = await prisma.users.create({
+            data: {
+                firstname: user.firstname,
+                lastname: user.lastname,
+                email: user.email,
+                password: user.password,
+                birthdate: user.birthdate ? new Date(user.birthdate) : new Date(Date.now()),
+                is_active: true,
+            }
+        });
 
-  try {
-    // hashage password user
-    const pass = user.password;
-    user.password = await bcrypt.hash(pass!, 10);
+        return NextResponse.json(newUser, {status: 201});
+    } catch (e) {
+        console.log(e);
 
-    const newUser = await prisma.users.create({
-      data: user
-    });
+        if (e instanceof PrismaClientKnownRequestError) {
+            if (e.code === "P2002") {
+                return NextResponse.json({error: e, message: "Utilisateur déjà existant"}, {status: 404});
+            }
+        } else {
+            return NextResponse.json({
+                error: e,
+                message: "Une erreur est survenue, veuillez réessayer plus tard."
+            }, {status: 500});
+        }
 
-    return NextResponse.json(newUser, { status: 201 });
-  } catch (e) {
-    console.log(e);
-
-    return NextResponse.json({ error: e }, { status: 500 });
-  }
+    }
 }
