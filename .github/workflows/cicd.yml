@@ -4,6 +4,9 @@ on:
   push:
     branches:
       - develop
+env:
+  POSTGRES_PRISMA_URL: ${{ vars.POSTGRES_PRISMA_URL }}
+  POSTGRES_URL_NON_POOLING: ${{ vars.POSTGRES_URL_NON_POOLING }}
 
 jobs:
     build-project:
