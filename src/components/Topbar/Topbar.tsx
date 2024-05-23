@@ -4,8 +4,13 @@ import {AlignJustify} from "lucide-react";
 import {Sheet, SheetContent, SheetDescription, SheetHeader, SheetTitle, SheetTrigger} from "@/components/ui/sheet";
 import LoginButton from "@/components/LoginButton/LoginButton";
 import RegisterButton from "@/components/RegisterButton/RegisterButton";
+import {getServerSession} from "next-auth";
+import {authOptions} from "@/lib/authOptions";
+import ProfileDropdown from "@/components/ProfileDropdown/ProfileDropdown";
 
 export default async function Topbar() {
+    const session = await getServerSession(authOptions);
+    console.log("SESSION FRONT", session)
     return (
         <div className="border-b">
             <div className="container-custom flex h-14 w-full p-2 justify-between">
@@ -40,10 +45,20 @@ export default async function Topbar() {
                             </Sheet>
                         </div>
                     </section>
-                    <section className="hidden justify-between gap-3 sm:flex">
-                        <LoginButton/>
-                        <RegisterButton/>
-                    </section>
+                    {session !== null
+                        ?
+                            (
+                                <ProfileDropdown user={session.user} />
+                            )
+                        :
+                        (
+                            <section className="hidden justify-between gap-3 sm:flex">
+                                <LoginButton/>
+                                <RegisterButton/>
+                            </section>
+                        )
+                    }
+
                 </nav>
             </div>
         </div>

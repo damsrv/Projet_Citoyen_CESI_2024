@@ -1,7 +1,9 @@
-import {PrismaClient} from '@prisma/client'
+import {PrismaClient, User} from '@prisma/client'
 import CredentialsProvider from "next-auth/providers/credentials";
 import * as bcrypt from 'bcrypt';
-import {User} from 'next-auth';
+import {NextAuthOptions, User as AuthUser} from 'next-auth';
+import {AdapterUser} from "next-auth/adapters";
+
 
 
 // interface LoginResponse {
@@ -9,6 +11,19 @@ import {User} from 'next-auth';
 //     jwt: string;
 // }
 const prisma = new PrismaClient()
+
+
+declare module "next-auth" {
+    interface Session {
+        user: Omit<User, "password">
+    }
+}
+
+declare module "next-auth/jwt" {
+    interface JWT {
+        user: Omit<User, "password">
+    }
+}
 
 export const authOptions = {
     providers: [
@@ -27,7 +42,7 @@ export const authOptions = {
                 try {
                     // Call database pour récup le password du user en base.
                     let dbUser = await prisma.user.findFirst({
-                        where: {email: credentials.email}
+                        where: {email: credentials.email},
                     });
 
                     if (dbUser !== null && dbUser.password !== null) {
@@ -40,7 +55,8 @@ export const authOptions = {
                         const isCorrectPassword = await bcrypt.compare(credentials?.password, dbUser.password)
 
                         if (isCorrectPassword) {
-                            return dbUser as unknown as User;
+                            const {password, ...userInfos} = dbUser;
+                            return userInfos as unknown as AuthUser;
                         }
                     }
                 } catch (error) {
@@ -51,8 +67,22 @@ export const authOptions = {
             },
         }),
     ],
+    callbacks: {
+        async session({session, token, user}) {
+            if(token.user) {
+                session.user = token.user as User
+            }
+            return session;
+        },
+        async jwt({user, token, session}) {
+            if(user) {
+                token.user = user as unknown as Omit<User, "password">
+            }
+            return token
+        }
+    },
     secret: process.env.NEXTAUTH_SECRET,
     pages: {
         signIn: "/connexion"
     }
-};
+} as NextAuthOptions;
