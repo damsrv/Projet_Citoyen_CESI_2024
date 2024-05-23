@@ -8,6 +8,7 @@ import {Input} from "@/components/ui/input";
 import {Button} from "@/components/ui/button";
 import {useState} from "react";
 import {Alert, AlertDescription, AlertTitle} from "@/components/ui/alert";
+import {redirect} from "next/navigation";
 
 const formSchema = z.object({
     firstname: z.string().min(1, "Prénom requis."),
@@ -49,6 +50,8 @@ export function RegisterForm() {
             const json = await res.json()
             setError(json.message)
         }
+
+        return redirect("/")
     }
 
     return (

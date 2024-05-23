@@ -1,20 +1,14 @@
 import H2 from "@/components/ui/Typography/h2";
 import OfferCard from "@/components/OfferCard/OfferCard";
 import prisma from "@/lib/prisma";
-import {Prisma} from "@prisma/client";
-import OffersGetPayload = Prisma.OffersGetPayload;
-
-type OfferWithUser = OffersGetPayload<{ include: { users: true } }>
 
 export default async function MentoringPage() {
-    const offers: OfferWithUser[] = await prisma.offers.findMany({
-        where: {
-            id: 1,
-        },
+    const offers = await prisma.offer.findMany({
         include: {
-            users: true
+            mentor: true
         }
     })
+
     return (
         <div>
             <H2>Liste des offres de mentorat</H2>

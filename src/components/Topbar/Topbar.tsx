@@ -7,42 +7,45 @@ import RegisterButton from "@/components/RegisterButton/RegisterButton";
 
 export default async function Topbar() {
     return (
-        <div className="flex h-14 w-full p-2 justify-between border-b">
-            <div className="relative h-full w-48">
-                <a href="/">
-                    <Image src={"/LeBonMentor.svg"} alt={"oui"} layout="fill" style={{objectFit: "contain"}}/>
-                </a>
-            </div>
+        <div className="border-b">
+            <div className="container-custom flex h-14 w-full p-2 justify-between">
+                <div className="relative h-full w-48">
+                    <a href="/">
+                        <Image src={"/assets/LeBonMentor.svg"} alt={"oui"} layout="fill"
+                               style={{objectFit: "contain"}}/>
+                    </a>
+                </div>
 
-            <nav>
-                <section className="flex justify-between gap-3 sm:hidden">
-                    <div className="flex sm:hidden">
-                        <Sheet>
-                            <SheetTrigger asChild>
-                                <Button variant="primary"><AlignJustify/></Button>
-                            </SheetTrigger>
-                            <SheetContent>
-                                <SheetHeader>
-                                    {/* TODO SHEET CONTENT */}
-                                    <SheetTitle>Are you absolutely sure?</SheetTitle>
-                                    <SheetDescription>
-                                        This action cannot be undone. This will permanently delete your account
-                                        and remove your data from our servers.
-                                    </SheetDescription>
-                                    <main className="flex">
-                                        <LoginButton/>
-                                        <RegisterButton/>
-                                    </main>
-                                </SheetHeader>
-                            </SheetContent>
-                        </Sheet>
-                    </div>
-                </section>
-                <section className="hidden justify-between gap-3 sm:flex">
-                    <LoginButton/>
-                    <RegisterButton/>
-                </section>
-            </nav>
+                <nav>
+                    <section className="flex justify-between gap-3 sm:hidden">
+                        <div className="flex sm:hidden">
+                            <Sheet>
+                                <SheetTrigger asChild>
+                                    <Button variant="primary"><AlignJustify/></Button>
+                                </SheetTrigger>
+                                <SheetContent>
+                                    <SheetHeader>
+                                        {/* TODO SHEET CONTENT */}
+                                        <SheetTitle>Are you absolutely sure?</SheetTitle>
+                                        <SheetDescription>
+                                            This action cannot be undone. This will permanently delete your account
+                                            and remove your data from our servers.
+                                        </SheetDescription>
+                                        <main className="flex">
+                                            <LoginButton/>
+                                            <RegisterButton/>
+                                        </main>
+                                    </SheetHeader>
+                                </SheetContent>
+                            </Sheet>
+                        </div>
+                    </section>
+                    <section className="hidden justify-between gap-3 sm:flex">
+                        <LoginButton/>
+                        <RegisterButton/>
+                    </section>
+                </nav>
+            </div>
         </div>
     )
 }

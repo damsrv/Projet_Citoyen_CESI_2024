@@ -4,6 +4,7 @@ import "./globals.css";
 import {cn} from "@/lib/utils";
 import Topbar from "@/components/Topbar/Topbar";
 import {ReactNode} from "react";
+import Footer from "@/components/Footer/Footer";
 
 const inter = Outfit({subsets: ["latin"], variable: "--font-sans"});
 
@@ -19,13 +20,14 @@ export default function RootLayout({
 }>) {
     return (
         <html lang="fr">
-            <body className={cn(
-                "flex flex-col min-h-screen bg-background font-sans antialiased",
-                inter.variable
-            )}>
-            <Topbar/>
-            {children}
-            </body>
+        <body className={cn(
+            "flex flex-col min-h-screen bg-background font-sans antialiased",
+            inter.variable
+        )}>
+        <Topbar/>
+        {children}
+        <Footer/>
+        </body>
         </html>
     );
 }

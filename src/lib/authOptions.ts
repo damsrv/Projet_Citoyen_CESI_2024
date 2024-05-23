@@ -26,7 +26,7 @@ export const authOptions = {
                 }
                 try {
                     // Call database pour récup le password du user en base.
-                    const dbUser = await prisma.users.findFirst({
+                    let dbUser = await prisma.user.findFirst({
                         where: {email: credentials.email}
                     });
 
@@ -40,7 +40,7 @@ export const authOptions = {
                         const isCorrectPassword = await bcrypt.compare(credentials?.password, dbUser.password)
 
                         if (isCorrectPassword) {
-                            return dbUser as User;
+                            return dbUser as unknown as User;
                         }
                     }
                 } catch (error) {

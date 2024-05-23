@@ -1,26 +1,27 @@
 import prisma from "@/lib/prisma";
-import {Prisma, Users} from "@prisma/client";
+import {Prisma, User} from "@prisma/client";
 import {NextResponse} from "next/server";
 import * as bcrypt from 'bcrypt';
 import PrismaClientKnownRequestError = Prisma.PrismaClientKnownRequestError;
 
 
 export async function POST(req: Request) {
-    const user: Users = await req.json();
+    const user: User = await req.json();
 
     try {
         // hashage password user
         const pass = user.password;
         user.password = await bcrypt.hash(pass!, 10);
 
-        const newUser = await prisma.users.create({
+        const newUser = await prisma.user.create({
             data: {
                 firstname: user.firstname,
                 lastname: user.lastname,
                 email: user.email,
                 password: user.password,
                 birthdate: user.birthdate ? new Date(user.birthdate) : new Date(Date.now()),
-                is_active: true,
+                status: 1,
+                roleId: 2,
             }
         });
 

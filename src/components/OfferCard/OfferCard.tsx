@@ -1,10 +1,10 @@
-import {Offers, Prisma, Users} from "@prisma/client";
+import {Offer, Prisma, User} from "@prisma/client";
 import {Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle} from "@/components/ui/card";
 import {Button} from "@/components/ui/button";
-import OffersGetPayload = Prisma.OffersGetPayload;
+import OfferGetPayload = Prisma.OfferGetPayload;
 
 interface OfferCardProps {
-    offer: OffersGetPayload<{include: { users: true }}>
+    offer: OfferGetPayload<{ include: { mentor: true }}>
 }
 
 export default async function OfferCard({offer}: OfferCardProps) {
@@ -13,9 +13,9 @@ export default async function OfferCard({offer}: OfferCardProps) {
             <CardHeader>
                 <CardTitle>{offer.title}</CardTitle>
                 <CardDescription>
-                    {offer.users
+                    {offer.mentor
                         ?
-                            (<>{offer.users.firstname} {offer.users.lastname}</>)
+                            (<>{offer.mentor.firstname} {offer.mentor.lastname}</>)
                         :
                             (<>Aucun mentor pour cet offre</>)
                     }

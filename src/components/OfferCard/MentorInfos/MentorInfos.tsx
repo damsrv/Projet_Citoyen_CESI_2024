@@ -1,7 +1,7 @@
-import {Users} from "@prisma/client";
+import {User} from "@prisma/client";
 
 interface MentorInfosProps {
-    mentor: Users
+    mentor: User
 }
 export default async function MentorInfos({mentor}: MentorInfosProps) {
     return (

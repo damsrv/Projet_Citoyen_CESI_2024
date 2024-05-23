@@ -5,7 +5,7 @@ import React from "react";
 const Footer = () => {
     return (
         <>
-            <footer className="bg-primary-light py-10 px-5 ">
+            <footer className="bg-primary-light py-10 px-5 mt-auto">
                 <div className="container-custom py-5 md:border-secondary md:border-b-8 flex flex-col md:justify-between md:flex-row">
                     <div className="footer-logos flex flex-col items-center md:items-start gap-5 mb-5 border-secondary border-b-8 md:border-none pb-5 md:pb-0">
                         <Image
