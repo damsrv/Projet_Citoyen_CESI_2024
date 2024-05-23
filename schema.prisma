@@ -99,7 +99,7 @@ model Offers {
 
   type Int? @db.SmallInt
 
-  is_visible Boolean?
+  status Int?
 
   mentor_id String? @db.Uuid
 
@@ -245,7 +245,7 @@ model Users {
 
   avatar String? @db.VarChar
 
-  is_active Boolean?
+  status Int?
 
   description String?
 
