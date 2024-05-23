@@ -11,331 +11,346 @@ datasource db {
 }
 
 model Category {
+
   id Int @id @default(autoincrement())
 
   name String? @db.VarChar
 
-  category_type_id Int?
+  categoryTypeId Int?
 
-  category_type CategoryType? @relation(fields: [category_type_id], references: [id], onDelete: Cascade)
+  categoryType CategoryType? @relation(fields: [categoryTypeId], references: [id], onDelete: Cascade)
 
-  offers Offers[]
+  offers Offer[]
 
-  skill_category SkillCategory[]
+  skillCategories SkillCategory[]
 }
 
 model CategoryType {
+
   id Int @id @default(autoincrement())
 
   name String? @db.VarChar
 
-  category Category[]
+  categories Category[]
 }
 
-model Evaluations {
+model Evaluation {
+        
   id Int @id @default(autoincrement())
 
-  created_at DateTime @default(now()) @db.Timestamptz(6)
+  createdAt DateTime @default(now()) 
 
-  student_id String @db.Uuid
+  studentId Int
 
-  mentor_id String @db.Uuid
+  mentorId Int
 
-  value Int? @db.SmallInt
+  value Int 
 
   comment String?
 
-  users_evaluations_mentor_idTousers Users @relation("evaluations_mentor_idTousers", fields: [mentor_id], references: [id], onDelete: Cascade, map: "evaluations_id_mentor_fkey")
+  mentor User @relation("mentorEvaluations", fields: [mentorId], references: [id], onDelete: Cascade)
 
-  users_evaluations_student_idTousers Users @relation("evaluations_student_idTousers", fields: [student_id], references: [id], onDelete: Cascade, map: "evaluations_id_student_fkey")
+  student User @relation("studentEvaluations", fields: [studentId], references: [id], onDelete: Cascade)
 }
 
-model Messages {
+model Message {
+
   id Int @id @default(autoincrement())
 
-  sent_at DateTime @default(now()) @db.Timestamptz(6)
+  sentAt DateTime @default(now()) 
 
-  room_id Int
+  roomId Int
 
-  sender_id String @db.Uuid
+  senderId Int
 
-  content String?
+  content String
 
-  status Int?
+  status Int 
 
-  rooms Rooms @relation(fields: [room_id], references: [id], onDelete: Cascade)
+  room Room @relation(fields: [roomId], references: [id], onDelete: Cascade)
 
-  users Users @relation(fields: [sender_id], references: [id], onDelete: Cascade)
+  sender User @relation(fields: [senderId], references: [id], onDelete: Cascade)
 }
 
 model OfferStudent {
-  student_id String @default(dbgenerated("gen_random_uuid()")) @db.Uuid
 
-  date DateTime @default(now()) @db.Timestamptz(6)
+  studentId Int 
 
-  offer_id Int
+  date DateTime @default(now()) 
+
+  offerId Int
 
   message String?
 
-  status Int?
+  status Int
 
-  offers Offers @relation(fields: [offer_id], references: [id], onDelete: Cascade)
+  offer Offer @relation(fields: [offerId], references: [id], onDelete: Cascade)
 
-  users Users @relation(fields: [student_id], references: [id], onDelete: Cascade)
+  student User @relation(fields: [studentId], references: [id], onDelete: Cascade)
 
-  @@id([offer_id, student_id])
+  @@id([offerId, studentId])
 }
 
-/// This model or at least one of its fields has comments in the database, and requires an additional setup for migrations: Read more: https://pris.ly/d/database-comments
 
-model Offers {
+model Offer {
+
   id Int @id @default(autoincrement())
 
-  created_at DateTime @default(now()) @db.Timestamptz(6)
+  createdAt DateTime @default(now()) 
 
-  content String?
+  content String
 
   location String? @db.VarChar
 
-  type Int? @db.SmallInt
+  status Int
 
-  status Int?
+  mentorId Int
 
-  mentor_id String? @db.Uuid
+  title String @db.VarChar
 
-  title String? @db.VarChar
+  categoryId Int
 
-  category_id Int?
+  offerStudents OfferStudent[]
 
-  offer_student OfferStudent[]
+  category Category @relation(fields: [categoryId], references: [id], onDelete: Cascade)
 
-  category Category? @relation(fields: [category_id], references: [id], onDelete: Cascade)
+  mentor User @relation(fields: [mentorId], references: [id], onDelete: Cascade, onUpdate: Cascade)
 
-  users Users? @relation(fields: [mentor_id], references: [id], onDelete: NoAction, onUpdate: NoAction)
-
-  saved_offer SavedOffer[]
+  savedOffers SavedOffer[]
 }
 
-model Reports {
+model Report {
+
   id Int @id @default(autoincrement())
 
-  reporter String? @db.Uuid
+  reporterId Int
 
-  target String? @db.Uuid
+  targetId Int
 
-  created_at DateTime? @db.Timestamptz(6)
+  createdAt DateTime @default(now())  
 
-  message String?
+  message String
 
-  reason String? @db.VarChar
+  reason String @db.VarChar 
 
-  users_reports_reporterTousers Users? @relation("reports_reporterTousers", fields: [reporter], references: [id], onDelete: Cascade)
+  reporter User @relation("reporterReports", fields: [reporterId], references: [id], onDelete: Cascade)
 
-  users_reports_targetTousers Users? @relation("reports_targetTousers", fields: [target], references: [id], onDelete: Cascade)
+  target User @relation("targetReports", fields: [targetId], references: [id], onDelete: Cascade)
 }
 
 model RequestMentor {
-  mentor_id String @db.Uuid
 
-  date DateTime @default(now()) @db.Timestamptz(6)
+  mentorId Int
 
-  request_id Int
+  date DateTime @default(now()) 
 
-  message String?
+  requestId Int
 
-  status Int? @db.SmallInt
+  message String
 
-  users Users @relation(fields: [mentor_id], references: [id], onDelete: Cascade, map: "mentor_request_mentor_id_fkey")
+  status Int
 
-  requests Requests @relation(fields: [request_id], references: [id], onDelete: Cascade, map: "mentor_request_request_id_fkey")
+  mentor User @relation(fields: [mentorId], references: [id], onDelete: Cascade)
 
-  @@id([mentor_id, request_id], map: "mentor_request_pkey")
+  request Request @relation(fields: [requestId], references: [id], onDelete: Cascade)
+
+  @@id([mentorId, requestId])
 }
 
-model Requests {
+model Request {
+
   id Int @id @default(autoincrement())
 
-  created_at DateTime @default(now()) @db.Timestamptz(6)
+  createdAt DateTime @default(now()) 
 
-  content String? @db.VarChar
+  content String @db.VarChar
 
-  title String? @db.VarChar
+  title String @db.VarChar
 
   location String? @db.VarChar
 
-  type Int?
+  studentId Int
 
-  student_id String? @db.Uuid
+  status Int
 
-  status Int?
+  requestMentors RequestMentor[]
 
-  request_mentor RequestMentor[]
+  student User? @relation(fields: [studentId], references: [id], onDelete: Cascade)
 
-  users Users? @relation(fields: [student_id], references: [id], onDelete: Cascade)
-
-  saved_request SavedRequest[]
+  savedRequests SavedRequest[]
 }
 
-model Roles {
+model Role {
+
   id Int @id @default(autoincrement())
 
   name String @db.VarChar
 
-  users Users[]
+  users User[]
 }
 
-model Rooms {
+model Room {
+
   id Int @id @default(autoincrement())
 
-  created_at DateTime @default(now()) @db.Timestamptz(6)
+  createdAt DateTime @default(now()) 
 
   name String? @db.VarChar
 
-  messages Messages[]
+  messages Message[]
 
-  user_room UserRoom[]
+  userRooms UserRoom[]
 }
 
 model SavedOffer {
-  user_id String @db.Uuid
 
-  offer_id Int
+  userId Int
 
-  offers Offers @relation(fields: [offer_id], references: [id], onDelete: Cascade)
+  offerId Int
 
-  users Users @relation(fields: [user_id], references: [id], onDelete: Cascade)
+  offer Offer @relation(fields: [offerId], references: [id], onDelete: Cascade)
 
-  @@id([user_id, offer_id])
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@id([userId, offerId])
 }
 
 model SavedRequest {
-  user_id String @db.Uuid
 
-  request_id Int
+  userId Int
 
-  requests Requests @relation(fields: [request_id], references: [id], onDelete: Cascade)
+  requestId Int
 
-  users Users @relation(fields: [user_id], references: [id], onDelete: Cascade)
+  request Request @relation(fields: [requestId], references: [id], onDelete: Cascade)
 
-  @@id([user_id, request_id])
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@id([userId, requestId])
 }
 
 model UserRoom {
-  user_id String @db.Uuid
 
-  room_id Int
+  userId Int
 
-  rooms Rooms @relation(fields: [room_id], references: [id], onDelete: Cascade)
+  roomId Int
 
-  users Users @relation(fields: [user_id], references: [id], onDelete: Cascade)
+  room Room @relation(fields: [roomId], references: [id], onDelete: Cascade)
 
-  @@id([user_id, room_id])
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@id([userId, roomId])
 }
 
-model Users {
-  firstname String? @db.VarChar
+model User {
 
-  lastname String? @db.VarChar
+  id Int @id @default(autoincrement())
 
-  email String? @db.VarChar
+  firstname String @db.VarChar
 
-  password String? @db.VarChar
+  lastname String @db.VarChar
 
-  id String @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  email String @db.VarChar @unique
+
+  password String @db.VarChar
 
   avatar String? @db.VarChar
 
-  status Int?
+  status Int
 
   description String?
 
-  birthdate DateTime? @db.Timestamptz(6)
+  birthdate DateTime? 
 
   experiences String?
 
-  role Int?
+  roleId Int
 
-  evaluations_evaluations_mentor_idTousers Evaluations[] @relation("evaluations_mentor_idTousers")
+  mentorEvaluations Evaluation[] @relation("mentorEvaluations")
 
-  evaluations_evaluations_student_idTousers Evaluations[] @relation("evaluations_student_idTousers")
+  studentEvaluations Evaluation[] @relation("studentEvaluations")
 
-  messages Messages[]
+  messages Message[]
 
-  offer_student OfferStudent[]
+  offerStudents OfferStudent[]
 
-  offers Offers[]
+  offers Offer[]
 
-  reports_reports_reporterTousers Reports[] @relation("reports_reporterTousers")
+  reporterReports Report[] @relation("reporterReports")
 
-  reports_reports_targetTousers Reports[] @relation("reports_targetTousers")
+  targetReports Report[] @relation("targetReports")
 
-  request_mentor RequestMentor[]
+  requestMentors RequestMentor[]
 
-  requests Requests[]
+  requests Request[]
 
-  saved_offer SavedOffer[]
+  savedOffers SavedOffer[]
 
-  saved_request SavedRequest[]
+  savedRequests SavedRequest[]
 
-  user_com_type UserComType[]
+  userComTypes UserComType[]
 
-  user_room UserRoom[]
+  userRooms UserRoom[]
 
-  user_skill UserSkill[]
+  userSkills UserSkill[]
 
-  roles Roles? @relation(fields: [role], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "users_roles_fk")
+  role Role @relation(fields: [roleId], references: [id], onDelete: NoAction, onUpdate: NoAction)
 }
 
 model ComType {
+
   id Int @id
 
-  name String? @db.VarChar
+  name String @db.VarChar
 
-  user_com_type UserComType[]
+  userComTypes UserComType[]
 }
 
 model SkillCategory {
-  skill_id Int
 
-  category_id Int
+  skillId Int
 
-  category Category @relation(fields: [category_id], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "skill_category_category_id_fk")
+  categoryId Int
 
-  skills Skills @relation(fields: [skill_id], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "skill_category_skill_id_fk")
+  category Category @relation(fields: [categoryId], references: [id], onDelete: Cascade, onUpdate: Cascade)
 
-  @@id([category_id, skill_id])
+  skill Skill @relation(fields: [skillId], references: [id], onDelete: Cascade, onUpdate: Cascade)
+
+  @@id([categoryId, skillId])
 }
 
-model Skills {
+model Skill {
+
   id Int @id
 
-  name String? @db.VarChar
+  name String @db.VarChar
 
-  skill_category SkillCategory[]
+  skillCategories SkillCategory[]
 
-  user_skill UserSkill[]
+  userSkills UserSkill[]
 }
 
 model UserComType {
-  user_id String @db.Uuid
 
-  com_type_id Int
+  userId Int
 
-  com_type ComType @relation(fields: [com_type_id], references: [id], onDelete: NoAction, onUpdate: NoAction)
+  comTypeId Int
 
-  users Users @relation(fields: [user_id], references: [id], onDelete: NoAction, onUpdate: NoAction)
+  comType ComType @relation(fields: [comTypeId], references: [id], onDelete: Cascade, onUpdate: Cascade)
 
-  @@id([user_id, com_type_id])
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade, onUpdate: Cascade)
+
+  @@id([userId, comTypeId])
 }
 
 model UserSkill {
-  skill_id Int
 
-  user_id String @db.Uuid
+  skillId Int
 
-  skills Skills @relation(fields: [skill_id], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "user_skill_skill_id_fk")
+  userId Int
 
-  users Users @relation(fields: [user_id], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "user_skill_user_id_fk")
+  skill Skill @relation(fields: [skillId], references: [id], onDelete: Cascade, onUpdate: Cascade)
 
-  @@id([user_id, skill_id])
+  user  User @relation(fields: [userId], references: [id], onDelete: Cascade, onUpdate: Cascade)
+
+  @@id([userId, skillId])
 }
