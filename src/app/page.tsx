@@ -5,7 +5,7 @@ import H4 from "@/components/ui/Typography/h4";
 import Large from "@/components/ui/Typography/large";
 import Lead from "@/components/ui/Typography/lead";
 import P from "@/components/ui/Typography/p";
-import Underlined from "@/components/ui/Typography/underlined";
+import {Underlined} from "@/components/ui/Typography/underlined";
 import { Handshake, ShieldCheck, UsersRound } from "lucide-react";
 import Image from "next/image";
 import {
@@ -32,7 +32,7 @@ export default async function Page() {
                             Unissez-vous à notre réseau de{" "}
                             <Underlined variant="secondary">mentors</Underlined>{" "}
                             bienveillants pour atteindre vos{" "}
-                            <Underlined>objectifs</Underlined> dans un
+                            <Underlined variant="primary">objectifs</Underlined> dans un
                             environnement de soutien et de collaboration.
                         </Large>
                         <div className="w-full  flex flex-col gap-2 md:w-auto md:flex-row">
