@@ -58,7 +58,9 @@ export default async function Page() {
                                     <br></br>Rejoignez notre communauté de
                                     mentors et atteignez vos objectifs
                                 </Lead>
-                                <Button className="lg:w-48">Chercher un mentor</Button>
+                                <Button className="lg:w-48">
+                                    Chercher un mentor
+                                </Button>
                             </div>
                         </div>
 
@@ -66,14 +68,17 @@ export default async function Page() {
                             <div className="background"></div>
                             <div className="content flex flex-col lg:items-center gap-5">
                                 <H3>Des compétences ?</H3>
-                                <Lead >
+                                <Lead>
                                     Professionnel ? Retraité ? Ou simplement
                                     envie d'aider ?<br></br>
                                     <br></br>Venez partager vos compétences et
                                     votre temps pour des personnes qui en ont
                                     besoin.
                                 </Lead>
-                                <Button className="lg:w-48" variant={"secondary"}>
+                                <Button
+                                    className="lg:w-48"
+                                    variant={"secondary"}
+                                >
                                     Devenir mentor
                                 </Button>
                             </div>
@@ -81,11 +86,9 @@ export default async function Page() {
                     </div>
                 </section>
 
-
-                <section className="overflow-hidden relative" >
+                <section className="overflow-hidden relative">
                     <div className="background-values"></div>
-                    <div className="bg-white flex flex-col gap-5 container-custom lg:flex-row lg:items-center lg:justify-between  lg:gap-20 xl:gap-36">
-
+                    <div className=" xl:min-h-[600px]  xl:max-h-[600px] bg-white flex flex-col gap-5 container-custom lg:flex-row lg:items-center lg:justify-between  lg:gap-20 xl:gap-36">
                         <div className="w-full py-10 lg:py-20 lg:my-auto px-5">
                             <H2 className="mb-5 md:mb-10">
                                 <Underlined variant="secondary">
@@ -94,14 +97,18 @@ export default async function Page() {
                             </H2>
                             <div className="flex flex-col gap-10">
                                 <div className="flex flex-col ">
-                                    <H3 className={"flex gap-1 items-center text-xl mb-2"}>
+                                    <H3
+                                        className={
+                                            "flex gap-1 items-center text-xl mb-2"
+                                        }
+                                    >
                                         <Handshake />
                                         Engagement
                                     </H3>
                                     <Lead>
                                         Les mentors et élèves sont engagés,
-                                        investissant du temps et des ressources au
-                                        service des autres.
+                                        investissant du temps et des ressources
+                                        au service des autres.
                                     </Lead>
                                 </div>
 
@@ -116,9 +123,9 @@ export default async function Page() {
                                     </H3>
                                     <Lead>
                                         Le désir sincère d'aider les autres à
-                                        réussir est au cœur du rôle de mentor. Ils
-                                        sont motivés par le bien-être et le progrès
-                                        de leurs mentorés.
+                                        réussir est au cœur du rôle de mentor.
+                                        Ils sont motivés par le bien-être et le
+                                        progrès de leurs mentorés.
                                     </Lead>
                                 </div>
                                 <div className="flex flex-col ">
@@ -133,15 +140,16 @@ export default async function Page() {
                                     <Lead>
                                         La confiance est un élément essentiel de
                                         toute relation de mentorat. Les mentors
-                                        doivent établir et maintenir la confiance en
-                                        étant honnêtes, fiables et respectueux des
-                                        informations confidentielles partagées par
-                                        leurs mentorés.
+                                        doivent établir et maintenir la
+                                        confiance en étant honnêtes, fiables et
+                                        respectueux des informations
+                                        confidentielles partagées par leurs
+                                        mentorés.
                                     </Lead>
                                 </div>
                             </div>
                         </div>
-                        <div className="hidden lg:flex relative  xl:min-h-[600px] xl:min-w-[600px] z-[1]">
+                        <div className="hidden lg:flex relative  xl:min-h-[600px] xl:min-w-[600px] xl:max-h-[600px] xl:max-w-[600px] z-[1]">
                             <div className="background-illustration-values"></div>
                             <Image
                                 className="illustration-values my-auto py-10"
@@ -153,11 +161,10 @@ export default async function Page() {
                         </div>
                     </div>
                 </section>
-                <section className="overflow-hidden relative" >
+                <section className="overflow-hidden relative">
                     <div className="background-questions"></div>
-                    <div className=" bg-white flex flex-col gap-5 container-custom lg:flex-row lg:items-center lg:justify-between lg:gap-20 xl:gap-36">
-
-                        <div className="hidden lg:flex relative  xl:min-h-[600px] xl:min-w-[600px] z-[1]">
+                    <div className=" xl:min-h-[600px] xl:min-w-[600px]   xl:max-h-[600px]  bg-white flex flex-col gap-5 container-custom lg:flex-row lg:items-center lg:justify-between lg:gap-20 xl:gap-36">
+                        <div className="hidden lg:flex relative  xl:min-h-[600px] xl:min-w-[600px]  xl:max-h-[600px] xl:max-w-[600px] z-[1]">
                             <div className="background-illustration-questions"></div>
                             <Image
                                 className="illustration-questions my-auto py-10"
@@ -167,7 +174,7 @@ export default async function Page() {
                                 height={500}
                             />
                         </div>
-                        <div className="w-full py-10 lg:py-20 px-5" >
+                        <div className="w-full py-10 lg:py-20 px-5">
                             <H2 className="mb-5 md:mb-10">
                                 <Underlined variant="primary">
                                     Vos questions
@@ -183,31 +190,33 @@ export default async function Page() {
                                             La plateforme est-elle gratuite ?{" "}
                                         </AccordionTrigger>
                                         <AccordionContent>
-                                            La plateforme est 100% gratuite aussi
-                                            bien pour les mentors que pour les
-                                            mentorés.
+                                            La plateforme est 100% gratuite
+                                            aussi bien pour les mentors que pour
+                                            les mentorés.
                                         </AccordionContent>
                                     </AccordionItem>
                                     <AccordionItem value="item-2">
                                         <AccordionTrigger className="text-start">
-                                            Quelles sont les conditions pour devenir
-                                            mentor ?
+                                            Quelles sont les conditions pour
+                                            devenir mentor ?
                                         </AccordionTrigger>
                                         <AccordionContent>
-                                            ---------- -------------------- ------
-                                            -------- -------- ----------- ---------
-                                            ------------ ------------------- -----
+                                            ---------- --------------------
+                                            ------ -------- -------- -----------
+                                            --------- ------------
+                                            ------------------- -----
                                         </AccordionContent>
                                     </AccordionItem>
                                     <AccordionItem value="item-3">
                                         <AccordionTrigger className="text-start">
-                                            Existe-t-il des conditions particulières
-                                            pour être mentoré ?
+                                            Existe-t-il des conditions
+                                            particulières pour être mentoré ?
                                         </AccordionTrigger>
                                         <AccordionContent>
-                                            ---------- -------------------- ------
-                                            -------- -------- ----------- ---------
-                                            ------------ ------------------- -----
+                                            ---------- --------------------
+                                            ------ -------- -------- -----------
+                                            --------- ------------
+                                            ------------------- -----
                                         </AccordionContent>
                                     </AccordionItem>
                                 </Accordion>
