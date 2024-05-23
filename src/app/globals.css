@@ -125,6 +125,17 @@
     width: auto;
 }
 
+.link-background-footer {
+    background-image: url("/assets/footer-link-background.svg");
+    background-repeat: no-repeat;
+    background-size: contain;
+}
+.link-background-footer-2 {
+    background-image: url("/assets/footer-link-background-2.svg");
+    background-repeat: no-repeat;
+    background-size: contain;
+}
+
 @media (min-width: 576px) {
     .container-custom {
         width: 540px;
