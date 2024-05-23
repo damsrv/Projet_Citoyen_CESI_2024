@@ -6,6 +6,6 @@ export { default } from "next-auth/middleware"
 
 // Limit the middleware to paths starting with `/api/`
 export const config = {
-  matcher: ["/"],
+  matcher: ["/api"],
 };
 
