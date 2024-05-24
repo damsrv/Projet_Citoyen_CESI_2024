@@ -12,19 +12,46 @@ interface Params {
     }
 }
 
-export async function PUT(req: Request, params: Params) {
+export async function GET(req: Request, params: Params) { //OK
+
+    const offerId = parseInt(params.params.id);
+
+    try {
+
+        const offer = await prisma.offer.findUniqueOrThrow({
+            where: {
+                id: offerId,
+            },
+        })
+
+        return NextResponse.json(offer, { status: 200 });
+
+    } catch (e) {
+        console.log(e);
+
+        if (e instanceof PrismaClientKnownRequestError) {
+            return NextResponse.json({ error: e, message: "L'id de l'offre fourni ne correspond à aucune offre." }, { status: 404 });
+        } else {
+            return NextResponse.json({
+                error: e,
+                message: "Une erreur est survenue, veuillez réessayer plus tard."
+            }, { status: 500 });
+        }
+    }
+}
+
+export async function PUT(req: Request, params: Params) { // OK
 
     const { data } = await req.json();
-    const offer: Offer = data;
-    const orderId = parseInt(params.params.id);
+    const offerId = parseInt(params.params.id);
 
     try {
 
         const updatedOffer = await prisma.offer.update({
             where: {
-                id: orderId,
+                id: offerId,
             },
-            data: offer
+            data: {...data}
         })
 
         return NextResponse.json(updatedOffer, { status: 201 });
@@ -41,7 +68,36 @@ export async function PUT(req: Request, params: Params) {
                 message: "Une erreur est survenue, veuillez réessayer plus tard."
             }, { status: 500 });
         }
+    }
+}
 
+export async function DELETE(req: Request, params: Params) { // OK
+
+    const { data } = await req.json();
+    const offer: Offer = data;
+    const offerId = parseInt(params.params.id);
+
+    try {
+
+        const deleteOffer = await prisma.offer.delete({
+            where: {
+                id: offerId,
+            },
+        })
+
+        return NextResponse.json({ status: 204 });
+
+    } catch (e) {
+        console.log(e);
+
+        if (e instanceof Prisma.PrismaClientKnownRequestError && e.code === "P2025") {
+            return NextResponse.json({ error: e, message: "L'offre n'existe pas." }, { status: 404 });
+        } else {
+            return NextResponse.json({
+                error: e,
+                message: "Une erreur est survenue, veuillez réessayer plus tard."
+            }, { status: 500 });
+        }
     }
 
 }

@@ -112,6 +112,8 @@ model Offer {
 
   offerStudents OfferStudent[]
 
+  offerComTypes OfferComType[]
+
   category Category @relation(fields: [categoryId], references: [id], onDelete: Cascade)
 
   mentor User @relation(fields: [mentorId], references: [id], onDelete: Cascade, onUpdate: Cascade)
@@ -289,8 +291,6 @@ model User {
 
   savedRequests SavedRequest[]
 
-  userComTypes UserComType[]
-
   userRooms UserRoom[]
 
   userSkills UserSkill[]
@@ -304,7 +304,7 @@ model ComType {
 
   name String @db.VarChar
 
-  userComTypes UserComType[]
+  offerComTypes OfferComType[]
 }
 
 model SkillCategory {
@@ -331,17 +331,17 @@ model Skill {
   userSkills UserSkill[]
 }
 
-model UserComType {
+model OfferComType {
 
-  userId Int
+  offerId Int
 
   comTypeId Int
 
   comType ComType @relation(fields: [comTypeId], references: [id], onDelete: Cascade, onUpdate: Cascade)
 
-  user User @relation(fields: [userId], references: [id], onDelete: Cascade, onUpdate: Cascade)
+  offer Offer @relation(fields: [offerId], references: [id], onDelete: Cascade, onUpdate: Cascade)
 
-  @@id([userId, comTypeId])
+  @@id([offerId, comTypeId])
 }
 
 model UserSkill {
