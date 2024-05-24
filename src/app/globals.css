@@ -135,6 +135,36 @@
     background-repeat: no-repeat;
     background-size: contain;
 }
+summary {
+    outline: none;
+    font-size: 1.15em;
+    cursor: pointer;
+    width: 100%;
+}
+details summary::-webkit-details-marker,
+details summary::marker {
+    display: none;
+    content: "";
+}
+
+.sidebar-menu a {
+    display: block;
+    padding: 5px 10px;
+    border-radius: 5px;
+    background-color: hsl(var(--background));
+    color: black;
+}
+.sidebar-menu a.active {
+    background-color: hsl(var(--primary));
+    color: white;
+}
+.sidebar-menu a:hover {
+    background-color: hsl(var(--primary-background));
+}
+.sidebar-menu a.active:hover {
+    background-color: hsl(var(--primary));
+    color: white;
+}
 
 @media (min-width: 576px) {
     .container-custom {
