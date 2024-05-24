@@ -32,7 +32,6 @@ export function LoginForm({error}: LoginFormProps) {
     })
 
     async function onSubmit(values: z.infer<typeof formSchema>) {
-        // TODO: Next Auth Authentification
         await signIn("credentials", {
             email: values.email,
             password: values.password,
@@ -80,6 +79,11 @@ export function LoginForm({error}: LoginFormProps) {
                     )}
                 />
                 <Button type="submit">Se connecter</Button>
+                <Button type="button" variant='link'>
+                    <a href="/inscription">
+                        Pas encore de compte ? Créez-en un
+                    </a>
+                </Button>
             </form>
         </Form>
     )

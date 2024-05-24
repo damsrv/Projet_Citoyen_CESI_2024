@@ -322,7 +322,7 @@ model SkillCategory {
 
 model Skill {
 
-  id Int @id
+  id Int @id @default(autoincrement())
 
   name String @db.VarChar
 

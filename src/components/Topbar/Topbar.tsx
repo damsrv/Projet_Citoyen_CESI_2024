@@ -4,8 +4,15 @@ import {AlignJustify} from "lucide-react";
 import {Sheet, SheetContent, SheetDescription, SheetHeader, SheetTitle, SheetTrigger} from "@/components/ui/sheet";
 import LoginButton from "@/components/LoginButton/LoginButton";
 import RegisterButton from "@/components/RegisterButton/RegisterButton";
+import {getServerSession} from "next-auth";
+import {authOptions} from "@/lib/authOptions";
+import ProfileDropdown from "@/components/ProfileDropdown/ProfileDropdown";
+import TopbarLinks from "@/components/Topbar/TopbarLinks/TopbarLinks";
+import UserRoleSelect from "@/components/UserRoleSelect/UserRoleSelect";
 
 export default async function Topbar() {
+    const session = await getServerSession(authOptions);
+
     return (
         <div className="border-b">
             <div className="container-custom flex h-14 w-full p-2 justify-between">
@@ -15,6 +22,10 @@ export default async function Topbar() {
                                style={{objectFit: "contain"}}/>
                     </a>
                 </div>
+
+                {session && (
+                    <TopbarLinks/>
+                )}
 
                 <nav>
                     <section className="flex justify-between gap-3 sm:hidden">
@@ -40,10 +51,23 @@ export default async function Topbar() {
                             </Sheet>
                         </div>
                     </section>
-                    <section className="hidden justify-between gap-3 sm:flex">
-                        <LoginButton/>
-                        <RegisterButton/>
-                    </section>
+                    {session !== null
+                        ?
+                        (
+                            <section className="flex gap-2">
+                                <UserRoleSelect />
+                                <ProfileDropdown user={session.user}/>
+                            </section>
+                        )
+                        :
+                        (
+                            <section className="hidden justify-between gap-3 sm:flex">
+                                <LoginButton/>
+                                <RegisterButton/>
+                            </section>
+                        )
+                    }
+
                 </nav>
             </div>
         </div>
