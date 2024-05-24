@@ -9,6 +9,7 @@ import {Button} from "@/components/ui/button";
 import {useState} from "react";
 import {Alert, AlertDescription, AlertTitle} from "@/components/ui/alert";
 import {redirect} from "next/navigation";
+import {signIn} from "next-auth/react";
 
 const formSchema = z.object({
     firstname: z.string().min(1, "Prénom requis."),
@@ -133,6 +134,11 @@ export function RegisterForm() {
                     )}
                 />
                 <Button type="submit">S'inscrire</Button>
+                <Button type="button" variant='link'>
+                    <a href="/connexion">
+                        Déjà un compte ? Connectez-vous
+                    </a>
+                </Button>
             </form>
         </Form>
     )

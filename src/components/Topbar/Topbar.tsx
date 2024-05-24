@@ -7,10 +7,12 @@ import RegisterButton from "@/components/RegisterButton/RegisterButton";
 import {getServerSession} from "next-auth";
 import {authOptions} from "@/lib/authOptions";
 import ProfileDropdown from "@/components/ProfileDropdown/ProfileDropdown";
+import TopbarLinks from "@/components/Topbar/TopbarLinks/TopbarLinks";
+import UserRoleSelect from "@/components/UserRoleSelect/UserRoleSelect";
 
 export default async function Topbar() {
     const session = await getServerSession(authOptions);
-    console.log("SESSION FRONT", session)
+
     return (
         <div className="border-b">
             <div className="container-custom flex h-14 w-full p-2 justify-between">
@@ -20,6 +22,10 @@ export default async function Topbar() {
                                style={{objectFit: "contain"}}/>
                     </a>
                 </div>
+
+                {session && (
+                    <TopbarLinks/>
+                )}
 
                 <nav>
                     <section className="flex justify-between gap-3 sm:hidden">
@@ -47,9 +53,12 @@ export default async function Topbar() {
                     </section>
                     {session !== null
                         ?
-                            (
-                                <ProfileDropdown user={session.user} />
-                            )
+                        (
+                            <section className="flex gap-2">
+                                <UserRoleSelect />
+                                <ProfileDropdown user={session.user}/>
+                            </section>
+                        )
                         :
                         (
                             <section className="hidden justify-between gap-3 sm:flex">
