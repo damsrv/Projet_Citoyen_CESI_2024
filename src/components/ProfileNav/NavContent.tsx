@@ -66,13 +66,11 @@ const NavContent = () => {
 
     return (
         links.map((link, index) => {
-
             return (
-
-                <li key={index} className="list-none sidebar-menu">
-                    <details open>
-                        <summary title="Ouvrir/fermer le sous-menu" className="font-semibold text-lg mb-2 hover:bg-primary-background px-2 p-1 rounded">{link.title}</summary>
-                        <ul className=" flex flex-col gap-1">
+                <li key={index} className="list-none sidebar-menu first:py-0 first:pb-3 py-3 w-full">
+                    <div>
+                        <div className="font-semibold text-lg mb-2 px-2 p-1 rounded">{link.title}</div>
+                        <ul className="flex flex-col gap-1">
                             {link.sublinks.map((subLink: {
                                 title: string;
                                 url: string;
@@ -89,7 +87,7 @@ const NavContent = () => {
                                 </li>
                             ))}
                         </ul>
-                    </details>
+                    </div>
                 </li>
             );
         })
