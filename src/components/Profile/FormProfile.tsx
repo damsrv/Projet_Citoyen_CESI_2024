@@ -8,7 +8,7 @@ import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { useState } from "react";
 import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
-import { redirect, useRouter } from "next/navigation";
+import { useRouter } from "next/navigation";
 import { Textarea } from "@/components/ui/textarea";
 import { Checkbox } from "@/components/ui/checkbox";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
@@ -47,6 +47,8 @@ const formSchema = z.object({
                 code: z.ZodIssueCode.too_big,
                 type: "array",
                 message: `La taille maximum pour l'image est de 2MB.`,
+                maximum: MAX_FILE_SIZE,
+                inclusive: true,
             });
         }
     })
@@ -59,7 +61,7 @@ const FormProfile = ({
     defaultData: {
         firstname: string,
         lastname: string,
-        birthdate: string,
+        birthdate: string | undefined,
         description: string,
         experiences: string,
         skills: Array<number>
@@ -68,7 +70,7 @@ const FormProfile = ({
         id: number,
         label: string
     }[],
-    avatar: string
+    avatar: string | undefined
 }) => {
     const [error, setError] = useState<string | null>(null)
     const router = useRouter()
@@ -101,9 +103,14 @@ const FormProfile = ({
             }
         }
 
+
+
         const res = await fetch("/api/users", {
             method: "PUT",
-            body: JSON.stringify(values),
+            body: JSON.stringify({
+                ...values,
+                birthdate: new Date(values.birthdate)
+            }),
         })
 
         if (!res.ok) {
@@ -137,7 +144,7 @@ const FormProfile = ({
                     <FormField
                         control={form.control}
                         name="avatar"
-                        render={({ field }) => {
+                        render={() => {
                             return (
                                 <FormItem>
                                     <FormLabel>Avatar</FormLabel>
@@ -185,11 +192,7 @@ const FormProfile = ({
                             <FormItem>
                                 <FormLabel>Date de naissance*</FormLabel>
                                 <FormControl>
-                                    <Input type="date" aria-label="Date de naissance" placeholder="Date de naissance" {...field} value={
-                                        field.value instanceof Date
-                                            ? field.value.toISOString().split('T')[0]
-                                            : field.value
-                                    } />
+                                    <Input type="date" aria-label="Date de naissance" placeholder="Date de naissance" {...field}/>
                                 </FormControl>
                                 <FormMessage />
                             </FormItem>
@@ -261,7 +264,7 @@ const FormProfile = ({
                                                                 checked={field.value?.includes(skill.id)}
                                                                 onCheckedChange={(checked) => {
                                                                     return checked
-                                                                        ? field.onChange([...field.value, skill.id])
+                                                                        ? field.onChange([...field.value!, skill.id])
                                                                         : field.onChange(
                                                                             field.value?.filter(
                                                                                 (value) => value !== skill.id

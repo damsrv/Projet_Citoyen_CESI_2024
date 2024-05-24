@@ -1,11 +1,11 @@
 import FormProfile from "@/components/Profile/FormProfile";
 import H1 from "@/components/ui/Typography/h1";
 import Muted from "@/components/ui/Typography/muted";
-import { getServerSession, Session } from "next-auth";
-import { authOptions } from "@/lib/authOptions";
+import {getServerSession, Session} from "next-auth";
+import {authOptions} from "@/lib/authOptions";
 import prisma from "@/lib/prisma";
-
-// TODO : corriger le typescript
+import UserGetPayload = Prisma.UserGetPayload;
+import {Prisma} from "@prisma/client";
 
 const getSkills = async () => {
     // récupérer les infos du user
@@ -14,16 +14,18 @@ const getSkills = async () => {
     )
 
     return skills.map((skill) => {
-        return { id: skill.id, label: skill.name }
+        return {id: skill.id, label: skill.name}
     })
 }
 
 
 const getData = async (session: Session) => {
     // récupérer les infos du user
-    const user = await prisma.user.findFirst(
+    const user: UserGetPayload<{
+        include: { userSkills: { include: { skill: true } } }
+    }> | null = await prisma.user.findFirst(
         {
-            where: { email: session.user.email },
+            where: {email: session.user.email},
             include: {
                 userSkills: {
                     include: {
@@ -34,19 +36,25 @@ const getData = async (session: Session) => {
         }
     )
 
+    if (user === null) {
+        return undefined
+    }
+
     return {
-        firstname: user?.firstname ?? "",
-        lastname: user?.lastname ?? "",
-        birthdate: new Date(user?.birthdate).toISOString().split('T')[0],
-        description: user?.description ?? "",
-        experiences: user?.experiences ?? "",
-        skills: user?.userSkills.map((userSkill) => { return userSkill.skill.id }),
+        firstname: user.firstname ?? "",
+        lastname: user.lastname ?? "",
+        birthdate: user.birthdate ? new Date(user.birthdate).toISOString().split('T')[0] : undefined,
+        description: user.description ?? "",
+        experiences: user.experiences ?? "",
+        skills: user.userSkills.map((userSkill) => {
+            return userSkill.skill.id
+        }),
     }
 }
 
 export default async function Profile() {
     const session = await getServerSession(authOptions);
-    const userData = await getData(session);
+    const userData = (await getData(session!))!;
 
     return (
         <div className="flex flex-col justify-start gap-5 grow ">
@@ -56,7 +64,10 @@ export default async function Profile() {
                     <Muted>* champs obligatoires</Muted>
                 </div>
 
-                <FormProfile defaultData={userData} skills={await getSkills()} avatar={session.avatar ?? undefined} />
+                {session && (
+                    <FormProfile defaultData={userData} skills={await getSkills()}
+                                 avatar={session.user.avatar ?? undefined}/>
+                )}
             </div>
         </div>
     );
