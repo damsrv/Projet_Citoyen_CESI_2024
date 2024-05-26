@@ -1,15 +1,15 @@
 "use client"
 
-import {zodResolver} from "@hookform/resolvers/zod";
-import {useForm} from "react-hook-form";
-import {z} from "zod";
-import {Form, FormControl, FormDescription, FormField, FormItem, FormLabel, FormMessage} from "@/components/ui/form";
-import {Input} from "@/components/ui/input";
-import {Button} from "@/components/ui/button";
-import {useState} from "react";
-import {Alert, AlertDescription, AlertTitle} from "@/components/ui/alert";
-import {signIn} from "next-auth/react";
-import {AlertCircle} from "lucide-react";
+import { zodResolver } from "@hookform/resolvers/zod";
+import { useForm } from "react-hook-form";
+import { z } from "zod";
+import { Form, FormControl, FormDescription, FormField, FormItem, FormLabel, FormMessage } from "@/components/ui/form";
+import { Input } from "@/components/ui/input";
+import { Button } from "@/components/ui/button";
+import { useState, useEffect } from "react";
+import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
+import { signIn } from "next-auth/react";
+import { AlertCircle } from "lucide-react";
 
 const formSchema = z.object({
     email: z.string().email("Merci d'entrer une adresse mail valide."),
@@ -20,7 +20,7 @@ interface LoginFormProps {
     error: string | undefined
 }
 
-export function LoginForm({error}: LoginFormProps) {
+export function LoginForm({ error }: LoginFormProps) {
     const [errorMessage, setErrorMessage] = useState<string | undefined>(error)
 
     const form = useForm<z.infer<typeof formSchema>>({
@@ -40,8 +40,30 @@ export function LoginForm({error}: LoginFormProps) {
         })
     }
 
+    const [changedEmail, setChangedEmail] = useState<string | null>(null)
+
+    useEffect(() => {
+
+        let changedEmailStorage = localStorage.getItem("changedEmail")
+        console.log(changedEmailStorage);
+        if (changedEmailStorage) {
+            setChangedEmail(changedEmailStorage)
+            localStorage.removeItem("changedEmail")
+        }
+
+    }, []);
+
     return (
         <Form {...form}>
+            {changedEmail && (
+                <Alert className="mb-5" variant="positive">
+                    <AlertCircle className="h-4 w-4" />
+                    <AlertTitle>Email modifié</AlertTitle>
+                    <AlertDescription>
+                        {changedEmail}
+                    </AlertDescription>
+                </Alert>
+            )}
             {error && (
                 <Alert className="mb-5" variant="destructive">
                     <AlertCircle className="h-4 w-4" />
@@ -51,30 +73,31 @@ export function LoginForm({error}: LoginFormProps) {
                     </AlertDescription>
                 </Alert>
             )}
+
             <form onSubmit={form.handleSubmit(onSubmit)} className="flex flex-col gap-5">
                 <FormField
                     control={form.control}
                     name="email"
-                    render={({field}) => (
+                    render={({ field }) => (
                         <FormItem>
                             {/*<FormLabel>Prénom</FormLabel>*/}
                             <FormControl>
                                 <Input placeholder="Adresse mail" {...field} />
                             </FormControl>
-                            <FormMessage/>
+                            <FormMessage />
                         </FormItem>
                     )}
                 />
                 <FormField
                     control={form.control}
                     name="password"
-                    render={({field}) => (
+                    render={({ field }) => (
                         <FormItem>
                             {/*<FormLabel>Prénom</FormLabel>*/}
                             <FormControl>
                                 <Input type="password" placeholder="Mot de passe" {...field} />
                             </FormControl>
-                            <FormMessage/>
+                            <FormMessage />
                         </FormItem>
                     )}
                 />

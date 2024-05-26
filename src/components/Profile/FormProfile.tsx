@@ -7,8 +7,8 @@ import { Form, FormControl, FormDescription, FormField, FormItem, FormLabel, For
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { useState } from "react";
-import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
 import { useRouter } from "next/navigation";
+import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
 import { Textarea } from "@/components/ui/textarea";
 import { Checkbox } from "@/components/ui/checkbox";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
@@ -30,18 +30,18 @@ const formSchema = z.object({
     experiences: z.string().max(500, "Les expériences sont limitées à 500 caractères.").optional(),
     skills: z.array(z.number()).optional(),
     avatar: z.any().superRefine((files, ctx) => {
-        // First, add an issue if the mime type is wrong.
+
         if (files.length != 1) {
             return
         }
-        // First, add an issue if the mime type is wrong.
+
         if (!ACCEPTED_IMAGE_MIME_TYPES.includes(files?.[0]?.type)) {
             ctx.addIssue({
                 code: z.ZodIssueCode.custom,
                 message: 'Seuls les formats .jpg, .jpeg, .png and .webp sont acceptés.'
             });
         }
-        // Next add an issue if the file size is too large.
+
         if (files?.[0]?.size > MAX_FILE_SIZE) {
             ctx.addIssue({
                 code: z.ZodIssueCode.too_big,
@@ -56,7 +56,7 @@ const formSchema = z.object({
 
 
 const FormProfile = ({
-    defaultData, skills, avatar
+    defaultData, skills, avatar, userId
 }: {
     defaultData: {
         firstname: string,
@@ -70,7 +70,7 @@ const FormProfile = ({
         id: number,
         label: string
     }[],
-    avatar: string | undefined
+    avatar: string | undefined, userId: number
 }) => {
     const [error, setError] = useState<string | null>(null)
     const router = useRouter()
@@ -104,12 +104,14 @@ const FormProfile = ({
         }
 
 
-
-        const res = await fetch("/api/users", {
+        // console.log(values)
+        const res = await fetch("/api/users/" + userId, {
             method: "PUT",
             body: JSON.stringify({
-                ...values,
-                birthdate: new Date(values.birthdate)
+                data: {
+                    ...values,
+                    birthdate: new Date(values.birthdate)
+                }
             }),
         })
 
@@ -134,7 +136,7 @@ const FormProfile = ({
 
 
 
-                <div className="flex gap-5 items-center">
+                <section className="flex gap-5 items-center">
                     <Avatar className="h-16 w-16">
                         {avatar ?
                             <AvatarImage src={avatar} /> :
@@ -155,7 +157,8 @@ const FormProfile = ({
                                 </FormItem>
                             );
                         }}
-                    /></div>
+                    />
+                </section>
                 <section className="flex flex-col md:flex-row gap-5">
 
 
@@ -192,7 +195,7 @@ const FormProfile = ({
                             <FormItem>
                                 <FormLabel>Date de naissance*</FormLabel>
                                 <FormControl>
-                                    <Input type="date" aria-label="Date de naissance" placeholder="Date de naissance" {...field}/>
+                                    <Input type="date" aria-label="Date de naissance" placeholder="Date de naissance" {...field} />
                                 </FormControl>
                                 <FormMessage />
                             </FormItem>
@@ -247,7 +250,7 @@ const FormProfile = ({
                                         Sélectionner les compétences dans lesquelles vous pourriez aider les personnes.
                                     </FormDescription>
                                 </div>
-                                <div className="flex gap-3 flex-wrap justify-around px-5">
+                                <div className="flex gap-5 flex-wrap justify-center md:px-10">
                                     {skills.map((skill) => (
                                         <FormField
                                             key={skill.id}
