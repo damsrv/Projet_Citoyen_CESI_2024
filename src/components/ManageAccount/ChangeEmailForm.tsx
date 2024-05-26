@@ -42,7 +42,7 @@ const ChangeEmailForm = ({ defaultData, userId }: {
     })
 
     const dialogClose = () => {
-        document.getElementById('closeDialog')?.click();
+        document.getElementById('closeDialogEmail')?.click();
     };
     async function onSubmit(values: z.infer<typeof formSchema>) {
 
@@ -59,8 +59,7 @@ const ChangeEmailForm = ({ defaultData, userId }: {
         }
         else {
             localStorage.setItem("changedEmail", "Votre email a bien été modifié, veuillez vous reconnecter avec le nouveau.")
-            signOut()
-            return redirect("/connexion")
+            signOut({ callbackUrl: "/connexion", redirect: true })
         }
     }
 
@@ -106,7 +105,7 @@ const ChangeEmailForm = ({ defaultData, userId }: {
 
                             <DialogFooter className="flex flex-col gap-3 lg:gap-1">
                                 <DialogClose asChild>
-                                    <Button id="closeDialog" type="button" variant="ghost">
+                                    <Button id="closeDialogEmail" type="button" variant="ghost">
                                         Annuler
                                     </Button>
                                 </DialogClose>

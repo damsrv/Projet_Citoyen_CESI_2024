@@ -63,7 +63,7 @@ export default async function Profile() {
                 <div className="bg-white p-5 border w-full rounded-lg">
                     <H1 className="text-xl lg:text-xl mb-5">Supprimer le compte</H1>
 
-                    <DeleteAccount />
+                    <DeleteAccount userId={id} />
                 </div>
             </div>
         </div>
