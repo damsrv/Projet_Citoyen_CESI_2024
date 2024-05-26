@@ -5,14 +5,14 @@ import H3 from "@/components/ui/Typography/h3";
 import Muted from "@/components/ui/Typography/muted";
 import {NextRequest} from "next/server";
 
-export default async function RegisterPage() {
+export default function RegisterPage() {
     return (
         <div className="flex justify-evenly items-center w-full grow">
             <div className="relative">
                 <Image
                     className="illustration-home md:order-1"
                     src={"/assets/illustration-auth.svg"}
-                    alt={""}
+                    alt="illustration authentification"
                     width={500}
                     height={500}
                 />

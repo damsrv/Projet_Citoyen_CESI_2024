@@ -48,7 +48,9 @@ export async function POST(req: Request) { //OK
             data: user
         });
 
-        return NextResponse.json(newUser, { status: 201 }); // omit password
+        const newUserWithoutPassword = exclude(newUser, ['password']);
+
+        return NextResponse.json(newUserWithoutPassword, { status: 201 }); // omit password
 
     } catch (e) {
 
