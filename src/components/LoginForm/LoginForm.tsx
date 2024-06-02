@@ -45,7 +45,6 @@ export function LoginForm({ error }: LoginFormProps) {
     useEffect(() => {
 
         let changedEmailStorage = localStorage.getItem("changedEmail")
-        console.log(changedEmailStorage);
         if (changedEmailStorage) {
             setChangedEmail(changedEmailStorage)
             localStorage.removeItem("changedEmail")

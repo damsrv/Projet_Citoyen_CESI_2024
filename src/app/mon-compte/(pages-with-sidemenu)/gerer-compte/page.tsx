@@ -41,7 +41,6 @@ const getData = async (session: Session) => {
 export default async function Profile() {
     const session = await getServerSession(authOptions);
 
-    console.log(await getData(session!))
     const { id, ...userData } = (await getData(session!))!;
 
     return (

@@ -53,7 +53,6 @@ const ChangeEmailForm = ({ defaultData, userId }: {
             body: JSON.stringify({ data: values }),
         })
 
-        console.log(res)
         if (!res.ok) {
             const json = await res.json()
             setError(json.message)

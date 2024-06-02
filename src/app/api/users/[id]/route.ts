@@ -54,7 +54,6 @@ export async function PUT(req: Request, params: Params) { //OK
 
     const { skills, ...updatedData } = data;
 
-    console.log(skills==null);
 
     if(skills!=null) {
 
