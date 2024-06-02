@@ -6,7 +6,6 @@ import * as bcrypt from 'bcrypt';
 import PrismaClientKnownRequestError = Prisma.PrismaClientKnownRequestError;
 import { PrismaClientValidationError } from "@prisma/client/runtime/library";
 
-
 interface Params {
     params: {
         id: string;
@@ -14,9 +13,11 @@ interface Params {
 }
 
 export async function PUT(req: Request, params: Params) { 
+
     const { data } = await req.json();
     const userId = parseInt(params.params.id);
-    const { oldPassword, newPassword} =  data;
+
+    const { email, currentPassword} =  data;
 
     try {
         // récup ancien password en base.
@@ -30,24 +31,29 @@ export async function PUT(req: Request, params: Params) {
         const storedPassword = user.password;
         
         // compare ancien et celui en base.
-        if (await bcrypt.compare(oldPassword, storedPassword)) {
-            // Si ok on envoi le nouveau password en base.
-            const hashedPassword = await bcrypt.hash(newPassword, 10);
-            const storePassword = await prisma.user.update({
-                where: {
-                    id: userId,
-                },
-                data: { 
-                    password: hashedPassword,
-                },
+        if (await bcrypt.compare(currentPassword, storedPassword)) {
+            // Si le mot de passe est correct, on met à jour l'email en base.
+            await prisma.user.update({
+            where: {
+                id: userId,
+            },
+            data: {
+                email,
+            },
             });
-        }
-        else {
+        } else {
             return NextResponse.json({ message: "Le mot de passe n'est pas correct." }, { status: 400 });
         }
+            
+
+        // TODO : envoyer mail à l'ancien mail pour confirmer le changement et à l'utilisateur pour confirmer le changement.
+
         return NextResponse.json({ status: 201 });
+
     } catch (e) {
+
         console.log(e);
+
         if (e instanceof PrismaClientValidationError) {
             return NextResponse.json({ error: e, message: "Erreur de validation prisma" }, { status: 404 });
         } else {
