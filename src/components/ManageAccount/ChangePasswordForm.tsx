@@ -12,9 +12,17 @@ import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
 
 const formSchema = z.object({
     // TODO : ajouter regex sur le password & des indications visuelles de ce qui est attendu
-    password: z.string().min(4, "Mot de passe actuel requis."),
+    oldPassword: z.string().min(4, "Mot de passe actuel requis."),
     newPassword: z.string().min(4, "Nouveau mot de passe requis."),
     newPasswordConfirm: z.string().min(4, "Confirmation de mot de passe requise."),
+}).superRefine(({ newPassword, newPasswordConfirm }, ctx) => {
+    if (newPasswordConfirm !== newPassword) {
+        ctx.addIssue({
+            code: "custom",
+            message: "Les mots de passes ne correspondent pas.",
+            path: ['newPasswordConfirm']
+        })
+    }
 })
 
 
@@ -22,12 +30,13 @@ const ChangePasswordForm = ({ userId }: {
     userId: number
 }) => {
     const [error, setError] = useState<string | null>(null)
+    const [validation, setValidation] = useState<string | null>(null)
     const router = useRouter()
 
     const form = useForm<z.infer<typeof formSchema>>({
         resolver: zodResolver(formSchema),
         defaultValues: {
-            password: "",
+            oldPassword: "",
             newPassword: "",
             newPasswordConfirm: ""
 
@@ -35,7 +44,7 @@ const ChangePasswordForm = ({ userId }: {
     })
 
     async function onSubmit(values: z.infer<typeof formSchema>) {
-        const res = await fetch("/api/users/" + userId + "/change-password", {
+        const res = await fetch("/api/password/" + userId, {
             method: "PUT",
             body: JSON.stringify({ data: values }),
         })
@@ -44,27 +53,24 @@ const ChangePasswordForm = ({ userId }: {
             const json = await res.json()
             setError(json.message)
         }
+        else {
+            form.reset()
+            setError(null)
+            setValidation("Votre mot de passe a bien été modifié.")
+        }
 
         router.refresh()
     }
 
     return (
         <Form {...form}>
-            {error && (
-                <Alert>
-                    <AlertTitle>Erreur</AlertTitle>
-                    <AlertDescription>
-                        {error}
-                    </AlertDescription>
-                </Alert>
-            )}
             <form onSubmit={form.handleSubmit(onSubmit)} className="flex flex-col gap-5">
                 <FormField
                     control={form.control}
-                    name="password"
+                    name="oldPassword"
                     render={({ field }) => (
                         <FormItem>
-                            {/*<FormLabel>Prénom</FormLabel>*/}
+                            <FormLabel>Mot de passe actuel</FormLabel>
                             <FormControl>
                                 <Input type="password" placeholder="Mot de passe actuel" {...field} />
                             </FormControl>
@@ -76,7 +82,7 @@ const ChangePasswordForm = ({ userId }: {
                     name="newPassword"
                     render={({ field }) => (
                         <FormItem>
-                            {/*<FormLabel>Prénom</FormLabel>*/}
+                            <FormLabel>Nouveau mot de passe</FormLabel>
                             <FormControl>
                                 <Input type="password" placeholder="Nouveau mot de passe" {...field} />
                             </FormControl>
@@ -89,7 +95,7 @@ const ChangePasswordForm = ({ userId }: {
                     name="newPasswordConfirm"
                     render={({ field }) => (
                         <FormItem>
-                            {/*<FormLabel>Prénom</FormLabel>*/}
+                            <FormLabel>Confirmation nouveau mot de passe</FormLabel>
                             <FormControl>
                                 <Input type="password" placeholder="Confirmer le mot de passe" {...field} />
                             </FormControl>
@@ -97,6 +103,24 @@ const ChangePasswordForm = ({ userId }: {
                         </FormItem>
                     )}
                 />
+
+                {error && (
+                    <Alert variant={"destructive"}>
+                        <AlertTitle>Erreur</AlertTitle>
+                        <AlertDescription>
+                            {error}
+                        </AlertDescription>
+                    </Alert>
+                )}
+                {validation && (
+                    <Alert variant={"positive"}>
+                        <AlertTitle>Validation</AlertTitle>
+                        <AlertDescription>
+                            {validation}
+                        </AlertDescription>
+                    </Alert>
+                )}
+
                 <Button type="submit">Enregistrer</Button>
             </form>
         </Form>

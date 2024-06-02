@@ -109,20 +109,15 @@ export async function PUT(req: Request, params: Params) { //OK
 
 export async function DELETE(req: Request, params: Params) { //OK
 
-    const { data } = await req.json();
-    const user: User = data;
     const userId = parseInt(params.params.id);
-
+    
     try {
-
         const deletedUser = await prisma.user.delete({
             where: {
                 id: userId,
             },
         })
-
         return NextResponse.json({ status: 204 });
-
     } catch (e) {
         console.log(e);
 

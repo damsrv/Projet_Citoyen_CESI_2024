@@ -16,6 +16,7 @@ export default async function Supression() {
             <CircleCheck className="text-positive" size={100} />
             <H1 className="font-semibold">Compte supprimé avec succès</H1>
             <p className=" text-xl">Votre compte et toutes vos informations ont été supprimées</p>
+
         </div>
     );
 }
