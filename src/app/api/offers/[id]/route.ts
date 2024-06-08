@@ -45,13 +45,37 @@ export async function PUT(req: Request, params: Params) { // OK
     const { data } = await req.json();
     const offerId = parseInt(params.params.id);
 
+    const { offerComTypes, ...offer } = data;
+
+
+    let comTypesArray = [];
+    if (offerComTypes != null) {
+        comTypesArray = offerComTypes.map((comTypeId: number) => {
+            return {
+                comType: {
+                    connect: {
+                        id: comTypeId
+                    }
+                }
+            };
+        });
+    }
+
+    console.log("comTypesArray", comTypesArray);
+
     try {
 
         const updatedOffer = await prisma.offer.update({
             where: {
                 id: offerId,
             },
-            data: {...data}
+            data: {...data, 
+                
+                offerComTypes: {
+                    deleteMany: {},
+                    create: [...comTypesArray]
+                }
+            }
         })
 
         return NextResponse.json(updatedOffer, { status: 201 });
