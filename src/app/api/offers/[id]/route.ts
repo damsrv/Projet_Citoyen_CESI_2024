@@ -97,8 +97,6 @@ export async function PUT(req: Request, params: Params) { // OK
 
 export async function DELETE(req: Request, params: Params) { // OK
 
-    const { data } = await req.json();
-    const offer: Offer = data;
     const offerId = parseInt(params.params.id);
 
     try {

@@ -6,9 +6,9 @@ import { authOptions } from "@/lib/authOptions";
 import prisma from "@/lib/prisma";
 import UserGetPayload = Prisma.UserGetPayload;
 import { Prisma } from "@prisma/client";
-import ChangePasswordForm from "@/components/ManageAccount/ChangePasswordForm";
-import ChangeEmailForm from "@/components/ManageAccount/ChangeEmailForm";
-import DeleteAccount from "@/components/ManageAccount/DeleteAccount";
+import OfferTable from "@/components/OfferTable/OfferTable";
+import { Button } from "@/components/ui/button";
+import Link from "next/link";
 
 
 const getData = async (session: Session) => {
@@ -19,7 +19,21 @@ const getData = async (session: Session) => {
         {
             where: { id: session.user.id },
             include: {
-                offers: true
+                offers: {
+                    include: {
+                        category: {
+                            include: {
+                                categoryType: true
+                            }
+                        },
+                        offerComTypes: {
+                            include: {
+                                comType: true
+                            }
+                        },
+                    }
+                }
+
             }
         }
     )
@@ -32,11 +46,20 @@ export default async function Profile() {
     const user = (await getData(session!))!;
 
     return (
-        <div className="grid lg:grid-cols-2 items-start gap-5 grow ">
+        <div className=" items-start gap-5 grow ">
             <div className="bg-white p-5 border w-full rounded-lg">
-                <H1 className="text-xl lg:text-xl">Gérer mes offres</H1>
+                <div className="flex flex-col gap-2 md:flex-row md:justify-between">
+                    <div className="flex items-center justify-between gap-4">
+                        <H1 className="text-xl lg:text-xl">Gérer mes offres</H1>
+                        <Muted>{user.offers.length} offres</Muted>
+                    </div>
 
-                {/* <OfferTable offers={user.offers} /> */}
+                    <Button asChild size={"sm"}>
+                        <Link href="/offres-mentorat/nouveau">Créer une nouvelle offre</Link>
+                    </Button>
+                </div>
+
+                <OfferTable offers={user.offers} />
             </div>
         </div>
     );
