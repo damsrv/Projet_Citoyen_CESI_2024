@@ -7,11 +7,10 @@ datasource db {
 
   url = env("POSTGRES_PRISMA_URL")
 
-  directUrl = env("POSTGRES_URL_NON_POOLING")
+  // directUrl = env("POSTGRES_URL_NON_POOLING")
 }
 
 model Category {
-
   id Int @id @default(autoincrement())
 
   name String? @db.VarChar
@@ -26,7 +25,6 @@ model Category {
 }
 
 model CategoryType {
-
   id Int @id @default(autoincrement())
 
   name String? @db.VarChar
@@ -35,16 +33,15 @@ model CategoryType {
 }
 
 model Evaluation {
-        
   id Int @id @default(autoincrement())
 
-  createdAt DateTime @default(now()) 
+  createdAt DateTime @default(now())
 
   studentId Int
 
   mentorId Int
 
-  value Int 
+  value Int
 
   comment String?
 
@@ -54,10 +51,9 @@ model Evaluation {
 }
 
 model Message {
-
   id Int @id @default(autoincrement())
 
-  sentAt DateTime @default(now()) 
+  sentAt DateTime @default(now())
 
   roomId Int
 
@@ -65,7 +61,7 @@ model Message {
 
   content String
 
-  status Int 
+  status Int
 
   room Room @relation(fields: [roomId], references: [id], onDelete: Cascade)
 
@@ -73,10 +69,9 @@ model Message {
 }
 
 model OfferStudent {
+  studentId Int
 
-  studentId Int 
-
-  date DateTime @default(now()) 
+  date DateTime @default(now())
 
   offerId Int
 
@@ -91,12 +86,10 @@ model OfferStudent {
   @@id([offerId, studentId])
 }
 
-
 model Offer {
-
   id Int @id @default(autoincrement())
 
-  createdAt DateTime @default(now()) 
+  createdAt DateTime @default(now())
 
   content String
 
@@ -122,18 +115,17 @@ model Offer {
 }
 
 model Report {
-
   id Int @id @default(autoincrement())
 
   reporterId Int
 
   targetId Int
 
-  createdAt DateTime @default(now())  
+  createdAt DateTime @default(now())
 
   message String
 
-  reason String @db.VarChar 
+  reason String @db.VarChar
 
   reporter User @relation("reporterReports", fields: [reporterId], references: [id], onDelete: Cascade)
 
@@ -141,10 +133,9 @@ model Report {
 }
 
 model RequestMentor {
-
   mentorId Int
 
-  date DateTime @default(now()) 
+  date DateTime @default(now())
 
   requestId Int
 
@@ -160,10 +151,9 @@ model RequestMentor {
 }
 
 model Request {
-
   id Int @id @default(autoincrement())
 
-  createdAt DateTime @default(now()) 
+  createdAt DateTime @default(now())
 
   content String @db.VarChar
 
@@ -183,7 +173,6 @@ model Request {
 }
 
 model Role {
-
   id Int @id @default(autoincrement())
 
   name String @db.VarChar
@@ -192,10 +181,9 @@ model Role {
 }
 
 model Room {
-
   id Int @id @default(autoincrement())
 
-  createdAt DateTime @default(now()) 
+  createdAt DateTime @default(now())
 
   name String? @db.VarChar
 
@@ -205,7 +193,6 @@ model Room {
 }
 
 model SavedOffer {
-
   userId Int
 
   offerId Int
@@ -218,7 +205,6 @@ model SavedOffer {
 }
 
 model SavedRequest {
-
   userId Int
 
   requestId Int
@@ -231,7 +217,6 @@ model SavedRequest {
 }
 
 model UserRoom {
-
   userId Int
 
   roomId Int
@@ -244,14 +229,13 @@ model UserRoom {
 }
 
 model User {
-
   id Int @id @default(autoincrement())
 
   firstname String @db.VarChar
 
   lastname String @db.VarChar
 
-  email String @db.VarChar @unique
+  email String @unique @db.VarChar
 
   password String @db.VarChar
 
@@ -261,7 +245,7 @@ model User {
 
   description String?
 
-  birthdate DateTime? 
+  birthdate DateTime?
 
   experiences String?
 
@@ -299,7 +283,6 @@ model User {
 }
 
 model ComType {
-
   id Int @id
 
   name String @db.VarChar
@@ -308,7 +291,6 @@ model ComType {
 }
 
 model SkillCategory {
-
   skillId Int
 
   categoryId Int
@@ -321,7 +303,6 @@ model SkillCategory {
 }
 
 model Skill {
-
   id Int @id @default(autoincrement())
 
   name String @db.VarChar
@@ -332,7 +313,6 @@ model Skill {
 }
 
 model OfferComType {
-
   offerId Int
 
   comTypeId Int
@@ -345,14 +325,13 @@ model OfferComType {
 }
 
 model UserSkill {
-
   skillId Int
 
   userId Int
 
   skill Skill @relation(fields: [skillId], references: [id], onDelete: Cascade, onUpdate: Cascade)
 
-  user  User @relation(fields: [userId], references: [id], onDelete: Cascade, onUpdate: Cascade)
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade, onUpdate: Cascade)
 
   @@id([userId, skillId])
 }

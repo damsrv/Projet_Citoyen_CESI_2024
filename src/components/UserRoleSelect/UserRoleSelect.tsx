@@ -12,7 +12,7 @@ export default function UserRoleSelect() {
     }
 
     return (
-        <Select defaultValue={currentRole} onValueChange={onRoleChange}>
+        <Select value={currentRole} onValueChange={onRoleChange}>
             <SelectTrigger className="w-[180px]">
                 <SelectValue />
             </SelectTrigger>

@@ -6,8 +6,8 @@ export const enum UserRoles {
 }
 
 interface RoleContext {
-    currentRole: UserRoles,
-    setCurrentRole: Dispatch<SetStateAction<UserRoles>>
+    currentRole: UserRoles | undefined,
+    setCurrentRole: Dispatch<SetStateAction<UserRoles | undefined>>
 }
 
-export const RoleContext = createContext<RoleContext>({currentRole: UserRoles.Mentor, setCurrentRole: () => null})
+export const RoleContext = createContext<RoleContext>({currentRole: undefined, setCurrentRole: () => null})

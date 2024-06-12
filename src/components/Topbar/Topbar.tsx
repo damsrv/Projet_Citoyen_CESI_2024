@@ -27,9 +27,25 @@ export default async function Topbar() {
                     <TopbarLinks/>
                 )}
 
-                <nav>
-                    <section className="flex justify-between gap-3 sm:hidden">
-                        <div className="flex sm:hidden">
+                <nav className="flex items-center justify-between gap-3">
+                    {session !== null
+                        ?
+                        (
+                            <section className="flex gap-2">
+                                <UserRoleSelect />
+                                <ProfileDropdown user={session.user}/>
+                            </section>
+                        )
+                        :
+                        (
+                            <section className="hidden justify-between gap-3 sm:flex">
+                                <LoginButton/>
+                                <RegisterButton/>
+                            </section>
+                        )
+                    }
+                    <section className="flex justify-between gap-3 lg:hidden">
+                        <div className="flex lg:hidden">
                             <Sheet>
                                 <SheetTrigger asChild>
                                     <Button variant="primary"><AlignJustify/></Button>
@@ -51,22 +67,7 @@ export default async function Topbar() {
                             </Sheet>
                         </div>
                     </section>
-                    {session !== null
-                        ?
-                        (
-                            <section className="flex gap-2">
-                                <UserRoleSelect />
-                                <ProfileDropdown user={session.user}/>
-                            </section>
-                        )
-                        :
-                        (
-                            <section className="hidden justify-between gap-3 sm:flex">
-                                <LoginButton/>
-                                <RegisterButton/>
-                            </section>
-                        )
-                    }
+
 
                 </nav>
             </div>

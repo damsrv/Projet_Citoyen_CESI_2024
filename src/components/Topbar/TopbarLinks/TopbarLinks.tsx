@@ -8,16 +8,16 @@ export default function TopbarLinks() {
     const {currentRole} = useContext(RoleContext);
 
     return (
-        <nav>
+        <nav className="hidden lg:block">
             {currentRole === UserRoles.Mentor
                 ?
                 (
                     <>
                         <Button variant="link" asChild>
-                            <a href="/offres-mentorat">Demandes</a>
+                            <a href="/demandes-mentorat">Demandes</a>
                         </Button>
                         <Button variant="link" asChild>
-                            <a href="/offres-mentorat/nouveau">Nouvelle offre</a>
+                            <a href="/demandes-mentorat/nouveau">Nouvelle offre</a>
                         </Button>
                     </>
                 )
