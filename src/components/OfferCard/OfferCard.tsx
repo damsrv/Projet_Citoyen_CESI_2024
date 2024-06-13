@@ -30,7 +30,7 @@ export default async function OfferCard({offer}: OfferCardProps) {
             </CardContent>
             <CardFooter className="flex shrink justify-end">
                 <Button variant="primary" asChild>
-                    <a href={`/offers/mentoring/${offer.id}`}>Voir l'offre</a>
+                    <a href={`/offres-mentorat/${offer.id}`}>Voir l'offre</a>
                 </Button>
             </CardFooter>
         </Card>
