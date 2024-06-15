@@ -1,4 +1,6 @@
-"use client"; import React from 'react';
+"use client";
+
+import React from 'react';
 import H3 from "../ui/Typography/h3"; import {
     Collapsible,
     CollapsibleContent,
