@@ -9,9 +9,9 @@ import {
     AlertTitle,
 } from "@/components/ui/alert"
 
-import OfferStudentAccepted from './OfferStudentAccepted';
-import OfferStudentPending from './OfferStudentPending';
-import OfferStudentRefused from './OfferStudentRefused';
+import OfferStudentAccepted from "./OfferStudentAccepted";
+import OfferStudentPending from "./OfferStudentPending";
+import OfferStudentRefused from "./OfferStudentRefused";
 import { AlertCircle } from "lucide-react";
 
 
