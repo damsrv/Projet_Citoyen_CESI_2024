@@ -65,12 +65,8 @@ export default async function NewOfferPage() {
     const comTypes = await getComTypes();
     const categories = await getCategories();
 
-    // Créer la liste des status grâce à l'enum OfferStatus
-    const status = Object.keys(OfferStatus).filter(key => typeof OfferStatus[key as keyof typeof OfferStatus] === 'number').map(key => {
-        return { id: OfferStatus[key as keyof typeof OfferStatus], label: key }
-    })
 
-
+    const status = [{ id: 1, label: "Publiée" }, { id: 2, label: "Brouillon" }, { id: 3, label: "Archivée" }]
 
 
     return (

@@ -76,9 +76,6 @@ const FormProfile = ({
     const [error, setError] = useState<string | null>(null)
     const router = useRouter()
 
-    console.log(defaultData)
-
-
     const form = useForm<z.infer<typeof formSchema>>({
         resolver: zodResolver(formSchema),
         defaultValues: defaultData
@@ -104,8 +101,6 @@ const FormProfile = ({
         }
 
 
-        console.log("dataToSend")
-        console.log(dataToSend)
 
         if (defaultData.id) {
             const response = await fetch(`/api/offers/${defaultData.id}`, {
@@ -224,7 +219,7 @@ const FormProfile = ({
                         render={({ field }) => (
                             <FormItem>
                                 <FormLabel>Types de communication de l'offre</FormLabel>
-                                <div className="flex gap-5 flex-wrap justify-start ">
+                                <div className="flex gap-2 flex-wrap justify-start ">
                                     {comTypes.map((comType) => (
                                         <FormField
                                             key={comType.id}
@@ -234,7 +229,7 @@ const FormProfile = ({
                                                 return (
                                                     <FormItem
                                                         key={comType.id}
-                                                        className="flex flex-row items-start space-x-2 space-y-0"
+                                                        className="flex flex-row items-start space-x-1 space-y-0"
                                                     >
                                                         <FormControl>
                                                             <Checkbox
@@ -284,7 +279,7 @@ const FormProfile = ({
                         render={({ field }) => (
                             <FormItem>
                                 <FormLabel>Statut de l'offre*</FormLabel>
-                                <div className="flex gap-5 flex-wrap ">
+                                <div className="flex gap-2 flex-wrap ">
                                     <RadioGroup
                                         onValueChange={field.onChange} className="flex flex-row">
                                         {status.map((st) => (
@@ -296,7 +291,7 @@ const FormProfile = ({
                                                     return (
                                                         <FormItem
                                                             key={st.id}
-                                                            className="flex flex-row items-center  space-x-2 space-y-0"
+                                                            className="flex flex-row items-center  space-x-1 space-y-0"
                                                         >
                                                             <RadioGroupItem
                                                                 checked={field.value === st.id.toString()} value={st.id.toString()} id={"status" + st.id} />

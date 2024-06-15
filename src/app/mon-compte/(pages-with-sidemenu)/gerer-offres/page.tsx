@@ -51,7 +51,7 @@ export default async function Profile() {
                 <div className="flex flex-col gap-2 md:flex-row md:justify-between">
                     <div className="flex items-center justify-between gap-4">
                         <H1 className="text-xl lg:text-xl">Gérer mes offres</H1>
-                        <Muted>{user.offers.length} offres</Muted>
+                        <Muted>{user.offers.length} offre(s)</Muted>
                     </div>
 
                     <Button asChild size={"sm"}>

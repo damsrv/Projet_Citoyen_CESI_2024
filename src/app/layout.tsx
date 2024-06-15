@@ -34,7 +34,9 @@ export default async function RootLayout(
             )}>
                 <SessionProvider session={session}>
                     <RoleContextProvider>
-                        <Toaster />
+                        <Toaster
+                            position="bottom-right"
+                            reverseOrder={false} />
                         <Topbar />
                         {children}
                         <Footer />

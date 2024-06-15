@@ -29,13 +29,62 @@ export const columns: ColumnDef<Offer>[] = [
         header: ({ column }) => (
             <DataTableColumnHeader column={column} title="Titre" />
         ),
+        cell: ({ row }) => {
+            const offer = row.original
+
+            return (
+                <Link href={`/offres-mentorat/${offer.id}`} className=" font-semibold" title="Voir l'offre">
+                    {offer.title}
+                </Link>
+            )
+        }
     },
     {
         accessorKey: "status",
         header: ({ column }) => (
             <DataTableColumnHeader column={column} title="Statut" />
         ),
+        cell: ({ row }) => {
+            const offer = row.original
+
+            return (
+                <span className={"status " + (offer.status === 1 ? "status-published" : offer.status === 2 ? "status-draft" : "status-archived")}>
+                    {offer.status === 1 ? "Publiée" : offer.status === 2 ? "Brouillon" : "Archivée"}
+                </span>
+            )
+        }
     },
+    {
+
+        accessorKey: "createdAt",
+        header: ({ column }) => (
+            <DataTableColumnHeader column={column} title="Date de création" />
+        ),
+        cell: ({ row }) => {
+            const offer = row.original
+
+            return (
+                <span className="text-sm font-semibold ">
+                    {new Date(offer.createdAt).toLocaleDateString()} à {new Date(offer.createdAt).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}
+                </span>
+            )
+        }
+    },
+    // {
+    //     accessorKey: "updatedAt",
+    //     header: ({ column }) => (
+    //         <DataTableColumnHeader column={column} title="Date de modification" />
+    //     ),
+    //     cell: ({ row }) => {
+    //         const offer = row.original
+
+    //         return (
+    //             <span className="text-sm font-semibold ">
+    //                 {new Date(offer.updatedAt).toLocaleDateString()} à {new Date(offer.updatedAt).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}
+    //             </span>
+    //         )
+    //     }
+    // },
     {
         id: "actions",
         header: ({ column }) => (
