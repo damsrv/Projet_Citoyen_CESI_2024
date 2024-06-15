@@ -1,0 +1,177 @@
+//http://localhost:3000/api/register
+
+{
+    "data": {
+        "firstname": "test",
+        "lastname": "test",
+        "email": "test@test.fr",
+        "password": "password",
+        "birthdate": "08/11/1990",
+        "status": 1,
+        "roleId": 2
+
+    }
+}  
+
+////////////////////////////////////////////////////////////
+//////////////////// OFFERS ////////////////////////////////
+///////////////////////////////////////////////////////////
+GET
+http://localhost:3000/api/offers
+
+POST
+http://localhost:3000/api/offers
+
+{
+    "data": {
+        "content": "Lorem ipsum dolor sit amet",
+        "location": "Rouen",
+        "status": 1,
+        "mentorId": 1,
+        "title": "blabla",
+        "categoryId": 1
+    
+    }
+}  
+
+DELETE
+http://localhost:3000/api/offers/id
+
+
+PUT 
+http://localhost:3000/api/offers/id
+
+{
+    "data": {
+        "content": "Lorem"
+    }
+}  
+
+GET(by id)
+http://localhost:3000/api/offers/id
+
+
+////////////////////////////////////////////////////////////
+//////////////////// USERS ////////////////////////////////
+///////////////////////////////////////////////////////////
+
+
+GET
+http://localhost:3000/api/users
+
+POST
+http://localhost:3000/api/users
+
+{
+    "data":  {
+        "firstname": "Damien",
+        "lastname": "COTE",
+        "email": "dcote2@test.fr",
+        "password": "password",
+        "avatar": null,
+        "status": 1,
+        "description": "blablabla",
+        "birthdate": "1990-11-08T00:00:00.000Z",
+        "experiences": null,
+        "roleId": 1
+    }
+}  
+
+
+DELETE
+http://localhost:3000/api/users/id
+
+
+PUT 
+http://localhost:3000/api/users/id
+
+{
+    "data":  {
+        "firstname": "Test2",
+        "lastname": "COTE",
+    }
+}  
+
+GET(by id)
+http://localhost:3000/api/users/id
+
+
+////////////////////////////////////////////////////////////
+//////////////////// PASSWORD ////////////////////////////////
+///////////////////////////////////////////////////////////
+
+PUT 
+http://localhost:3000/api/password/id
+
+{
+    "data":  {
+        "oldPassword":"$2b$10$DSqQ6p.RC1LmhlMIw1De6ORocNQoEztRbSYRC4jhoE/oy6moW0Efq",
+        "newPassword":"$2b$10$iQ8Ipzerkuh4/lp3mmCawe/z7zDOe6MzHM8oI..tA5dOoe3emS1MW"
+    }
+}  
+
+
+////////////////////////////////////////////////////////////
+//////////////////// ROOMS ////////////////////////////////
+///////////////////////////////////////////////////////////
+
+GET
+http://localhost:3000/api/rooms
+
+POST 
+
+http://localhost:3000/api/rooms
+
+{
+    "data": {
+    "name": "New Room",
+    "userIds": [1, 9]
+    }
+}
+
+GET BY ID 
+http://localhost:3000/api/rooms/2
+
+
+DELETE
+http://localhost:3000/api/rooms/2
+
+
+////////////////////////////////////////////////////////////
+//////////////////// MESSAGES ////////////////////////////////
+///////////////////////////////////////////////////////////
+
+STATUT MESSAGE :
+
+0 => envoyé
+1 => modifié
+2 => supprimé
+
+GET
+PAS BESOIN ON PASSE PAR ROOM POUR AVOIR LES MESSAGES
+
+POST 
+http://localhost:3000/api/messages
+{
+    "data": {
+    "roomId": 2,
+    "senderId": 1,
+    "content": "Comment ca va ?",
+    "status": 0
+    }
+}
+
+PUT ? Si le user veut modifier son message
+
+http://localhost:3000/api/messages/3
+
+{
+    "data": {
+    "content": "Comment ca va toi ????? ?"
+    }
+}
+
+DELETE
+http://localhost:3000/api/messages/3
+
+passe juste le status du message à 1.
