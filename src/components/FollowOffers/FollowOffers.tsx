@@ -21,10 +21,6 @@ function FollowOffers({ offerStudents }: {
     }>[]
 }) {
 
-
-    console.log("offerStudents")
-    console.log(offerStudents.length)
-
     return (
         <>
             {

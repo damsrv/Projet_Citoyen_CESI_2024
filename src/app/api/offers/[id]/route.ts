@@ -61,7 +61,7 @@ export async function PUT(req: Request, params: Params) { // OK
         });
     }
 
-    console.log("comTypesArray", comTypesArray);
+    // console.log("comTypesArray", comTypesArray);
 
     try {
 
