@@ -38,11 +38,11 @@ function FollowOffers({ offerStudents }: {
             {
                 offerStudents.map((offerStudent) => {
                     if (offerStudent.status === 0) {
-                        return <OfferStudentAccepted key={offerStudent.date} offerStudent={offerStudent} />
+                        return <OfferStudentAccepted key={offerStudent.date.toDateString()} offerStudent={offerStudent} />
                     } else if (offerStudent.status === 1) {
-                        return <OfferStudentRefused key={offerStudent.date} offerStudent={offerStudent} />
+                        return <OfferStudentRefused key={offerStudent.date.toDateString()} offerStudent={offerStudent} />
                     } else if (offerStudent.status === 2) {
-                        return <OfferStudentPending key={offerStudent.date} offerStudent={offerStudent} />
+                        return <OfferStudentPending key={offerStudent.date.toDateString()} offerStudent={offerStudent} />
                     }
                 })
             }
