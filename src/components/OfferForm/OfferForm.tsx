@@ -29,7 +29,7 @@ import { useEffect } from "react";
 
 const formSchema = z.object({
     content: z.string().min(50, "Le contenu de l'offre doit faire au moins 50 caractères.").max(500, "Le contenu de l'offre est limité à 500 caractères."),
-    location: z.string().nullable(),
+    location: z.string().optional(),
     title: z.string().min(5, "Le titre de l'offre doit faire au moins 5 caractères.").max(255, "Le titre de l'offre est limité à 255 caractères."),
     categoryId: z.string({
         required_error: "Champs requis",
@@ -49,9 +49,9 @@ const FormProfile = ({
 }: {
     defaultData: {
         id: number | undefined,
-        content: string,
+        content: string | undefined,
         location: string | undefined,
-        title: string,
+        title: string | undefined,
         status: string | undefined,
         categoryId: string | undefined,
         offerComTypes: number[],
@@ -65,7 +65,6 @@ const FormProfile = ({
         label: string
     }[],
     categories: {
-        categoryTypeId: number,
         categoryTypeLabel: string,
         children: {
             id: number,
@@ -193,8 +192,8 @@ const FormProfile = ({
                                             </SelectTrigger>
                                         </FormControl>
                                         <SelectContent>
-                                            {categories.map((categoryType) => (
-                                                <SelectGroup key={categoryType.categoryTypeId}>
+                                            {categories.map((categoryType, index) => (
+                                                <SelectGroup key={index}>
                                                     <SelectLabel>{categoryType.categoryTypeLabel}</SelectLabel>
                                                     {categoryType.children.map((category) => (
                                                         <SelectItem key={category.id} value={category.id.toString()} >{category.label}</SelectItem>
@@ -265,7 +264,7 @@ const FormProfile = ({
                             <FormItem>
                                 <FormLabel>Localisation</FormLabel>
                                 <FormControl>
-                                    <Input aria-label="Localisation" placeholder="Localisation" {...field} />
+                                    <Input placeholder="Localisation" {...field} />
                                 </FormControl>
                                 <FormMessage />
                             </FormItem>

@@ -5,7 +5,7 @@ import toast from "react-hot-toast";
 import { Button } from "@/components/ui/button";
 import { DialogContent, DialogHeader, DialogTitle, DialogDescription, DialogFooter, DialogClose } from "@/components/ui/dialog";
 
-const ModalDelete = ({ objectToDelete, url, label, labelSuccess }) => {
+const ModalDelete = ({ objectToDelete, url, label, labelSuccess }: { objectToDelete: number, url: string, label: string, labelSuccess: string }) => {
     const router = useRouter();
 
 

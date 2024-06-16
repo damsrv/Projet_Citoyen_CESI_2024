@@ -17,11 +17,7 @@ import {
 } from "@/components/ui/dropdown-menu"
 import Link from "next/link"
 import { ArrowUpDown, MoreHorizontal } from "lucide-react"
-import { DataTableColumnHeader } from "@/components/Datatable/DataTableColumnHeader";
-
-// This type is used to define the shape of our data.
-// You can use a Zod schema here if you want.
-
+import { DataTableColumnHeader } from "@/components/DataTable/DataTableColumnHeader";
 
 export const columns: ColumnDef<Offer>[] = [
     {

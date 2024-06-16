@@ -21,42 +21,35 @@ const getComTypes = async () => {
     })
 }
 
+
 const getCategories = async () => {
     const categories = await prisma.category.findMany({
         include: {
             categoryType: true
         }
     })
+    let categorizedCategories:
+        {
+            categoryTypeLabel: string,
+            children: { id: number, label: string }[]
+        }[]
+        = [];
 
-    const categorizedCategories = categories.reduce((acc, category) => {
-        const categoryType = category.categoryType;
-        const categoryTypeId = categoryType!.id;
-        const categoryTypeLabel = categoryType!.name;
+    categories.forEach((category) => {
+        let categoryTypeID: number = category.categoryTypeId!
+        let categoryTypeLabel = category.categoryType!.name
+        let child = { id: category.id, label: category.name! }
 
-        const categoryToAdd = {
-            id: category.id,
-            label: category.name
+        if (categorizedCategories[categoryTypeID] === undefined) {
+            categorizedCategories[categoryTypeID] = { categoryTypeLabel: categoryTypeLabel!, children: [child] }
         }
-
-        const categoryTypeIndex = acc.findIndex((categoryType) => categoryType.categoryTypeId === categoryTypeId);
-
-        if (categoryTypeIndex === -1) {
-            acc.push({
-                categoryTypeId,
-                categoryTypeLabel,
-                children: [categoryToAdd]
-            })
-        } else {
-            acc[categoryTypeIndex].children.push(categoryToAdd)
+        else {
+            categorizedCategories[categoryTypeID].children.push(child)
         }
-
-        return acc;
-    }, [])
-
+    }
+    )
     return categorizedCategories;
 }
-
-
 
 export default async function NewOfferPage() {
 

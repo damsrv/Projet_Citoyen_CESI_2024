@@ -22,39 +22,31 @@ const getComTypes = async () => {
 }
 
 const getCategories = async () => {
-    // récupérer les infos du user
     const categories = await prisma.category.findMany({
         include: {
             categoryType: true
         }
     })
+    let categorizedCategories:
+        {
+            categoryTypeLabel: string,
+            children: { id: number, label: string }[]
+        }[]
+        = [];
 
-    // l'array doit être de la forme [{categoryTypeId: 1, categoryTypeLabel: "label1", children: [{id: 2, label: "label2"}]}]
-    const categorizedCategories = categories.reduce((acc, category) => {
-        const categoryType = category.categoryType;
-        const categoryTypeId = categoryType!.id;
-        const categoryTypeLabel = categoryType!.name;
+    categories.forEach((category) => {
+        let categoryTypeID: number = category.categoryTypeId!
+        let categoryTypeLabel = category.categoryType!.name
+        let child = { id: category.id, label: category.name! }
 
-        const categoryToAdd = {
-            id: category.id,
-            label: category.name
+        if (categorizedCategories[categoryTypeID] === undefined) {
+            categorizedCategories[categoryTypeID] = { categoryTypeLabel: categoryTypeLabel!, children: [child] }
         }
-
-        const categoryTypeIndex = acc.findIndex((categoryType) => categoryType.categoryTypeId === categoryTypeId);
-
-        if (categoryTypeIndex === -1) {
-            acc.push({
-                categoryTypeId,
-                categoryTypeLabel,
-                children: [categoryToAdd]
-            })
-        } else {
-            acc[categoryTypeIndex].children.push(categoryToAdd)
+        else {
+            categorizedCategories[categoryTypeID].children.push(child)
         }
-
-        return acc
-    }, [])
-
+    }
+    )
     return categorizedCategories;
 }
 
@@ -79,9 +71,9 @@ const getOfferData = async (id: number) => {
     }
     return {
         id: offer.id,
-        content: offer.content,
-        location: offer.location,
-        title: offer.title,
+        content: offer.content || "",
+        location: offer.location || "",
+        title: offer.title || "",
         status: offer.status.toString(),
         categoryId: offer.categoryId.toString(),
         offerComTypes: offer.offerComTypes.map((offerComType) => {
@@ -107,7 +99,7 @@ export default async function EditOfferPage({ params }: { params: { id: string }
         <main className="min-h-screen bg-secondary-light">
             <section
                 className=" flex flex-col items-center justify-center gap-5  py-10 md:flex-row md:gap-10 container-custom lg:py-20">
-                <OfferForm userId={session?.user.id!} defaultData={offerData}
+                <OfferForm userId={session?.user.id!} defaultData={offerData!}
                     comTypes={comTypes}
                     status={status}
                     categories={categories}
