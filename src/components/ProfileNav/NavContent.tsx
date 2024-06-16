@@ -8,11 +8,17 @@ const NavContent = () => {
     const [activeLink, setActiveLink] = useState("");
     const pathname = usePathname();
 
+    // TODO : ajouter le nombre de demandes en attente (offer_student) de réponse par le mentor pour le lien "Suivi de mes offres"
+
+
     useEffect(() => {
         // Récupérer l'URL de la page
         const currentUrl = window.location.pathname;
         // Définir la valeur de activeLink en fonction de l'URL de la page
         setActiveLink(currentUrl);
+
+        // Récupérer les offres en attente
+
     }, [pathname]);
 
     const links: {
@@ -43,22 +49,23 @@ const NavContent = () => {
                         url: "/mon-compte/gerer-offres",
                     },
                     {
-                        title: "Mes évaluations",
-                        url: "/mon-compte/mes-evaluations",
+                        title: "Suivi de mes offres",
+                        url: "/mon-compte/suivi-offres",
+
                     },
+                    // {
+                    //     title: "Mes évaluations",
+                    //     url: "/mon-compte/mes-evaluations",
+                    // },
                 ],
             },
             {
                 title: "Espace mentoré",
                 sublinks: [
                     {
-                        title: "Gérer mes demandes",
-                        url: "/mon-compte/gerer-demandes",
+                        title: "Suivi de mes demandes",
+                        url: "/mon-compte/suivi-demandes",
                     },
-                    // {
-                    //     title: "Mes évaluations",
-                    //     url: "/mon-compte/mes-evaluations",
-                    // },
                 ],
             },
 

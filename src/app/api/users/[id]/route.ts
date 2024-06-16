@@ -53,10 +53,7 @@ export async function PUT(req: Request, params: Params) { //OK
     let skillsArray = [];
 
     const { skills, ...updatedData } = data;
-
-
     if(skills!=null) {
-
         skillsArray = skills.map((skillId: Number) => {
             return (
                 {
