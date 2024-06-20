@@ -5,38 +5,83 @@ import Muted from "@/components/ui/Typography/muted";
 import OfferGetPayload = Prisma.OfferGetPayload;
 import ComTypeBadge from "@/components/OfferDetails/OfferInfos/ComTypeBadge/ComTypeBadge";
 import {Button} from "@/components/ui/button";
+import ContactDialog from "@/components/OfferDetails/OfferInfos/ContactDialog/ContactDialog";
+import {getServerSession} from "next-auth";
+import {authOptions} from "@/lib/authOptions";
+import prisma from "@/lib/prisma";
+import {Alert, AlertDescription, AlertTitle} from "@/components/ui/alert";
+import {Info} from "lucide-react";
+import {Underlined} from "@/components/ui/Typography/underlined";
+import A from "@/components/ui/Typography/a";
 
 interface OfferInfosProps {
     offer: OfferGetPayload<{ include: { offerComTypes: { include: { comType: true } } } }>
 }
 
+async function userHasAlreadySendContactRequestForOffer(userId: number, offerId: number) {
+    const offer = await prisma.offer.findFirst({
+        where: {
+            id: offerId
+        },
+        include: {
+            offerStudents: true
+        }
+    })
+
+    if (!offer) {
+        throw new Error("Impossible de trouver une offre avec cet id");
+    }
+
+    return offer.offerStudents.some((offerStudent) => offerStudent.studentId === userId)
+}
+
 export default async function OfferInfos({offer}: OfferInfosProps) {
+    const session = await getServerSession(authOptions);
+    const alreadySend = await userHasAlreadySendContactRequestForOffer(session!.user.id, offer.id)
+
     return (
         <div className="p-4 bg-secondary-light flex flex-1 flex-col rounded-md space-y-2">
-            <header>
+            <header className="mb-4">
                 <H2>{offer.title}</H2>
                 <Muted>Publiée le {offer.createdAt.toLocaleDateString()}</Muted>
             </header>
-            <main className="space-y-2 flex grow flex-col">
+            <main className="space-y-4 flex grow flex-col">
                 <section className="flex flex-col">
-                    <H4>Description :</H4>
+                    <H4 className="mb-1.5">Description</H4>
                     <p>{offer.content}</p>
                 </section>
-                <section>
-                    <H4 className="mb-1">Moyens de communication :</H4>
-                    <ul className="flex flex-wrap gap-3">
-                        {offer.offerComTypes.map((comType, idx) => {
-                            return (
-                                <ComTypeBadge comType={comType.comType} key={idx}/>
-                            )
-                        })}
-                    </ul>
-                </section>
+                {offer.offerComTypes.length > 0 &&
+                    (
+                        <section>
+                            <H4 className="mb-1.5">Moyens de communication</H4>
+                            <ul className="flex flex-wrap gap-3">
+                                {offer.offerComTypes.map((comType, idx) => {
+                                    return (
+                                        <ComTypeBadge comType={comType.comType} key={idx}/>
+                                    )
+                                })}
+                            </ul>
+                        </section>
+                    )
+                }
             </main>
             <section className="flex justify-end">
-                <Button>
-                    Envoyer une demande
-                </Button>
+                {alreadySend
+                    ?
+                    (
+                        <Alert>
+                            <Info className="h-5 w-5"/>
+                            <AlertTitle>Demande envoyée !</AlertTitle>
+                            <AlertDescription>
+                                Vous avez déja envoyé une demande pour cette offre. Consultez-la depuis l'onglet <A href="/mon-compte/suivi-demandes">Mes demandes</A>
+                            </AlertDescription>
+                        </Alert>
+                    )
+                    :
+                    (
+                        <ContactDialog offer={offer}/>
+                    )
+                }
             </section>
         </div>
     )

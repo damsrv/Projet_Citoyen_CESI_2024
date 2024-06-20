@@ -1,7 +1,7 @@
 "use client"
 
 import {useContext} from "react";
-import {RoleContext, UserRoles} from "@/Context/RoleContext";
+import {RoleContext, UserRoles} from "@/context/RoleContext";
 import {Button} from "@/components/ui/button";
 
 export default function TopbarLinks() {

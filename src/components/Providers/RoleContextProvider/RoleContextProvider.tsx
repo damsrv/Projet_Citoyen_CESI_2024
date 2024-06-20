@@ -1,6 +1,6 @@
 "use client";
 
-import {RoleContext, UserRoles} from "@/Context/RoleContext";
+import {RoleContext, UserRoles} from "@/context/RoleContext";
 import {ReactNode, useEffect, useState} from "react";
 
 export default function RoleContextProvider({children}: { children: ReactNode }) {

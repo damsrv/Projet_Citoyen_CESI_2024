@@ -1,7 +1,7 @@
 "use client"
 
 import {useContext} from "react";
-import {RoleContext, UserRoles} from "@/Context/RoleContext";
+import {RoleContext, UserRoles} from "@/context/RoleContext";
 import {Select, SelectContent, SelectItem, SelectTrigger, SelectValue} from "@/components/ui/select";
 
 export default function UserRoleSelect() {
