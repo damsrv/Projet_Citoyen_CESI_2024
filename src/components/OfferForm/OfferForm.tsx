@@ -110,7 +110,7 @@ const FormProfile = ({
                 body: JSON.stringify({ data: dataToSend })
             })
             if (response.ok) {
-                router.push(`/mon-compte/gerer-offres`)
+                router.back()
                 // TODO : toast success
             } else {
                 setError("Une erreur est survenue lors de l'enregistrement de l'offre.")
@@ -125,7 +125,7 @@ const FormProfile = ({
                 body: JSON.stringify({ data: dataToSend })
             })
             if (response.ok) {
-                router.push(`/mon-compte/gerer-offres`)
+                router.push(`/offres-mentorat/${(await response.json()).id}`)
                 // TODO : toast success
             } else {
                 setError("Une erreur est survenue lors de l'enregistrement de l'offre.")

@@ -28,7 +28,7 @@ const page = async () => {
 
     return (
         <>
-            <H1>Reports</H1>
+            <H1 className={"!text-3xl"}>Reports</H1>
             <div className="bg-white p-5 border rounded-lg" >
                 <ReportTable reports={reports} />
             </div>

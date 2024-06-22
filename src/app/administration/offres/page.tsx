@@ -38,7 +38,7 @@ const page = async () => {
 
     return (
         <>
-            <H1>Offres</H1>
+            <H1 className={"!text-3xl"}>Offres</H1>
             <div className="bg-white px-5 border rounded-lg" >
 
                 <OfferTable offers={offers} />
