@@ -35,7 +35,7 @@ const page = async () => {
 
     return (
         <>
-            <H1>Utilisateurs</H1>
+            <H1 className={"!text-3xl"}>Utilisateurs</H1>
             <div className="bg-white p-5 border rounded-lg" >
 
                 <UserTable users={users} />

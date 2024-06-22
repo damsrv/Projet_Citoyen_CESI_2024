@@ -130,6 +130,8 @@ model Report {
   reporter User @relation("reporterReports", fields: [reporterId], references: [id], onDelete: Cascade)
 
   target User @relation("targetReports", fields: [targetId], references: [id], onDelete: Cascade)
+
+  status Int @default(0)
 }
 
 model RequestMentor {

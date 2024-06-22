@@ -1,6 +1,6 @@
 "use client"
 
-import { User } from "@prisma/client"
+import { Report } from "@prisma/client"
 import { ColumnDef } from "@tanstack/react-table"
 import ModalDelete from "@/components/ModalDelete/ModalDelete";
 import {
@@ -19,61 +19,100 @@ import Link from "next/link"
 import { ArrowUpDown, MoreHorizontal } from "lucide-react"
 import { DataTableColumnHeader } from "@/components/DataTable/DataTableColumnHeader";
 
-import UserGetPayload = Prisma.UserGetPayload;
+import ReportGetPayload = Prisma.ReportGetPayload;
 import { Prisma } from "@prisma/client";
 
-export const columns: ColumnDef<UserGetPayload<{
-    include: { role: true, offers: true }
+export const columns: ColumnDef<ReportGetPayload<{
+    include: { reporter: true, target: true }
 }>>[] = [
         {
-            accessorKey: "name",
+            accessorKey: "status",
             header: ({ column }) => (
-                <DataTableColumnHeader column={column} title="Nom" />
+                <DataTableColumnHeader column={column} title="Statut" />
             ),
             cell: ({ row }) => {
-                const user = row.original
+                const report = row.original
 
                 return (
-                    <Link href={`/profil/${user.id}`} className=" font-semibold" title="Voir l'offre">
-                        {user.firstname} {user.lastname}
-                    </Link>
-                )
-            }
-        },
-        {
-            accessorKey: "email",
-            header: ({ column }) => (
-                <DataTableColumnHeader column={column} title="Email" />
-            ),
-
-        },
-        {
-            accessorKey: "role",
-            header: ({ column }) => (
-                <DataTableColumnHeader column={column} title="Role" />
-            ),
-            cell: ({ row }) => {
-                const user = row.original
-
-                return (
-                    <span className={"status " + (user.role.name === "ADMIN" ? "status-archived" : "status-draft")}>
-                        {user.role.name}
+                    <span className={"status " + (report.status === 0 ? "status-pending" : "status-draft")}>
+                        {report.status === 0 ? "En attente" : "Traité"}
                     </span>
                 )
             }
         },
         {
-
-            accessorKey: "registerAt",
+            accessorKey: "reporter",
             header: ({ column }) => (
-                <DataTableColumnHeader column={column} title="Date d'inscription" />
+                <DataTableColumnHeader column={column} title="Reporter" />
             ),
             cell: ({ row }) => {
-                const user = row.original
+                const reporter = row.original.reporter
+
+                return (
+                    <Link href={`/profil/${reporter.id}`} className=" font-semibold" title="Voir l'offre">
+                        {reporter.firstname} {reporter.lastname}
+                    </Link>
+                )
+            }
+        },
+        {
+            accessorKey: "target",
+            header: ({ column }) => (
+                <DataTableColumnHeader column={column} title="Cible" />
+            ),
+            cell: ({ row }) => {
+                const target = row.original.target
+
+                return (
+                    <Link href={`/profil/${target.id}`} className=" font-semibold" title="Voir l'offre">
+                        {target.firstname} {target.lastname}
+                    </Link>
+                )
+            }
+        },
+
+        {
+
+            accessorKey: "createdAt",
+            header: ({ column }) => (
+                <DataTableColumnHeader column={column} title="Date du report" />
+            ),
+            cell: ({ row }) => {
+                const report = row.original
 
                 return (
                     <span className="text-sm font-semibold ">
-                        {user.registerAt ? new Date(user.registerAt).toLocaleDateString() + " à " + new Date(user.registerAt).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }) : "Non renseigné"}
+                        {report.createdAt ? new Date(report.createdAt).toLocaleDateString() + " à " + new Date(report.createdAt).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }) : "Non renseigné"}
+                    </span>
+                )
+            }
+        },
+        {
+            accessorKey: "reason",
+            header: ({ column }) => (
+                <DataTableColumnHeader column={column} title="Raison" />
+            ),
+            cell: ({ row }) => {
+                const report = row.original
+
+                return (
+                    <span className="text-sm font-semibold ">
+                        {report.reason}
+                    </span>
+                )
+            }
+        },
+        {
+            accessorKey: "message",
+            header: ({ column }) => (
+                <DataTableColumnHeader column={column} title="Message" />
+            ),
+            cell: ({ row }) => {
+                const report = row.original
+
+                return (
+                    <span className="text-sm font-semibold ">
+                        {report.message}
                     </span>
                 )
             }
@@ -97,20 +136,7 @@ export const columns: ColumnDef<UserGetPayload<{
                             </DropdownMenuTrigger>
                             <DropdownMenuContent align="end">
                                 <DropdownMenuLabel>Actions</DropdownMenuLabel>
-                                <DropdownMenuItem >
-                                    <Link href={`/profil/${user.id}`}>
-                                        Voir l'utilisateur
-                                    </Link>
-                                </DropdownMenuItem>
-                                <DropdownMenuSeparator />
-                                {/* <DropdownMenuItem>
-                                    <Link href={`/administration/utilisateurs/modifier/${user.id}`}>
-                                        Modifier l'utilisateur
-                                    </Link>
-                                </DropdownMenuItem> */}
-                                <DropdownMenuItem>
-                                    <DialogTrigger className="text-destructive">Supprimer l'utilisateur</DialogTrigger>
-                                </DropdownMenuItem>
+
                             </DropdownMenuContent>
                         </DropdownMenu>
                         <ModalDelete

@@ -35,6 +35,23 @@ const NavContent = () => {
                         title: "Utilisateurs",
                         url: "/administration/utilisateurs",
                     },
+                    {
+                        title: "Offres",
+                        url: "/administration/offres",
+                    },
+                    {
+                        title: "Reports",
+                        url: "/administration/reports",
+                    },
+                ],
+            },
+            {
+                title: "Statistiques",
+                sublinks: [
+                    {
+                        title: "Statistiques",
+                        url: "/administration/statistiques",
+                    },
                 ],
             },
 

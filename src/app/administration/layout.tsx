@@ -15,7 +15,7 @@ export default function RootLayout({
     return (
         <main className="bg-secondary-background grow flex flex-col lg:flex-row gap-10 h-full">
             <AdminNav />
-            <div className="grow p-10 flex flex-col gap-5">
+            <div className="grow p-4 lg:p-10 flex flex-col gap-5">
                 {children}
             </div>
         </main>
