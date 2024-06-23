@@ -33,6 +33,8 @@
         --destructive-foreground: 210 40% 98%;
         --positive: 116 51% 47%;
         --positive-foreground: 210 40% 98%;
+        --warning: 42 100% 50%;
+        --warning-foreground: 210 40% 98%;
 
         --border: 214.3 31.8% 91.4%;
         --input: 214.3 31.8% 91.4%;
@@ -311,6 +313,10 @@ details summary::marker {
 .status-archived {
     background-color: hsl(var(--destructive));
     color: hsl(var(--destructive-foreground));
+}
+.status-pending {
+    background-color: hsl(var(--warning));
+    color: hsl(var(--warning-foreground));
 }
 
 /* Input radio */
