@@ -1,10 +1,9 @@
 import React from 'react'
 import { columns } from "./Columns"
 import { DataTable } from "@/components/DataTable/DataTable"
-import { Report } from "@prisma/client"
+import type { ReportType } from "@/types/types.d.ts";
 
-
-const ReportTable = ({ reports }: { reports: Report[] }) => {
+const ReportTable = ({ reports }: { reports: ReportType[] }) => {
     return (
 
         <div className='overflow-x-auto py-5 '>

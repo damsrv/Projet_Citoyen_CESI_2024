@@ -4,13 +4,12 @@ import prisma from '@/lib/prisma'
 import ReportTable from '@/components/ReportTable/ReportTable'
 import ReportGetPayload = Prisma.ReportGetPayload;
 import { Prisma } from "@prisma/client";
+import type { ReportType } from "@/types/types.d.ts";
 
 
 
 const getData = async () => {
-    const reports: ReportGetPayload<{
-        include: { reporter: true, target: true }
-    }>[] | null = await prisma.report.findMany({
+    const reports: ReportType[] | null = await prisma.report.findMany({
         include: {
             reporter: true,
             target: true

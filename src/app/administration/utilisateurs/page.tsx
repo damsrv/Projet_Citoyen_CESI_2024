@@ -4,13 +4,12 @@ import prisma from '@/lib/prisma'
 import UserTable from '@/components/UserTable/UserTable'
 import UserGetPayload = Prisma.UserGetPayload;
 import { Prisma } from "@prisma/client";
+import type { UserTableType } from "@/types/types.d.ts";
 
 
 
 const getData = async () => {
-    const users: UserGetPayload<{
-        include: { offers: true, role: true }
-    }>[] | null = await prisma.user.findMany({
+    const users: UserTableType[] | null = await prisma.user.findMany({
         select: {
             id: true,
             email: true,
