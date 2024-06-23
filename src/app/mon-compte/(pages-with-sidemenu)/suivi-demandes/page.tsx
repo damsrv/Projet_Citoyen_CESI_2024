@@ -8,7 +8,7 @@ import UserGetPayload = Prisma.UserGetPayload;
 import { Prisma } from "@prisma/client";
 import { Button } from "@/components/ui/button";
 import Link from "next/link";
-import FollowOffers from "@/components/FollowOffers/FollowOffers";
+import FollowDemands from "@/components/FollowDemands/FollowDemands";
 import OfferStudentGetPayload = Prisma.OfferStudentGetPayload;
 
 
@@ -16,21 +16,17 @@ import OfferStudentGetPayload = Prisma.OfferStudentGetPayload;
 const getData = async (session: Session) => {
     // récupérer les infos du user
     const user: UserGetPayload<{
-        include: { offers: { include: { offerStudents: { include: { student: true, offer: true } } } } }
+        include: { offerStudents: { include: { student: true, offer: { include: { mentor: true } } } } }
     }> | null = await prisma.user.findFirst(
         {
             where: { id: session.user.id },
             include: {
-                offers: {
+                offerStudents: {
                     include: {
-                        offerStudents: {
-                            include: {
-                                student: true,
-                                offer: true
-                            }
-                        },
+                        student: true,
+                        offer: { include: { mentor: true } }
                     }
-                }
+                },
             }
 
         }
@@ -44,15 +40,8 @@ export default async function Profile() {
     const user = (await getData(session!))!;
 
     let offerStudents: OfferStudentGetPayload<{
-        include: { offer: true, student: true }
-    }>[] = [];
-
-    // Récupérer les demandes de contact
-    user.offers.forEach((offer) => {
-        offer.offerStudents.map((offerStudent) => {
-            offerStudents.push(offerStudent)
-        })
-    })
+        include: { offer: { include: { mentor: true } }, student: true }
+    }>[] = user.offerStudents || [];
 
     // Trier les offerStudents par la date
     offerStudents = offerStudents.sort((a, b) => {
@@ -61,25 +50,18 @@ export default async function Profile() {
 
 
     return (
-        <div className=" items-start gap-5 grow ">
+        <div className="items-start gap-5 grow">
             <div className="bg-white p-5 border w-full rounded-lg">
                 <div className="flex flex-col gap-2 md:flex-row md:justify-between mb-5">
                     <div className="flex items-center justify-between gap-4">
-                        <H1 className="text-xl lg:text-xl">Suivi de mes offres</H1>
-                        <Muted>{offerStudents.length} demande(s) de contact</Muted>
+                        <H1 className="text-xl lg:text-xl">Suivi de mes demandes de contact</H1>
+                        <Muted>{user.offerStudents.length} demande(s) de contact</Muted>
                     </div>
-
                 </div>
-
-
                 <p className="text-gray-600 mb-5">
-                    Cet écran vous permet de suivre l'évolution de vos offres de mentorat. Vous pouvez voir les demandes de contact reçues et y répondre. Vous pouvez également voir les propositions de mentorat que vous avez envoyées aux demandes de mentorat et suivre leur statut.
+                    Cet écran vous permet de suivre l'état des demandes de contact que vous avez envoyées aux mentors et les demandes de contact que vous avez reçues des mentors suite à vos demandes de mentorat.
                 </p>
-
-                {/* Afficher la liste des demandes de contact & TODO pour plus tard (demandes de mentorat) : liste des réponses à mes propositions de mentorat et leur statut */}
-
-                <FollowOffers offerStudents={offerStudents} />
-
+                <FollowDemands offerStudents={offerStudents} />
             </div>
         </div>
     );
