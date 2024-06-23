@@ -16,7 +16,7 @@ import { Button } from "@/components/ui/button";
 
 function FollowOffers({ offerStudents }: {
     offerStudents: OfferStudentGetPayload<{
-        include: { offer: true, student: true }
+        include: { offer: { include: { mentor: true } }, student: true }
     }>[]
 }) {
     const PAGE_SIZE = 10;

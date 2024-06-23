@@ -8,7 +8,7 @@ import { BadgeX } from 'lucide-react';
 
 const OfferStudentRefused = ({ offerStudent }: {
     offerStudent: OfferStudentGetPayload<{
-        include: { offer: true, student: true }
+        include: { offer: { include: { mentor: true } }, student: true }
     }>
 }) => {
 
@@ -34,10 +34,9 @@ const OfferStudentRefused = ({ offerStudent }: {
                         </Muted>
                     </div>
                     <p className="text-sm">
-                        Vous avez refusé la demande de contact de{' '}
-                        <Link className="font-semibold text-primary" href={"/profil/" + offerStudent.student.id}>
-                            {offerStudent.student.firstname} {offerStudent.student.lastname}
-                        </Link>{' '}
+                        <Link className="font-semibold text-primary" href={"/profil/" + offerStudent.offer.mentor.id}>
+                            {offerStudent.offer.mentor.firstname} {offerStudent.offer.mentor.lastname}
+                        </Link> a refusé votre demande de contact
                         pour l'offre{' '}
                         <Link className="font-semibold text-primary" href={"/offres-mentorat/" + offerStudent.offer.id}>
                             {offerStudent.offer.title}
