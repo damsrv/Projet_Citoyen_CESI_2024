@@ -30,15 +30,11 @@ const page = async () => {
 
     const users = await getData();
 
-    console.log(users)
-
     return (
         <>
             <H1 className={"!text-3xl"}>Utilisateurs</H1>
             <div className="bg-white p-5 border rounded-lg" >
-
                 <UserTable users={users} />
-
             </div>
         </>
     )
