@@ -159,8 +159,8 @@ const FormProfile = ({
                 <section className="flex flex-col gap-5 bg-white p-5 border w-full rounded-lg">
                     <H1 className="text-xl lg:text-xl">
                         {defaultData.id
-                            ? "Créer une nouvelle offre de mentorat"
-                            : "Modifier une offre de mentorat"}
+                            ? "Modifier une offre de mentorat"
+                            : "Créer une nouvelle offre de mentorat"}
                     </H1>
 
                     <FormField
