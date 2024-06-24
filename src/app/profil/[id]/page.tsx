@@ -38,8 +38,8 @@ const ProfilPage = async ({ params }: { params: { id: string } }) => {
     }
 
     return (
-        <div className="bg-primary-background grow">
-            <div className="container-custom py-5 flex flex-col gap-5 grow w-full">
+        <div className="bg-primary-background grow px-4">
+            <div className="container-custom py-10 flex flex-col gap-5 grow w-full">
                 <UserProfil user={user} />
                 <UserOfferList offers={user.offers} />
             </div>
