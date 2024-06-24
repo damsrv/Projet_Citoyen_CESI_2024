@@ -1,33 +1,44 @@
 import prisma from "@/lib/prisma";
 import { Offer, User } from "@prisma/client";
-import { PrismaClient, Prisma } from '@prisma/client'
+import { PrismaClient, Prisma } from "@prisma/client";
 import { NextResponse } from "next/server";
-import * as bcrypt from 'bcrypt';
-import { OfferStatus } from '../../../enums/offerStatus'
+import * as bcrypt from "bcrypt";
+import { OfferStatus } from "../../../enums/offerStatus";
 import PrismaClientKnownRequestError = Prisma.PrismaClientKnownRequestError;
 import { PrismaClientValidationError } from "@prisma/client/runtime/library";
+import { isOfferOwner } from "@/services/check-authorization";
 
 export async function GET() {
-
     try {
-
         const offers = await prisma.offer.findMany();
 
         return NextResponse.json(offers, { status: 200 });
-
     } catch (e) {
         console.log(e);
 
-        return NextResponse.json({
-            error: e,
-            message: "Une erreur est survenue, veuillez réessayer plus tard."
-        }, { status: 500 });
+        return NextResponse.json(
+            {
+                error: e,
+                message:
+                    "Une erreur est survenue, veuillez réessayer plus tard.",
+            },
+            { status: 500 }
+        );
     }
 }
 
 export async function POST(req: Request) {
     const { data } = await req.json();
     const { offerComTypes, ...offer } = data;
+
+    if (!(await isOfferOwner(offer.mentorId))) {
+        return NextResponse.json(
+            {
+                message: "Vous n'êtes pas autorisé à créer cette offre.",
+            },
+            { status: 401 }
+        );
+    }
 
     let comTypesArray = [];
 
@@ -36,9 +47,9 @@ export async function POST(req: Request) {
             return {
                 comType: {
                     connect: {
-                        id: comTypeId
-                    }
-                }
+                        id: comTypeId,
+                    },
+                },
             };
         });
     }
@@ -48,21 +59,28 @@ export async function POST(req: Request) {
             data: {
                 ...offer,
                 offerComTypes: {
-                    create: [...comTypesArray]
-                }
-            }
+                    create: [...comTypesArray],
+                },
+            },
         });
         return NextResponse.json(newOffer, { status: 201 });
     } catch (e) {
         console.log(e);
 
         if (e instanceof PrismaClientValidationError) {
-            return NextResponse.json({ error: e, message: "Erreur de validation prisma" }, { status: 404 });
+            return NextResponse.json(
+                { error: e, message: "Erreur de validation prisma" },
+                { status: 404 }
+            );
         } else {
-            return NextResponse.json({
-                error: e,
-                message: "Une erreur est survenue, veuillez réessayer plus tard."
-            }, { status: 500 });
+            return NextResponse.json(
+                {
+                    error: e,
+                    message:
+                        "Une erreur est survenue, veuillez réessayer plus tard.",
+                },
+                { status: 500 }
+            );
         }
     }
 }
