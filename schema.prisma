@@ -112,6 +112,8 @@ model Offer {
   mentor User @relation(fields: [mentorId], references: [id], onDelete: Cascade, onUpdate: Cascade)
 
   savedOffers SavedOffer[]
+
+  rooms Room[]
 }
 
 model Report {
@@ -192,6 +194,10 @@ model Room {
   messages Message[]
 
   userRooms UserRoom[]
+
+  offer Offer @relation(fields: [offerId], references:[id])
+
+  offerId Int
 }
 
 model SavedOffer {
