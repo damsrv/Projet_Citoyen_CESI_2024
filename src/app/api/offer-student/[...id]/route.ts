@@ -1,5 +1,5 @@
 import prisma from "@/lib/prisma";
-import { Offer, User } from "@prisma/client";
+import { Offer, Room, User } from "@prisma/client";
 import { PrismaClient, Prisma } from '@prisma/client'
 import { NextResponse } from "next/server";
 import * as bcrypt from 'bcrypt';
@@ -15,12 +15,14 @@ interface Params {
     }
 }
 
-export async function PUT(req: Request, params: Params) { 
+export async function PUT (req: Request, params: Params) { 
 
     const { data } = await req.json();
 
     const studentId = parseInt(params.params.id[0]);
-    const offerId = parseInt(params.params.id[1]);    
+    const mentorId = parseInt(params.params.id[1]);
+    const offerId = parseInt(params.params.id[2]);   
+    let newRoom : Room; 
 
     try {
 
@@ -35,6 +37,34 @@ export async function PUT(req: Request, params: Params) {
                     status: data.status,
                 },
         })
+
+        if (data.status === 1) {
+
+            const userIds = [studentId, mentorId];
+            
+            const newRoom = await prisma.room.create({
+                data: {
+                  userRooms: {
+                    create: [
+                      { user: { connect: { id: studentId } } },
+                      { user: { connect: { id: mentorId } } }
+                    ],
+                  },
+                  offer: {
+                    connect: { id: offerId }
+                  }
+                },
+                include: {
+                  userRooms: {
+                    include: {
+                      user: true,
+                    },
+                  },
+                },
+              });
+
+            return NextResponse.json(newRoom, { status: 201 });
+        }
 
         return NextResponse.json(updatedOfferStudent, { status: 201 });
 
