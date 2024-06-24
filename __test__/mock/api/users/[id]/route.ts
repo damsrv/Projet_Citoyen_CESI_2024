@@ -15,8 +15,6 @@ export async function GET(req: Request, params: Params) {
     const userId = parseInt(params.params.id);
 
     try {
-
-        console.log("userId", userId);
         
         // on apppelle prisma pour GET ALL USERS (FAKER)
         const user: User | undefined = userListMock.find(user => user.id === userId)

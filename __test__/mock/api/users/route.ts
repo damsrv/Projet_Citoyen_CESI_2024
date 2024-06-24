@@ -7,8 +7,6 @@ import { prismaMock } from '../../../../singleton';
 import prisma from "../../../../src/lib/prisma";
 import { createUser } from '../../../mock/functions-without-context';
 
-
-
 // GET ALL USER BY ID UNIT TEST
 export async function GET() {
 
@@ -47,11 +45,9 @@ export async function POST(req: Request) { //OK
         newUser.password = await bcrypt.hash(pass!, 10);
 
         // Si ca passe ici c'est que Prisma est OK
-        // TODO ne fonctionne pas. 
-        // passe même si on met des values pas correcte dans l'objet.
         prismaMock.user.create.mockResolvedValue(newUser);
 
-        return NextResponse.json(newUser, { status: 201 }); // omit password
+        return NextResponse.json(newUser, { status: 201 });
 
     } catch (e) {
 

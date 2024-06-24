@@ -26,7 +26,6 @@ describe('/api/users', () => { //OK
   });
 
   // POST USER
-  // NOK ne fonctionne pas.
   test('return a newly created user with status 201', async () => {
 
     const user = {
