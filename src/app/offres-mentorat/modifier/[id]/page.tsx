@@ -67,16 +67,18 @@ const getOfferData = async (id: number) => {
         return undefined;
     }
     return {
-        id: offer.id,
-        content: offer.content || "",
-        location: offer.location || "",
-        title: offer.title || "",
-        status: offer.status.toString(),
-        categoryId: offer.categoryId.toString(),
-        offerComTypes: offer.offerComTypes.map((offerComType) => {
-            return offerComType.comTypeId;
-        }),
         mentorId: offer.mentorId,
+        defaultdata: {
+            id: offer.id,
+            content: offer.content || "",
+            location: offer.location || "",
+            title: offer.title || "",
+            status: offer.status.toString(),
+            categoryId: offer.categoryId.toString(),
+            offerComTypes: offer.offerComTypes.map((offerComType) => {
+                return offerComType.comTypeId;
+            }),
+        },
     };
 };
 
@@ -86,16 +88,14 @@ export default async function EditOfferPage({
     params: { id: string };
 }) {
     const session = await getServerSession(authOptions);
-    console.log(session);
 
     const comTypes = await getComTypes();
     const categories = await getCategories();
 
     const offerData = await getOfferData(parseInt(params.id));
-    if (
-        !session ||
-        (session.user.roleId == 2 && offerData?.mentorId != session.user.id)
-    ) {
+    const mentorId = offerData?.mentorId;
+
+    if (!session || (session.user.roleId == 2 && mentorId != session.user.id)) {
         redirect("/");
     }
 
@@ -110,7 +110,7 @@ export default async function EditOfferPage({
             <section className=" flex flex-col items-center justify-center gap-5  py-10 md:flex-row md:gap-10 container-custom lg:py-20">
                 <OfferForm
                     userId={session?.user.id!}
-                    defaultData={offerData!}
+                    defaultData={offerData!.defaultdata}
                     comTypes={comTypes}
                     status={status}
                     categories={categories}
