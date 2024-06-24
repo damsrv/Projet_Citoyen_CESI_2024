@@ -1,6 +1,6 @@
 import prisma from "@/lib/prisma";
 import { Offer, Room, User } from "@prisma/client";
-import { PrismaClient, Prisma } from '@prisma/client'
+import { PrismaClient, Prisma } from "@prisma/client";
 import { NextResponse } from "next/server";
 import * as bcrypt from "bcrypt";
 import PrismaClientKnownRequestError = Prisma.PrismaClientKnownRequestError;
@@ -13,14 +13,13 @@ interface Params {
     };
 }
 
-export async function PUT (req: Request, params: Params) { 
-
+export async function PUT(req: Request, params: Params) {
     const { data } = await req.json();
 
     const studentId = parseInt(params.params.id[0]);
     const mentorId = parseInt(params.params.id[1]);
-    const offerId = parseInt(params.params.id[2]);   
-    let newRoom : Room; 
+    const offerId = parseInt(params.params.id[2]);
+    let newRoom: Room;
 
     try {
         const updatedOfferStudent = await prisma.offerStudent.update({
@@ -36,29 +35,28 @@ export async function PUT (req: Request, params: Params) {
         });
 
         if (data.status === 1) {
-
             const userIds = [studentId, mentorId];
-            
+
             const newRoom = await prisma.room.create({
                 data: {
-                  userRooms: {
-                    create: [
-                      { user: { connect: { id: studentId } } },
-                      { user: { connect: { id: mentorId } } }
-                    ],
-                  },
-                  offer: {
-                    connect: { id: offerId }
-                  }
+                    userRooms: {
+                        create: [
+                            { user: { connect: { id: studentId } } },
+                            { user: { connect: { id: mentorId } } },
+                        ],
+                    },
+                    offer: {
+                        connect: { id: offerId },
+                    },
                 },
                 include: {
-                  userRooms: {
-                    include: {
-                      user: true,
+                    userRooms: {
+                        include: {
+                            user: true,
+                        },
                     },
-                  },
                 },
-              });
+            });
 
             return NextResponse.json(newRoom, { status: 201 });
         }
