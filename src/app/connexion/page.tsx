@@ -1,9 +1,10 @@
 import Image from "next/image";
 import H1 from "@/components/ui/Typography/h1";
-import {RegisterForm} from "@/components/RegisterForm/RegisterForm";
-import {LoginForm} from "@/components/LoginForm/LoginForm";
+import { RegisterForm } from "@/components/RegisterForm/RegisterForm";
+import { LoginForm } from "@/components/LoginForm/LoginForm";
+import Muted from "@/components/ui/Typography/muted";
 
-export default async function LoginPage({searchParams}: {
+export default async function LoginPage({ searchParams }: {
     searchParams: { [key: string]: string | string[] | undefined }
 }) {
 
@@ -12,8 +13,8 @@ export default async function LoginPage({searchParams}: {
             ? "Identifiants incorrects"
             : undefined
     return (
-        <div className="flex justify-evenly items-center w-full grow">
-            <div className="relative">
+        <div className="flex justify-evenly items-center w-full grow p-4 bg-primary-background">
+            <div className="relative hidden lg:block">
                 <Image
                     className="illustration-home md:order-1"
                     src={"/assets/illustration-auth.svg"}
@@ -22,9 +23,22 @@ export default async function LoginPage({searchParams}: {
                     height={500}
                 />
             </div>
-            <section>
+            <section className="box-border w-full lg:w-auto max-w-[500px] p-4 lg:p-10 bg-white border rounded-lg">
                 <H1 className="mb-5">Connexion</H1>
-                <LoginForm error={errorMessage}/>
+
+                <div className="relative lg:hidden flex justify-center">
+                    <Image
+                        className="mb-4 md:order-1"
+                        src={"/assets/illustration-auth.svg"}
+                        alt={""}
+                        width={200}
+                        height={200}
+                    />
+                </div>
+                <Muted className={"text-center mb-4 lg:text-start"}>
+                    Rejoignez la communauté LeBonMentor ! Connectez-vous pour accéder à toutes les fonctionnalités.
+                </Muted>
+                <LoginForm error={errorMessage} />
             </section>
         </div>
     )

@@ -19,15 +19,15 @@ export default async function ProfileDropdown({ user }: ProfileDropdownProps) {
     return (
         <DropdownMenu>
             <DropdownMenuTrigger>
-                <Avatar>
+                <Avatar aria-label="Ouvrir le menu utilisateur" className=" border-secondary border-2">
                     {!!user.avatar && (
-                        <AvatarImage src={user.avatar} />
+                        <AvatarImage src={user.avatar} alt="Avatar de l'utilisateur" />
                     )}
                     <AvatarFallback>{user.firstname.charAt(0).toUpperCase()}{user.lastname.charAt(0).toUpperCase()}</AvatarFallback>
                 </Avatar>
             </DropdownMenuTrigger>
-            <DropdownMenuContent align="end">
-                <DropdownMenuLabel className="flex justify-between items-center gap-2">
+            <DropdownMenuContent align="end" className="min-w-64">
+                <DropdownMenuLabel className="flex justify-start items-center gap-4">
                     <Avatar>
                         {!!user.avatar && (
                             <AvatarImage src={user.avatar} />
