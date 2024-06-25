@@ -13,6 +13,7 @@ interface Params {
     };
 }
 
+// Change le status donc pas besoin de DELETE method.
 export async function PUT(req: Request, params: Params) {
     const { data } = await req.json();
 
