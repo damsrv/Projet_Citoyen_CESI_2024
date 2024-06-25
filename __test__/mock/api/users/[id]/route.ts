@@ -19,7 +19,6 @@ export async function GET(req: Request, params: Params) {
         // on apppelle prisma pour GET ALL USERS (FAKER)
         const user: User | undefined = userListMock.find(user => user.id === userId)
 
-        console.log(user);
         if (user == undefined) {
             throw new Error;
         }
