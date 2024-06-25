@@ -58,20 +58,39 @@ export default async function Topbar() {
                                     <Button variant="ghost" className="!p-2 !text-primary"><AlignJustify size={40} /></Button>
                                 </SheetTrigger>
                                 <SheetContent className="flex flex-col gap-2">
-                                    <SheetHeader className="flex flex-col gap-2">
-                                        {/* TODO SHEET CONTENT */}
-                                        <SheetTitle>Menu</SheetTitle>
-                                        <SheetDescription>
-                                            Selectionner la vue que vous souhaitez pour afficher le menu correspondant.
-                                        </SheetDescription>
-                                        <UserRoleSelect className="!w-full" />
-                                    </SheetHeader>
-                                    <Separator className="my-2" />
-                                    <div className="flex grow">
-                                        {session && (
-                                            <SheetLinks />
+                                    {session !== null
+                                        ?
+                                        (
+                                            <>
+                                                <SheetHeader className="flex flex-col gap-2">
+                                                    {/* TODO SHEET CONTENT */}
+                                                    <SheetTitle>Menu</SheetTitle>
+                                                    <SheetDescription>
+                                                        Selectionner la vue que vous souhaitez pour afficher le menu correspondant.
+                                                    </SheetDescription>
+                                                    <UserRoleSelect className="!w-full" />
+                                                </SheetHeader>
+                                                <Separator className="my-2" />
+                                                <div className="flex grow">
+                                                    {session && (
+                                                        <SheetLinks />
+                                                    )}
+                                                </div>
+                                            </>)
+                                        : (
+                                            <>
+                                                <SheetHeader className="flex flex-col gap-2">
+                                                    {/* TODO SHEET CONTENT */}
+                                                    <SheetTitle>Menu</SheetTitle>
+                                                    <SheetDescription>
+                                                        Connectez vous ou inscrivez vous pour accéder à votre espace personnel.
+                                                    </SheetDescription>
+                                                    <LoginButton />
+                                                    <RegisterButton />
+                                                </SheetHeader>
+
+                                            </>
                                         )}
-                                    </div>
                                 </SheetContent>
                             </Sheet>
                         </div>
