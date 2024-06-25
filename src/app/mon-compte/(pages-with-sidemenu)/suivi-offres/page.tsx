@@ -64,7 +64,7 @@ export default async function Profile() {
         <div className=" items-start gap-5 grow ">
             <div className="bg-white p-5 border w-full rounded-lg">
                 <div className="flex flex-col gap-2 md:flex-row md:justify-between mb-5">
-                    <div className="flex items-center justify-between gap-4">
+                    <div className="flex flex-col md:flex-row md:items-center justify-between md:gap-4">
                         <H1 className="text-xl lg:text-xl">Suivi de mes offres</H1>
                         <Muted>{offerStudents.length} demande(s) de contact</Muted>
                     </div>
