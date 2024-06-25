@@ -20,17 +20,6 @@ const ProfileNav = () => {
                 <NavContent />
             </div>
 
-            {/* MENU MOBILE */}
-            <Collapsible open={open} onOpenChange={setOpen} className="bg-white border rounded-lg p-5 flex lg:hidden flex-col gap-5 items-start w-full">
-                <CollapsibleTrigger className="flex justify-between items-center w-full" ><H3 className="text-xl lg:text-3xl">Menu</H3>{!open ?
-                    <ChevronDown size={24} className=" shrink-0 transition-transform duration-200" /> :
-                    <ChevronUp size={24} className=" shrink-0 transition-transform duration-200" />
-                }
-                </CollapsibleTrigger>
-                <CollapsibleContent className="w-full">
-                    <NavContent />
-                </CollapsibleContent>
-            </Collapsible>
         </>
     );
 };

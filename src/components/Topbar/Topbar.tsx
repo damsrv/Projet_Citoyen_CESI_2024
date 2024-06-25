@@ -10,6 +10,9 @@ import ProfileDropdown from "@/components/ProfileDropdown/ProfileDropdown";
 import TopbarLinks from "@/components/Topbar/TopbarLinks/TopbarLinks";
 import UserRoleSelect from "@/components/UserRoleSelect/UserRoleSelect";
 import Link from "next/link";
+import SheetLinks from "@/components/Topbar/SheetLinks/SheetLinks";
+import { Separator } from "@/components/ui/separator"
+
 
 export default async function Topbar() {
     const session = await getServerSession(authOptions);
@@ -32,13 +35,16 @@ export default async function Topbar() {
                     {session !== null
                         ?
                         (
-                            <section className="flex gap-2">
-                                <UserRoleSelect />
-                                <ProfileDropdown user={session.user} />
-                            </section>
-                        )
-                        :
-                        (
+                            <>
+                                <section className="gap-2 hidden lg:flex">
+                                    <UserRoleSelect />
+                                    <ProfileDropdown user={session.user} />
+                                </section>
+                                <section className="gap-2 flex lg:hidden">
+                                    <ProfileDropdown user={session.user} />
+                                </section>
+                            </>
+                        ) : (
                             <section className="hidden justify-between gap-3 sm:flex">
                                 <LoginButton />
                                 <RegisterButton />
@@ -49,21 +55,23 @@ export default async function Topbar() {
                         <div className="flex lg:hidden">
                             <Sheet>
                                 <SheetTrigger asChild>
-                                    <Button variant="primary"><AlignJustify /></Button>
+                                    <Button variant="ghost" className="!p-2 !text-primary"><AlignJustify size={40} /></Button>
                                 </SheetTrigger>
-                                <SheetContent>
-                                    <SheetHeader>
+                                <SheetContent className="flex flex-col gap-2">
+                                    <SheetHeader className="flex flex-col gap-2">
                                         {/* TODO SHEET CONTENT */}
-                                        <SheetTitle>Are you absolutely sure?</SheetTitle>
+                                        <SheetTitle>Menu</SheetTitle>
                                         <SheetDescription>
-                                            This action cannot be undone. This will permanently delete your account
-                                            and remove your data from our servers.
+                                            Selectionner la vue que vous souhaitez pour afficher le menu correspondant.
                                         </SheetDescription>
-                                        <main className="flex">
-                                            <LoginButton />
-                                            <RegisterButton />
-                                        </main>
+                                        <UserRoleSelect className="!w-full" />
                                     </SheetHeader>
+                                    <Separator className="my-2" />
+                                    <div className="flex grow">
+                                        {session && (
+                                            <SheetLinks />
+                                        )}
+                                    </div>
                                 </SheetContent>
                             </Sheet>
                         </div>
