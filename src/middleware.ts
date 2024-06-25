@@ -25,7 +25,7 @@ export const config = { matcher:
     "/api/:path*",
     "/administration/:path*",
     "/mon-compte/:path*",
-    "/offres-mentorat*",
+    "/offres-mentorat",
     "/offres-mentorat/:path*",
     "/mon-compte/:path*",
     "/profil/:path*",
