@@ -6,6 +6,7 @@ import Lead from "@/components/ui/Typography/lead";
 import { Underlined } from "@/components/ui/Typography/underlined";
 import { Handshake, ShieldCheck, UsersRound } from "lucide-react";
 import Image from "next/image";
+import Link from "next/link";
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger, } from "@/components/ui/accordion";
 
 export default async function Page() {
@@ -29,8 +30,12 @@ export default async function Page() {
                         environnement de soutien et de collaboration.
                     </Large>
                     <div className="w-full  flex flex-col gap-2 md:w-auto md:flex-row">
-                        <Button>Chercher un mentor</Button>
-                        <Button variant="secondary">Devenir mentor</Button>
+                        <Button asChild>
+                            <Link href="/offres-mentorat">Chercher un mentor</Link>
+                        </Button>
+                        <Button asChild variant="secondary">
+                            <Link href="/offres-mentorat/nouveau">Devenir mentor</Link>
+                        </Button>
                     </div>
                 </div>
             </section>
@@ -52,8 +57,8 @@ export default async function Page() {
                                 <br></br>Rejoignez notre communauté de
                                 mentors et atteignez vos objectifs
                             </Lead>
-                            <Button className="lg:w-48">
-                                Chercher un mentor
+                            <Button className="lg:w-48" asChild>
+                                <Link href="/offres-mentorat">Chercher un mentor</Link>
                             </Button>
                         </div>
                     </div>
@@ -69,11 +74,10 @@ export default async function Page() {
                                 votre temps pour des personnes qui en ont
                                 besoin.
                             </Lead>
-                            <Button
+                            <Button asChild
                                 className="lg:w-48"
-                                variant={"secondary"}
-                            >
-                                Devenir mentor
+                                variant={"secondary"}>
+                                <Link href="/offres-mentorat/nouveau">Devenir mentor</Link>
                             </Button>
                         </div>
                     </div>

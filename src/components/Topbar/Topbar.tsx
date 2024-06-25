@@ -55,7 +55,7 @@ export default async function Topbar() {
                         <div className="flex lg:hidden">
                             <Sheet>
                                 <SheetTrigger asChild>
-                                    <Button variant="ghost" className="!p-2 !text-primary"><AlignJustify size={40} /></Button>
+                                    <Button variant="ghost" aria-label="Ouvrir le menu" className="!p-2 !text-primary"><AlignJustify size={40} /></Button>
                                 </SheetTrigger>
                                 <SheetContent className="flex flex-col gap-2">
                                     {session !== null
