@@ -49,13 +49,14 @@ const getData = async (session: Session) => {
         skills: user.userSkills.map((userSkill) => {
             return userSkill.skill.id
         }),
-        id: user.id
+        id: user.id,
+        avatar: user.avatar ?? undefined
     }
 }
 
 export default async function Profile() {
     const session = await getServerSession(authOptions);
-    const { id, ...userData } = (await getData(session!))!;
+    const { id, avatar, ...userData } = (await getData(session!))!;
 
     return (
         <div className="flex flex-col justify-start gap-5 grow ">
@@ -66,7 +67,7 @@ export default async function Profile() {
                 </div>
 
                 {session && (
-                    <FormProfile defaultData={userData} skills={await getSkills()} avatar={session.user.avatar ?? undefined} userId={id} />
+                    <FormProfile defaultData={userData} skills={await getSkills()} avatar={avatar ?? undefined} userId={id} />
                 )}
             </div>
         </div>
