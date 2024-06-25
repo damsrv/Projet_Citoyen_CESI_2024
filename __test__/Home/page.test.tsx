@@ -7,7 +7,7 @@ import Footer from "@/components/Footer/Footer";
 
 
 describe("Page", () => {
-    it("la div main est bien présente", () => {
+    it("the main div is in the document", () => {
 
       render(<Page />);
 
