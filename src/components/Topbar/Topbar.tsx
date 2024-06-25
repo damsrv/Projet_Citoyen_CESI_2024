@@ -19,7 +19,7 @@ export default async function Topbar() {
 
     return (
         <div className="border-b">
-            <div className="container-custom flex h-14 w-full p-2 justify-between">
+            <div className="container-custom flex h-14 w-full p-2 justify-between gap-5">
                 <div className="relative h-full w-48">
                     <Link href="/">
                         <Image src={"/assets/LeBonMentor.svg"} alt={"oui"} layout="fill"
