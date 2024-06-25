@@ -1,12 +1,12 @@
-import {Button} from "@/components/ui/button";
+import { Button } from "@/components/ui/button";
 import H2 from "@/components/ui/Typography/h2";
 import H3 from "@/components/ui/Typography/h3";
 import Large from "@/components/ui/Typography/large";
 import Lead from "@/components/ui/Typography/lead";
-import {Underlined} from "@/components/ui/Typography/underlined";
-import {Handshake, ShieldCheck, UsersRound} from "lucide-react";
+import { Underlined } from "@/components/ui/Typography/underlined";
+import { Handshake, ShieldCheck, UsersRound } from "lucide-react";
 import Image from "next/image";
-import {Accordion, AccordionContent, AccordionItem, AccordionTrigger,} from "@/components/ui/accordion";
+import { Accordion, AccordionContent, AccordionItem, AccordionTrigger, } from "@/components/ui/accordion";
 
 export default async function Page() {
     return (
@@ -97,7 +97,7 @@ export default async function Page() {
                                         "flex gap-1 items-center text-xl mb-2"
                                     }
                                 >
-                                    <Handshake/>
+                                    <Handshake />
                                     Engagement
                                 </H3>
                                 <Lead>
@@ -113,7 +113,7 @@ export default async function Page() {
                                         "flex gap-1 items-center text-xl mb-2"
                                     }
                                 >
-                                    <UsersRound/>
+                                    <UsersRound />
                                     Altruisme
                                 </H3>
                                 <Lead>
@@ -129,7 +129,7 @@ export default async function Page() {
                                         "flex gap-1 items-center text-xl mb-2"
                                     }
                                 >
-                                    <ShieldCheck/>
+                                    <ShieldCheck />
                                     Confiance
                                 </H3>
                                 <Lead>
