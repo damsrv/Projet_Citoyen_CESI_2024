@@ -175,6 +175,9 @@ details summary::marker {
         width: 540px;
         margin-inline: auto;
     }
+    .container-custom-offer {
+        width: 100% !important;
+    }
     .background-bubble-primary > .content,
     .background-bubble-secondary > .content {
         text-align: center;
@@ -190,6 +193,9 @@ details summary::marker {
     .container-custom {
         width: 720px;
         margin-inline: auto;
+    }
+    .container-custom-offer {
+        width: 100% !important;
     }
 }
 
@@ -215,6 +221,9 @@ details summary::marker {
     .container-custom {
         width: 960px;
         margin-inline: auto;
+    }
+    .container-custom-offer {
+        width: 100% !important;
     }
     .background-bubble-primary > .background,
     .background-bubble-secondary > .background {
@@ -242,7 +251,7 @@ details summary::marker {
         margin-left: 100px;
     }
     .container-custom {
-        width: 1200px;
+        width: 1200px !important;
         margin-inline: auto;
     }
 
@@ -286,7 +295,7 @@ details summary::marker {
         margin-left: 150px;
     }
     .container-custom {
-        width: 1320px;
+        width: 1320px !important;
         margin-inline: auto;
     }
 }
