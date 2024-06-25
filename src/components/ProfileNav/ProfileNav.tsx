@@ -16,7 +16,7 @@ const ProfileNav = () => {
     return (
         <>
             {/* MENU DESKTOP */}
-            <div className="bg-white border w-64 rounded-lg p-5 hidden h-max max-h-full lg:flex flex-col divide-y-2">
+            <div className="bg-white border  min-w-64 w-64 rounded-lg p-5 hidden h-max max-h-full lg:flex flex-col divide-y-2">
                 <NavContent />
             </div>
 

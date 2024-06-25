@@ -66,10 +66,15 @@ export default async function Profile() {
                 <div className="flex flex-col gap-2 md:flex-row md:justify-between mb-5">
                     <div className="flex items-center justify-between gap-4">
                         <H1 className="text-xl lg:text-xl">Suivi de mes offres</H1>
-                        <Muted>{user.offers.length} offre(s)</Muted>
+                        <Muted>{offerStudents.length} demande(s) de contact</Muted>
                     </div>
 
                 </div>
+
+
+                <p className="text-gray-600 mb-5">
+                    Cet écran vous permet de suivre l'évolution de vos offres de mentorat. Vous pouvez voir les demandes de contact reçues et y répondre. Vous pouvez également voir les propositions de mentorat que vous avez envoyées aux demandes de mentorat et suivre leur statut.
+                </p>
 
                 {/* Afficher la liste des demandes de contact & TODO pour plus tard (demandes de mentorat) : liste des réponses à mes propositions de mentorat et leur statut */}
 

@@ -175,3 +175,16 @@ DELETE
 http://localhost:3000/api/messages/3
 
 passe juste le status du message à 1.
+
+
+////////////////////////////////////////////////////////////
+//////////////////// OFFER STUDENT /////////////////////////
+///////////////////////////////////////////////////////////
+
+http://localhost:3000/api/offer-student/studentId/mentorId/offerId
+
+{
+    "data":  {
+        "status": 0
+    }
+}  

@@ -72,9 +72,12 @@ export const authOptions = {
             }
             return session;
         },
-        async jwt({user, token, session}) {
+        async jwt({ user, token, trigger, session }) {
             if(user) {
                 token.user = user as unknown as Omit<User, "password">
+            }
+            if (trigger === "update") {
+                token.user.avatar = session.avatar
             }
             return token
         }
