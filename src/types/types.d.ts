@@ -14,7 +14,7 @@ type UserTableType = {
 };
 
 
-type ReportType = {
+type ReportTableType = {
     id: number;
     status: number;
     reporter: User;
@@ -24,4 +24,13 @@ type ReportType = {
     reason: string;
 };
 
-export type { UserTableType, ReportType };
+type SavedOfferTableType = {
+    userId : number;
+    offerId : number;
+    offer : Offer;
+}
+
+
+
+
+export type { UserTableType, ReportTableType, SavedOfferTableType };

@@ -84,6 +84,12 @@ export default async function ProfileDropdown({ user }: ProfileDropdownProps) {
                         <ArrowRight className="opacity-0 group-hover:opacity-100 transition-opacity h-4 ml-auto" />
                     </Link>
                 </DropdownMenuItem>
+                <DropdownMenuItem className="group cursor-pointer" asChild>
+                    <Link href="/mon-compte/offres-favorites">
+                        Offres favorites
+                        <ArrowRight className="opacity-0 group-hover:opacity-100 transition-opacity h-4 ml-auto" />
+                    </Link>
+                </DropdownMenuItem>
                 {/* <DropdownMenuItem className="group cursor-pointer" asChild>
                     <Link href="/mon-compte/mentorats">
                         Mes mentorats

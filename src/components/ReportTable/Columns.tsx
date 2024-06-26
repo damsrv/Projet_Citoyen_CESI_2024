@@ -21,9 +21,9 @@ import { DataTableColumnHeader } from "@/components/DataTable/DataTableColumnHea
 
 import ReportGetPayload = Prisma.ReportGetPayload;
 import { Prisma } from "@prisma/client";
-import type { ReportType } from "@/types/types.d.ts";
+import type { ReportTableType } from "@/types/types.d.ts";
 
-export const columns: ColumnDef<ReportType>[] = [
+export const columns: ColumnDef<ReportTableType>[] = [
     {
         accessorKey: "status",
         header: ({ column }) => (

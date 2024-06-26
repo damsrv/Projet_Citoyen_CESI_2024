@@ -66,6 +66,10 @@ const NavContent = () => {
                         title: "Suivi de mes demandes",
                         url: "/mon-compte/suivi-demandes",
                     },
+                    {
+                        title: "Offres favorites",
+                        url: "/mon-compte/offres-favorites",
+                    },
                 ],
             },
 
