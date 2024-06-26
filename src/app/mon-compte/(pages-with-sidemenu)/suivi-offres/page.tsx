@@ -10,6 +10,12 @@ import { Button } from "@/components/ui/button";
 import Link from "next/link";
 import FollowOffers from "@/components/FollowOffers/FollowOffers";
 import OfferStudentGetPayload = Prisma.OfferStudentGetPayload;
+import type { Metadata } from "next";
+
+export const metadata: Metadata = {
+    title: "Suivi de mes offres",
+    description: "Suivi de mes offres",
+};
 
 
 

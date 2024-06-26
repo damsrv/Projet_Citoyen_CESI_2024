@@ -9,7 +9,12 @@ import { Prisma } from "@prisma/client";
 import ChangePasswordForm from "@/components/ManageAccount/ChangePasswordForm";
 import ChangeEmailForm from "@/components/ManageAccount/ChangeEmailForm";
 import DeleteAccount from "@/components/ManageAccount/DeleteAccount";
+import type { Metadata } from "next";
 
+export const metadata: Metadata = {
+    title: "Gérer mon compte",
+    description: "Gérer mon compte",
+};
 
 
 export default async function Profile() {

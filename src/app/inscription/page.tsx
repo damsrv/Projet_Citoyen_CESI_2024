@@ -4,11 +4,17 @@ import Image from "next/image";
 import H3 from "@/components/ui/Typography/h3";
 import Muted from "@/components/ui/Typography/muted";
 import { NextRequest } from "next/server";
+import type { Metadata } from "next";
+
+export const metadata: Metadata = {
+    title: "Inscription",
+    description: "Rejoignez la communauté LeBonMentor ! Créez votre compte pour accéder à toutes les fonctionnalités.",
+};
+
+
 
 export default function RegisterPage() {
     return (
-
-
 
         <div className="flex justify-evenly items-center w-full grow p-4 bg-primary-background">
             <div className="relative hidden lg:block">

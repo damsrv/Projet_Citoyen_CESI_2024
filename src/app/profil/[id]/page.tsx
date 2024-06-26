@@ -3,6 +3,13 @@ import React from "react";
 import UserOfferList from "@/components/UserProfile/UserOfferList";
 import UserProfil from "@/components/UserProfile/UserProfile";
 import H1 from "@/components/ui/Typography/h1";
+import type { Metadata } from "next";
+
+export const metadata: Metadata = {
+    title: "Profil",
+    description: "Profil",
+};
+
 
 const getData = async (id: number) => {
     const user = await prisma.user.findFirst({
@@ -27,7 +34,11 @@ const getData = async (id: number) => {
 };
 
 const ProfilPage = async ({ params }: { params: { id: string } }) => {
+
+
     const user = await getData(parseInt(params.id));
+    metadata.title = user?.firstname + " " + user?.lastname;
+    metadata.description = user?.description;
 
     if (!user) {
         return (

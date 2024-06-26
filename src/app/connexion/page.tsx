@@ -3,6 +3,14 @@ import H1 from "@/components/ui/Typography/h1";
 import { RegisterForm } from "@/components/RegisterForm/RegisterForm";
 import { LoginForm } from "@/components/LoginForm/LoginForm";
 import Muted from "@/components/ui/Typography/muted";
+import type { Metadata } from "next";
+
+export const metadata: Metadata = {
+    title: "Connexion",
+    description: "Connectez-vous pour accéder à toutes les fonctionnalités de LeBonMentor",
+};
+
+
 
 export default async function LoginPage({ searchParams }: {
     searchParams: { [key: string]: string | string[] | undefined }

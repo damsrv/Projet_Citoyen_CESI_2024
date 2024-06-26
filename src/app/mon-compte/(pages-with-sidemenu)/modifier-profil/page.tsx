@@ -6,6 +6,15 @@ import { authOptions } from "@/lib/authOptions";
 import prisma from "@/lib/prisma";
 import UserGetPayload = Prisma.UserGetPayload;
 import { Prisma } from "@prisma/client";
+import type { Metadata } from "next";
+
+export const metadata: Metadata = {
+    title: "Modifier profil",
+    description: "Modifier profil",
+};
+
+
+
 
 const getSkills = async () => {
     // récupérer les infos du user

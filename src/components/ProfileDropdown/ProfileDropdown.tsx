@@ -19,7 +19,7 @@ export default async function ProfileDropdown({ user }: ProfileDropdownProps) {
     return (
         <DropdownMenu>
             <DropdownMenuTrigger>
-                <Avatar aria-label="Ouvrir le menu utilisateur" className=" border-secondary border-2">
+                <Avatar aria-label="Ouvrir le menu utilisateur" className="">
                     {!!user.avatar && (
                         <AvatarImage src={user.avatar} alt="Avatar de l'utilisateur" />
                     )}
