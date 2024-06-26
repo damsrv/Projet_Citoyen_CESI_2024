@@ -13,7 +13,7 @@ export default async function Page() {
     return (
         <main className="min-h-screen">
             <section
-                className=" flex flex-col items-center gap-5  p-5  py-10 md:flex-row md:gap-10 container-custom lg:py-20">
+                className=" flex flex-col items-center gap-5  p-5  py-10 md:flex-row md:gap-10 container-custom lg:py-16">
                 <Image
                     className="illustration-home md:order-1"
                     src={"/assets/illustration-entraide.png"}
@@ -45,7 +45,7 @@ export default async function Page() {
                     Un seul mot d'ordre, la communication
                 </H2>
                 <div
-                    className="text-center flex flex-col gap-20 py-10 w-full items-center lg:flex-row lg:justify-around lg:gap-10 lg:py-20">
+                    className="text-center flex flex-col gap-20 py-10 w-full items-center lg:flex-row lg:justify-around lg:gap-10 lg:py-10">
                     <div className="background-bubble-primary">
                         <div className="background"></div>
                         <div className="content flex flex-col lg:items-center gap-5">
