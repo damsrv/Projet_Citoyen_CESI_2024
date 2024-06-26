@@ -1,0 +1,22 @@
+{
+  "name": "LeBonMentor",
+  "short_name": "LBM",
+  "theme_color": "#26809C",
+  "background_color": "#ffffff",
+  "display": "standalone",
+  "orientation": "any",
+  "scope": "/",
+  "start_url": "/",
+  "icons": [
+    {
+      "src": "/logos/logo-lbm-192.png",
+      "type": "image/png",
+      "sizes": "192x192"
+    },
+    {
+      "src": "/logos/logo-lbm-256.png",
+      "type": "image/png",
+      "sizes": "256x256"
+    }
+  ]
+}

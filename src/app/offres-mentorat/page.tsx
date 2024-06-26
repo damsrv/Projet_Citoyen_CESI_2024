@@ -1,24 +1,23 @@
-import H2 from "@/components/ui/Typography/h2";
-import OfferCard from "@/components/OfferCard/OfferCard";
 import prisma from "@/lib/prisma";
+import H3 from "@/components/ui/Typography/h3";
+import FilterForm from "@/components/FilterForm/FilterForm";
+import OfferList from "@/components/OfferList/OfferList";
+import OffersListProvider from "@/components/Providers/OffersListProvider/OffersListProvider";
 
-export default async function MentoringPage() {
-    const offers = await prisma.offer.findMany({
-        include: {
-            mentor: true
-        }
-    })
-
+export default async function MentoringPage({searchParams}: {
+    searchParams?: { [key: string]: string | string[] | undefined }
+}) {
+    const categoryTypes = await prisma.categoryType.findMany({include: {categories: true}});
+    const categories = await prisma.category.findMany();
     return (
-        <div>
-            <H2>Liste des offres de mentorat</H2>
-            <ul>
-                {offers.map((offer) => {
-                    return (
-                        <OfferCard offer={offer} key={offer.id}/>
-                    )
-                })}
-            </ul>
+        <div className="container-custom">
+            <OffersListProvider>
+                <section>
+                    <H3>Filtres</H3>
+                    <FilterForm categoryTypes={categoryTypes} categories={categories}/>
+                </section>
+                <OfferList/>
+            </OffersListProvider>
         </div>
     )
 }

@@ -75,7 +75,7 @@ export function RegisterForm() {
                         control={form.control}
                         name="firstname"
                         render={({ field }) => (
-                            <FormItem>
+                            <FormItem className="grow">
                                 {/*<FormLabel>Prénom</FormLabel>*/}
                                 <FormControl>
                                     <Input placeholder="Prénom" {...field} />
@@ -88,7 +88,7 @@ export function RegisterForm() {
                         control={form.control}
                         name="lastname"
                         render={({ field }) => (
-                            <FormItem>
+                            <FormItem className="grow">
                                 {/*<FormLabel>Prénom</FormLabel>*/}
                                 <FormControl>
                                     <Input placeholder="Nom" {...field} />

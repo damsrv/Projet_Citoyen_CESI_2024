@@ -1,24 +1,24 @@
 "use client"
 
-import {useContext} from "react";
-import {RoleContext, UserRoles} from "@/Context/RoleContext";
-import {Select, SelectContent, SelectItem, SelectTrigger, SelectValue} from "@/components/ui/select";
+import { useContext } from "react";
+import { RoleContext, UserRoles } from "@/context/RoleContext";
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 
-export default function UserRoleSelect() {
-    const {currentRole, setCurrentRole } = useContext(RoleContext);
+export default function UserRoleSelect({ className = "" }: { className?: string }) {
+    const { currentRole, setCurrentRole } = useContext(RoleContext);
 
     function onRoleChange(value: string) {
         setCurrentRole(value as UserRoles);
     }
 
     return (
-        <Select defaultValue={currentRole} onValueChange={onRoleChange}>
-            <SelectTrigger className="w-[180px]">
+        <Select value={currentRole} onValueChange={onRoleChange}>
+            <SelectTrigger className={className + " w-[180px]"}>
                 <SelectValue />
             </SelectTrigger>
             <SelectContent>
-                <SelectItem value={UserRoles.Mentor}>Mentor</SelectItem>
-                <SelectItem value={UserRoles.Mentored}>Mentoré</SelectItem>
+                <SelectItem value={UserRoles.Mentor}>Vue mentor</SelectItem>
+                <SelectItem value={UserRoles.Mentored}>Vue mentoré</SelectItem>
             </SelectContent>
         </Select>
     )

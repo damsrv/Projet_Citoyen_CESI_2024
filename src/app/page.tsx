@@ -1,18 +1,19 @@
-import {Button} from "@/components/ui/button";
+import { Button } from "@/components/ui/button";
 import H2 from "@/components/ui/Typography/h2";
 import H3 from "@/components/ui/Typography/h3";
 import Large from "@/components/ui/Typography/large";
 import Lead from "@/components/ui/Typography/lead";
-import {Underlined} from "@/components/ui/Typography/underlined";
-import {Handshake, ShieldCheck, UsersRound} from "lucide-react";
+import { Underlined } from "@/components/ui/Typography/underlined";
+import { Handshake, ShieldCheck, UsersRound } from "lucide-react";
 import Image from "next/image";
-import {Accordion, AccordionContent, AccordionItem, AccordionTrigger,} from "@/components/ui/accordion";
+import Link from "next/link";
+import { Accordion, AccordionContent, AccordionItem, AccordionTrigger, } from "@/components/ui/accordion";
 
 export default function Page() {
     return (
         <main className="min-h-screen" data-testid="main">
             <section
-                className=" flex flex-col items-center gap-5  p-5  py-10 md:flex-row md:gap-10 container-custom lg:py-20">
+                className=" flex flex-col items-center gap-5  p-5  py-10 md:flex-row md:gap-10 container-custom lg:py-16">
                 <Image
                     className="illustration-home md:order-1"
                     src={"/assets/illustration-entraide.png"}
@@ -29,8 +30,12 @@ export default function Page() {
                         environnement de soutien et de collaboration.
                     </Large>
                     <div className="w-full  flex flex-col gap-2 md:w-auto md:flex-row">
-                        <Button>Chercher un mentor</Button>
-                        <Button variant="secondary">Devenir mentor</Button>
+                        <Button asChild>
+                            <Link href="/offres-mentorat">Chercher un mentor</Link>
+                        </Button>
+                        <Button asChild variant="secondary">
+                            <Link href="/offres-mentorat/nouveau">Devenir mentor</Link>
+                        </Button>
                     </div>
                 </div>
             </section>
@@ -40,7 +45,7 @@ export default function Page() {
                     Un seul mot d'ordre, la communication
                 </H2>
                 <div
-                    className="text-center flex flex-col gap-20 py-10 w-full items-center lg:flex-row lg:justify-around lg:gap-10 lg:py-20">
+                    className="text-center flex flex-col gap-20 py-10 w-full items-center lg:flex-row lg:justify-around lg:gap-10 lg:py-10">
                     <div className="background-bubble-primary">
                         <div className="background"></div>
                         <div className="content flex flex-col lg:items-center gap-5">
@@ -52,8 +57,8 @@ export default function Page() {
                                 <br></br>Rejoignez notre communauté de
                                 mentors et atteignez vos objectifs
                             </Lead>
-                            <Button className="lg:w-48">
-                                Chercher un mentor
+                            <Button className="lg:w-48" asChild>
+                                <Link href="/offres-mentorat">Chercher un mentor</Link>
                             </Button>
                         </div>
                     </div>
@@ -69,11 +74,10 @@ export default function Page() {
                                 votre temps pour des personnes qui en ont
                                 besoin.
                             </Lead>
-                            <Button
+                            <Button asChild
                                 className="lg:w-48"
-                                variant={"secondary"}
-                            >
-                                Devenir mentor
+                                variant={"secondary"}>
+                                <Link href="/offres-mentorat/nouveau">Devenir mentor</Link>
                             </Button>
                         </div>
                     </div>
@@ -97,7 +101,7 @@ export default function Page() {
                                         "flex gap-1 items-center text-xl mb-2"
                                     }
                                 >
-                                    <Handshake/>
+                                    <Handshake />
                                     Engagement
                                 </H3>
                                 <Lead>
@@ -113,7 +117,7 @@ export default function Page() {
                                         "flex gap-1 items-center text-xl mb-2"
                                     }
                                 >
-                                    <UsersRound/>
+                                    <UsersRound />
                                     Altruisme
                                 </H3>
                                 <Lead>
@@ -129,7 +133,7 @@ export default function Page() {
                                         "flex gap-1 items-center text-xl mb-2"
                                     }
                                 >
-                                    <ShieldCheck/>
+                                    <ShieldCheck />
                                     Confiance
                                 </H3>
                                 <Lead>

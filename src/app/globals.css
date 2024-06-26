@@ -33,6 +33,8 @@
         --destructive-foreground: 210 40% 98%;
         --positive: 116 51% 47%;
         --positive-foreground: 210 40% 98%;
+        --warning: 42 100% 50%;
+        --warning-foreground: 210 40% 98%;
 
         --border: 214.3 31.8% 91.4%;
         --input: 214.3 31.8% 91.4%;
@@ -173,6 +175,9 @@ details summary::marker {
         width: 540px;
         margin-inline: auto;
     }
+    .container-custom-offer {
+        width: 100% !important;
+    }
     .background-bubble-primary > .content,
     .background-bubble-secondary > .content {
         text-align: center;
@@ -188,6 +193,9 @@ details summary::marker {
     .container-custom {
         width: 720px;
         margin-inline: auto;
+    }
+    .container-custom-offer {
+        width: 100% !important;
     }
 }
 
@@ -213,6 +221,9 @@ details summary::marker {
     .container-custom {
         width: 960px;
         margin-inline: auto;
+    }
+    .container-custom-offer {
+        width: 100% !important;
     }
     .background-bubble-primary > .background,
     .background-bubble-secondary > .background {
@@ -240,7 +251,7 @@ details summary::marker {
         margin-left: 100px;
     }
     .container-custom {
-        width: 1200px;
+        width: 1200px !important;
         margin-inline: auto;
     }
 
@@ -284,10 +295,100 @@ details summary::marker {
         margin-left: 150px;
     }
     .container-custom {
-        width: 1320px;
+        width: 1320px !important;
         margin-inline: auto;
     }
 }
 
 @media (min-width: 1400px) {
+}
+
+.status {
+    width: 10px;
+    height: 10px;
+    border-radius: 5px;
+    margin-inline-end: 5px;
+    padding: 5px 10px;
+    font-weight: 600;
+}
+.status-published {
+    background-color: hsl(var(--positive));
+    color: hsl(var(--positive-foreground));
+}
+.status-draft {
+    background-color: hsl(var(--muted));
+    color: hsl(var(--muted-foreground));
+}
+.status-archived {
+    background-color: hsl(var(--destructive));
+    color: hsl(var(--destructive-foreground));
+}
+.status-pending {
+    background-color: hsl(var(--warning));
+    color: hsl(var(--warning-foreground));
+}
+
+/* Input radio */
+input[type="radio"] {
+    display: none !important;
+}
+
+input[type="radio"] + label {
+    display: inline-block;
+    padding: 5px 10px;
+    border-radius: 5px;
+    border: 1px solid hsl(var(--border));
+    background-color: hsl(var(--background));
+    color: black;
+    cursor: pointer;
+}
+
+input[type="radio"]:checked + label {
+    background-color: hsl(var(--primary));
+    color: white;
+}
+
+input[type="radio"]:hover + label {
+    background-color: hsl(var(--primary-background));
+}
+
+input[type="radio"]:checked:hover + label {
+    background-color: hsl(var(--primary));
+    color: white;
+}
+
+/* Input checkbox */
+input[type="checkbox"] {
+    display: none !important;
+}
+
+input[type="checkbox"] + label {
+    display: inline-block;
+    padding: 5px 15px;
+    border-radius: 20px;
+    border: 1px solid hsl(var(--border));
+    background-color: hsl(var(--background));
+    color: black;
+    cursor: pointer;
+}
+
+input[type="checkbox"]:checked + label {
+    background-color: hsl(var(--primary));
+    color: white;
+}
+
+input[type="checkbox"]:hover + label {
+    background-color: hsl(var(--primary-background));
+}
+
+input[type="checkbox"]:checked:hover + label {
+    background-color: hsl(var(--primary));
+    color: white;
+}
+
+button[role="radio"] {
+    display: none;
+}
+button[role="checkbox"] {
+    display: none;
 }

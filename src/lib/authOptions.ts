@@ -1,16 +1,14 @@
-import {PrismaClient, User} from '@prisma/client'
+import {User} from '@prisma/client'
 import CredentialsProvider from "next-auth/providers/credentials";
 import * as bcrypt from 'bcrypt';
 import {NextAuthOptions, User as AuthUser} from 'next-auth';
-import {AdapterUser} from "next-auth/adapters";
-
+import prisma from "@/lib/prisma";
 
 
 // interface LoginResponse {
 //     user: User;
 //     jwt: string;
 // }
-const prisma = new PrismaClient()
 
 
 declare module "next-auth" {
@@ -74,9 +72,12 @@ export const authOptions = {
             }
             return session;
         },
-        async jwt({user, token, session}) {
+        async jwt({ user, token, trigger, session }) {
             if(user) {
                 token.user = user as unknown as Omit<User, "password">
+            }
+            if (trigger === "update") {
+                token.user.avatar = session.avatar
             }
             return token
         }
