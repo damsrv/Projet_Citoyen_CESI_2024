@@ -20,7 +20,7 @@ export async function GET(req: Request, params: Params) {
 
     try {
         if (userId) {
-            const savedOffer = await prisma.savedOffer.findUniqueOrThrow({
+            const savedOffer = await prisma.savedOffer.findUnique({
                 where: {
                     userId_offerId: {
                         userId: userId,
@@ -28,7 +28,15 @@ export async function GET(req: Request, params: Params) {
                     },
                 },
             });
-            return NextResponse.json(savedOffer, { status: 200 });
+            if (savedOffer) {
+                return NextResponse.json(savedOffer, { status: 200 }); 
+            }
+            else {
+                return NextResponse.json(
+                    { error: "No saved offer found", message: "L'offre n'est pas un favoris utilisateur." },
+                    { status: 404 }
+                );
+            }
         }
         else {
             return NextResponse.json(
