@@ -9,6 +9,12 @@ import { Prisma } from "@prisma/client";
 import OfferTable from "@/components/OfferTable/OfferTable";
 import { Button } from "@/components/ui/button";
 import Link from "next/link";
+import type { Metadata } from "next";
+
+export const metadata: Metadata = {
+    title: "Gérer mes offres",
+    description: "Gérer mes offres",
+};
 
 
 const getData = async (session: Session) => {

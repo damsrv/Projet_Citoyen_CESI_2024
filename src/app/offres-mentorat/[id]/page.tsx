@@ -3,6 +3,12 @@ import OfferInfos from "@/components/OfferDetails/OfferInfos/OfferInfos";
 import MentorInfos from "@/components/OfferDetails/MentorInfos/MentorInfos";
 import { Prisma } from "@prisma/client";
 import OfferGetPayload = Prisma.OfferGetPayload;
+import type { Metadata } from "next";
+
+export const metadata: Metadata = {
+    title: "Offre de mentorat",
+    description: "Offre de mentorat",
+};
 
 export default async function OfferIdPage({
     params,
@@ -47,6 +53,9 @@ export default async function OfferIdPage({
             },
         },
     });
+
+    metadata.title = offer?.title;
+    metadata.description = "Offre de mentorat de " + offer?.mentor.firstname + " " + offer?.mentor.lastname + " - " + offer?.title;
 
     return (
         <main className="bg-secondary-background grow">

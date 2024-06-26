@@ -17,9 +17,6 @@ export const metadata: Metadata = {
     title: "LeBonMentor",
     description:
         "LeBonMentor est une plateforme de mentorat en ligne. Trouvez un mentor ou devenez mentor.",
-    // icons: {
-    //     icon: "/favicon.ico",
-    // },
 };
 
 export default async function RootLayout({

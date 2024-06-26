@@ -8,6 +8,12 @@ import prisma from "@/lib/prisma";
 import UserGetPayload = Prisma.UserGetPayload;
 import { Prisma } from "@prisma/client";
 import { OfferStatus } from '@/enums/offerStatus';
+import type { Metadata } from "next";
+
+export const metadata: Metadata = {
+    title: "Nouvelle offre",
+    description: "Nouvelle offre",
+};
 
 
 const getComTypes = async () => {

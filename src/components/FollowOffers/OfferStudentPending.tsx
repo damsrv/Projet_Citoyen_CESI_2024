@@ -50,6 +50,16 @@ const OfferStudentPending = ({ offerStudent }: {
                             <Link className="font-semibold text-primary" href={"/offres-mentorat/" + offerStudent.offer.id}>
                                 {offerStudent.offer.title}
                             </Link>
+                            {
+                                offerStudent.message && (
+                                    <>
+                                        <br />
+                                        <span className="text-sm text-gray-500">
+                                            Message : {offerStudent.message}
+                                        </span>
+                                    </>
+                                )
+                            }
                         </p>
                     </div>
                 </div>

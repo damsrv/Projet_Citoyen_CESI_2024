@@ -7,6 +7,12 @@ import prisma from "@/lib/prisma";
 import UserGetPayload = Prisma.UserGetPayload;
 import { Prisma } from "@prisma/client";
 import { CircleCheck } from "lucide-react";
+import type { Metadata } from "next";
+
+export const metadata: Metadata = {
+    title: "Compte supprimé",
+    description: "Compte supprimé"
+};
 
 
 export default async function Supression() {
