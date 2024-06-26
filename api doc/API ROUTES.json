@@ -181,6 +181,12 @@ passe juste le status du message à 1.
 //////////////////// OFFER STUDENT /////////////////////////
 ///////////////////////////////////////////////////////////
 
+POST
+
+
+
+PUT 
+
 http://localhost:3000/api/offer-student/studentId/mentorId/offerId
 
 {
@@ -188,3 +194,26 @@ http://localhost:3000/api/offer-student/studentId/mentorId/offerId
         "status": 0
     }
 }  
+
+
+
+
+////////////////////////////////////////////////////////////
+//////////////////// SAVED OFFER /////////////////////////
+///////////////////////////////////////////////////////////
+
+POST 
+
+http://localhost:3000/api/saved-offer
+
+{
+    "data":  {
+        "userId": 19,
+        "offerId": 16
+
+    }
+}  
+
+DELETE 
+
+http://localhost:3000/api/saved-offer/userId/offerId

@@ -19,9 +19,9 @@ export default async function ProfileDropdown({ user }: ProfileDropdownProps) {
     return (
         <DropdownMenu>
             <DropdownMenuTrigger>
-                <Avatar className=" border-secondary border-2">
+                <Avatar aria-label="Ouvrir le menu utilisateur" className=" border-secondary border-2">
                     {!!user.avatar && (
-                        <AvatarImage src={user.avatar} />
+                        <AvatarImage src={user.avatar} alt="Avatar de l'utilisateur" />
                     )}
                     <AvatarFallback>{user.firstname.charAt(0).toUpperCase()}{user.lastname.charAt(0).toUpperCase()}</AvatarFallback>
                 </Avatar>
@@ -81,6 +81,12 @@ export default async function ProfileDropdown({ user }: ProfileDropdownProps) {
                 <DropdownMenuItem className="group cursor-pointer" asChild>
                     <Link href="/mon-compte/suivi-demandes">
                         Suivi de mes demandes
+                        <ArrowRight className="opacity-0 group-hover:opacity-100 transition-opacity h-4 ml-auto" />
+                    </Link>
+                </DropdownMenuItem>
+                <DropdownMenuItem className="group cursor-pointer" asChild>
+                    <Link href="/mon-compte/offres-favorites">
+                        Offres favorites
                         <ArrowRight className="opacity-0 group-hover:opacity-100 transition-opacity h-4 ml-auto" />
                     </Link>
                 </DropdownMenuItem>

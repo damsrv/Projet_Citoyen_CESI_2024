@@ -1,21 +1,28 @@
-import {Offer, Prisma} from "@prisma/client";
+import { Offer, Prisma } from "@prisma/client";
 import H4 from "@/components/ui/Typography/h4";
 import H2 from "@/components/ui/Typography/h2";
 import Muted from "@/components/ui/Typography/muted";
 import OfferGetPayload = Prisma.OfferGetPayload;
 import ComTypeBadge from "@/components/OfferDetails/OfferInfos/ComTypeBadge/ComTypeBadge";
-import {Button} from "@/components/ui/button";
+import { Button } from "@/components/ui/button";
 import ContactDialog from "@/components/OfferDetails/OfferInfos/ContactDialog/ContactDialog";
-import {getServerSession} from "next-auth";
-import {authOptions} from "@/lib/authOptions";
+import { getServerSession } from "next-auth";
+import { authOptions } from "@/lib/authOptions";
 import prisma from "@/lib/prisma";
-import {Alert, AlertDescription, AlertTitle} from "@/components/ui/alert";
-import {Info} from "lucide-react";
-import {Underlined} from "@/components/ui/Typography/underlined";
+import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
+import { Info } from "lucide-react";
+import { Underlined } from "@/components/ui/Typography/underlined";
 import A from "@/components/ui/Typography/a";
+import SaveOffer from "@/components/SaveOffer/SaveOffer";
 
 interface OfferInfosProps {
-    offer: OfferGetPayload<{ include: { offerComTypes: { include: { comType: true } } } }>
+    offer: OfferGetPayload<{
+        include: {
+            offerComTypes: { include: { comType: true } }, mentor: {
+                include: { offers: true, userSkills: { include: { skill: true } } }
+            }
+        }
+    }>
 }
 
 async function userHasAlreadySendContactRequestForOffer(userId: number, offerId: number) {
@@ -35,15 +42,17 @@ async function userHasAlreadySendContactRequestForOffer(userId: number, offerId:
     return offer.offerStudents.some((offerStudent) => offerStudent.studentId === userId)
 }
 
-export default async function OfferInfos({offer}: OfferInfosProps) {
+export default async function OfferInfos({ offer }: OfferInfosProps) {
     const session = await getServerSession(authOptions);
     const alreadySend = await userHasAlreadySendContactRequestForOffer(session!.user.id, offer.id)
 
     return (
-        <div className="p-4 bg-secondary-light flex flex-1 flex-col rounded-md space-y-2">
-            <header className="mb-4">
-                <H2>{offer.title}</H2>
-                <Muted>Publiée le {offer.createdAt.toLocaleDateString()}</Muted>
+        <div className="p-5 py-10 lg:py-5 lg:bg-white lg:border lg:rounded-lg flex flex-1 flex-col space-y-2">
+            <header className="mb-4 flex justify-between items-center">
+                <div>
+                    <H2>{offer.title}</H2>
+                    <Muted>Publiée le {offer.createdAt.toLocaleDateString()}</Muted></div>
+                <SaveOffer offerId={offer.id} userId={session!.user.id} />
             </header>
             <main className="space-y-4 flex grow flex-col">
                 <section className="flex flex-col">
@@ -57,7 +66,7 @@ export default async function OfferInfos({offer}: OfferInfosProps) {
                             <ul className="flex flex-wrap gap-3">
                                 {offer.offerComTypes.map((comType, idx) => {
                                     return (
-                                        <ComTypeBadge comType={comType.comType} key={idx}/>
+                                        <ComTypeBadge comType={comType.comType} key={idx} />
                                     )
                                 })}
                             </ul>
@@ -70,7 +79,7 @@ export default async function OfferInfos({offer}: OfferInfosProps) {
                     ?
                     (
                         <Alert>
-                            <Info className="h-5 w-5"/>
+                            <Info className="h-5 w-5" />
                             <AlertTitle>Demande envoyée !</AlertTitle>
                             <AlertDescription>
                                 Vous avez déja envoyé une demande pour cette offre. Consultez-la depuis l'onglet <A href="/mon-compte/suivi-demandes">Mes demandes</A>
@@ -79,7 +88,7 @@ export default async function OfferInfos({offer}: OfferInfosProps) {
                     )
                     :
                     (
-                        <ContactDialog offer={offer}/>
+                        <ContactDialog offer={offer} />
                     )
                 }
             </section>
