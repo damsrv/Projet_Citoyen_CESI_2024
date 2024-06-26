@@ -20,7 +20,11 @@ export async function POST(req: Request) {
                 password: user.password,
                 birthdate: user.birthdate ? new Date(user.birthdate) : new Date(Date.now()),
                 status: 1,
-                roleId: 2,
+                role: {
+                    connect: {
+                        id: 1
+                    }
+                },
             }
         });
 

@@ -1,15 +1,15 @@
 import prisma from "@/lib/prisma";
-import { PrismaClient, Prisma } from '@prisma/client'
-import { NextResponse } from "next/server";
+import {PrismaClient, Prisma} from '@prisma/client'
+import {NextResponse} from "next/server";
 import PrismaClientKnownRequestError = Prisma.PrismaClientKnownRequestError;
-import { PrismaClientValidationError } from "@prisma/client/runtime/library";
-
+import {PrismaClientValidationError} from "@prisma/client/runtime/library";
+import {pusherServer} from "@/lib/pusher";
 
 
 export async function POST(req: Request) {
 
-    const { data } = await req.json();
-    const { roomId, senderId, content, status } = data;
+    const {data} = await req.json();
+    const {roomId, senderId, content, status} = data;
 
     try {
 
@@ -22,7 +22,9 @@ export async function POST(req: Request) {
             },
         });
 
-        return NextResponse.json(newMessage, { status: 201 });
+        await pusherServer.trigger(`channel-${roomId}`, 'send_message', newMessage);
+
+        return NextResponse.json(newMessage, {status: 201});
 
     } catch (e) {
 
@@ -30,14 +32,14 @@ export async function POST(req: Request) {
 
         if (e instanceof PrismaClientValidationError) {
 
-            return NextResponse.json({ error: e, message: "Erreur de validation prisma" }, { status: 404 });
+            return NextResponse.json({error: e, message: "Erreur de validation prisma"}, {status: 404});
 
         } else {
 
             return NextResponse.json({
                 error: e,
                 message: "Une erreur est survenue, veuillez réessayer plus tard."
-            }, { status: 500 });
+            }, {status: 500});
 
         }
 

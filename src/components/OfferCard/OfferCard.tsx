@@ -8,7 +8,7 @@ interface OfferCardProps {
     offer: OfferGetPayload<{ include: { mentor: true, category: { include: { categoryType: true } } } }>
 }
 
-export default async function OfferCard({offer}: OfferCardProps) {
+export default function OfferCard({offer}: OfferCardProps) {
     return (
         <Card className="flex flex-col w-full h-full">
             <CardHeader>

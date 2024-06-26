@@ -10,6 +10,7 @@ import {Button} from "@/components/ui/button";
 import CategoryTypeGetPayload = Prisma.CategoryTypeGetPayload;
 import {useState} from "react";
 import {Undo2} from "lucide-react";
+import {usePathname, useRouter, useSearchParams} from "next/navigation";
 
 type CategoryTypeWithSubCategories = CategoryTypeGetPayload<{
     include: { categories: true }
@@ -38,8 +39,27 @@ export default function FilterForm({categoryTypes, categories}: FilterFormProps)
         }
     })
 
-    function onSubmit(data: z.infer<typeof formSchema>) {
+    const pathname = usePathname()
+    const searchParams = useSearchParams()
+    const {replace} = useRouter()
 
+    async function onSubmit(data: z.infer<typeof formSchema>) {
+        if (data.categoryType === undefined) return;
+
+        const querySearchParams = new URLSearchParams();
+        querySearchParams.set("categoryType", String(data.categoryType));
+
+        if (data.category) querySearchParams.set("category", String(data.category));
+
+        try {
+            const res = await fetch(`/api/offers?page=1&${querySearchParams.toString()}`)
+
+            console.log(await res.json());
+
+            replace(`${pathname}?${querySearchParams.toString()}`)
+        } catch (e) {
+            console.error(e);
+        }
     }
 
     function handleReset() {
@@ -54,7 +74,7 @@ export default function FilterForm({categoryTypes, categories}: FilterFormProps)
 
     return (
         <Form {...form}>
-            <form onSubmit={form.handleSubmit(onSubmit)} className="w-2/3 space-y-6">
+            <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-6">
                 <FormField
                     control={form.control}
                     name="categoryType"
@@ -126,7 +146,8 @@ export default function FilterForm({categoryTypes, categories}: FilterFormProps)
                     />
                 )}
 
-                <Button type="submit">Filtrer</Button>
+                <Button type="submit"
+                        disabled={form.getValues('categoryType') === "" || form.formState.isLoading}>Filtrer</Button>
             </form>
         </Form>
     )

@@ -1,15 +1,15 @@
 "use client"
 
-import { zodResolver } from "@hookform/resolvers/zod";
-import { useForm } from "react-hook-form";
-import { z } from "zod";
-import { Form, FormControl, FormDescription, FormField, FormItem, FormLabel, FormMessage } from "@/components/ui/form";
-import { Input } from "@/components/ui/input";
-import { Button } from "@/components/ui/button";
-import { useState, useEffect } from "react";
-import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
-import { signIn } from "next-auth/react";
-import { AlertCircle } from "lucide-react";
+import {zodResolver} from "@hookform/resolvers/zod";
+import {useForm} from "react-hook-form";
+import {z} from "zod";
+import {Form, FormControl, FormField, FormItem, FormMessage} from "@/components/ui/form";
+import {Input} from "@/components/ui/input";
+import {Button} from "@/components/ui/button";
+import {useEffect, useState} from "react";
+import {Alert, AlertDescription, AlertTitle} from "@/components/ui/alert";
+import {signIn} from "next-auth/react";
+import {AlertCircle} from "lucide-react";
 
 const formSchema = z.object({
     email: z.string().email("Merci d'entrer une adresse mail valide."),
@@ -43,13 +43,11 @@ export function LoginForm({ error }: LoginFormProps) {
     const [changedEmail, setChangedEmail] = useState<string | null>(null)
 
     useEffect(() => {
-
         let changedEmailStorage = localStorage.getItem("changedEmail")
         if (changedEmailStorage) {
             setChangedEmail(changedEmailStorage)
             localStorage.removeItem("changedEmail")
         }
-
     }, []);
 
     return (

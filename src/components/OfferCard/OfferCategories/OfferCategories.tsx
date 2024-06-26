@@ -7,7 +7,7 @@ interface MentorInfosProps {
     category: CategoryGetPayload<{ include: { categoryType: true } }>
 }
 
-export default async function OfferCategories({category}: MentorInfosProps) {
+export default function OfferCategories({category}: MentorInfosProps) {
     return (
         <span className="flex flex-wrap gap-2">
             <CategoryTypeBadge categoryType={category.categoryType!}/>
