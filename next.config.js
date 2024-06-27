@@ -20,7 +20,6 @@ const withPWA = require("@ducanh2912/next-pwa").default({
 /** @type {import('next').NextConfig} */
 const nextConfig = {
     // ... other options you like
-    transpilePackages: ["react-daisyui"],
 };
 
 module.exports = withPWA(nextConfig);
