@@ -121,7 +121,7 @@ export default function OfferList() {
                                 (
                                     <PaginationItem>
                                         <PaginationPrevious
-                                            href={`/offres-mentorat?page=${getPreviousPageSearchParams(searchParams, parseInt(searchParams.get("page")!))}`}/>
+                                            href={`/offres-mentorat?${getPreviousPageSearchParams(searchParams, parseInt(searchParams.get("page")!))}`}/>
                                     </PaginationItem>
                                 )}
                             {Array(nbOfPages).fill(0).map((_, idx) => {
