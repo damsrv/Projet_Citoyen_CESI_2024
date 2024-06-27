@@ -14,32 +14,10 @@ export default async function ChatLayout({
     const session = await getServerSession(authOptions);
     if (!session) permanentRedirect("/login");
 
-    const user = await prisma.user.findFirst({
-        where: {
-            id: session.user.id,
-        },
-        include: {
-            userRooms: {
-                include: {
-                    room: {
-                        include: {
-                            messages: true,
-                        },
-                    },
-                },
-            },
-        },
-    });
-
-    if (!user) permanentRedirect("/login");
-
     return (
-        <main className="flex grow bg-secondary-light p-10 gap-10 min-h-[80vh] lg:max-h-[calc(100vh-56px)]">
+        <main className="flex grow bg-secondary-light p-4 lg:p-10 lg:gap-10 min-h-[80vh] lg:max-h-[calc(100vh-56px)]">
             <CurrentConversationIdProvider>
-                <ChatNav rooms={user.userRooms} />
-                <section className="flex grow bg-white border rounded-lg">
-                    {children}
-                </section>
+                {children}
             </CurrentConversationIdProvider>
         </main>
     );

@@ -67,7 +67,7 @@ export default function Chat({ user, room, interlocutor }: ChatProps) {
     }
 
     return (
-        <main className="flex flex-col w-full">
+        <main className="flex flex-col w-full h-full">
             <header className="flex items-center gap-2 p-3 border-b">
                 <Avatar>
                     {!!interlocutor.avatar && (
@@ -97,7 +97,7 @@ export default function Chat({ user, room, interlocutor }: ChatProps) {
                     })}
                 </ul>
             </div>
-            <div className="flex gap-2 py-4  px-4 lg:px-8">
+            <div className="flex gap-2 py-4  px-4 lg:px-8 mt-auto">
                 <Input
                     placeholder="Entrez votre message ..."
                     className="flex grow"
