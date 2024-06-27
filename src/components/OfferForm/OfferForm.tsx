@@ -33,6 +33,7 @@ import {
 import { Label } from "@/components/ui/label";
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
 import { useEffect } from "react";
+import toast from "react-hot-toast";
 
 const formSchema = z.object({
     content: z
@@ -142,6 +143,7 @@ const FormProfile = ({
             if (response.ok) {
                 router.push(`/offres-mentorat/${(await response.json()).id}`);
                 // TODO : toast success
+                toast.success("L'offre a bien été enregistrée.");
             } else {
                 setError(
                     "Une erreur est survenue lors de l'enregistrement de l'offre."

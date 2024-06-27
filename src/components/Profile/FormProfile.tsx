@@ -21,6 +21,7 @@ import { Textarea } from "@/components/ui/textarea";
 import { Checkbox } from "@/components/ui/checkbox";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { useSession } from "next-auth/react";
+import toast from "react-hot-toast";
 
 const MAX_FILE_SIZE = 1024 * 1024 * 2;
 const ACCEPTED_IMAGE_MIME_TYPES = [
@@ -91,7 +92,6 @@ const FormProfile = ({
     avatar: string | undefined;
     userId: number;
 }) => {
-
     const { update } = useSession();
     const [error, setError] = useState<string | null>(null);
     const router = useRouter();
@@ -118,10 +118,9 @@ const FormProfile = ({
             if (!resUpload.ok) {
                 const json = await resUpload.json();
                 setError(json.message);
-            }
-            else {
+            } else {
                 const json = await resUpload.json();
-                update({ avatar: json.avatar })
+                update({ avatar: json.avatar });
             }
         }
 
@@ -140,6 +139,7 @@ const FormProfile = ({
             const json = await res.json();
             setError(json.message);
         }
+        toast.success("Profil mis à jour");
         router.refresh();
     }
 
@@ -316,20 +316,20 @@ const FormProfile = ({
                                                                 ) => {
                                                                     return checked
                                                                         ? field.onChange(
-                                                                            [
-                                                                                ...field.value!,
-                                                                                skill.id,
-                                                                            ]
-                                                                        )
+                                                                              [
+                                                                                  ...field.value!,
+                                                                                  skill.id,
+                                                                              ]
+                                                                          )
                                                                         : field.onChange(
-                                                                            field.value?.filter(
-                                                                                (
-                                                                                    value
-                                                                                ) =>
-                                                                                    value !==
-                                                                                    skill.id
-                                                                            )
-                                                                        );
+                                                                              field.value?.filter(
+                                                                                  (
+                                                                                      value
+                                                                                  ) =>
+                                                                                      value !==
+                                                                                      skill.id
+                                                                              )
+                                                                          );
                                                                 }}
                                                             />
                                                         </FormControl>
