@@ -1,7 +1,7 @@
 import prisma from "@/lib/prisma";
 import { Prisma, User } from "@prisma/client";
 import { NextResponse } from "next/server";
-import * as bcrypt from 'bcrypt';
+import * as bcrypt from "bcrypt";
 import PrismaClientKnownRequestError = Prisma.PrismaClientKnownRequestError;
 
 export async function POST(req: Request) {
@@ -18,14 +18,12 @@ export async function POST(req: Request) {
                 lastname: user.lastname,
                 email: user.email,
                 password: user.password,
-                birthdate: user.birthdate ? new Date(user.birthdate) : new Date(Date.now()),
+                birthdate: user.birthdate
+                    ? new Date(user.birthdate)
+                    : new Date(Date.now()),
                 status: 1,
-                role: {
-                    connect: {
-                        id: 1
-                    }
-                },
-            }
+                roleId: 2,
+            },
         });
 
         return NextResponse.json(newUser, { status: 201 });
@@ -34,14 +32,20 @@ export async function POST(req: Request) {
 
         if (e instanceof PrismaClientKnownRequestError) {
             if (e.code === "P2002") {
-                return NextResponse.json({ error: e, message: "Utilisateur déjà existant" }, { status: 404 });
+                return NextResponse.json(
+                    { error: e, message: "Utilisateur déjà existant" },
+                    { status: 404 }
+                );
             }
         } else {
-            return NextResponse.json({
-                error: e,
-                message: "Une erreur est survenue, veuillez réessayer plus tard."
-            }, { status: 500 });
+            return NextResponse.json(
+                {
+                    error: e,
+                    message:
+                        "Une erreur est survenue, veuillez réessayer plus tard.",
+                },
+                { status: 500 }
+            );
         }
-
     }
 }

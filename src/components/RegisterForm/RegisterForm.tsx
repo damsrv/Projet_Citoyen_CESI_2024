@@ -56,11 +56,14 @@ export function RegisterForm() {
     });
 
     async function onSubmit(values: z.infer<typeof formSchema>) {
+        console.log("--------------- REGISTER FORM SUBMIT ---------------");
+        console.log(values);
         const res = await fetch("/api/register", {
             method: "POST",
             body: JSON.stringify(values),
         });
 
+        console.log(res);
         if (!res.ok) {
             const json = await res.json();
             setError(json.message);
