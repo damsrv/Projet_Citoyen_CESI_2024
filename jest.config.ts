@@ -13,7 +13,14 @@ const config: Config = {
   // Add more setup options before each test is run
   setupFilesAfterEnv: ['<rootDir>/singleton.ts', "<rootDir>/jest.setup.ts"],
   preset: 'ts-jest',
-
+  collectCoverage: true,
+  collectCoverageFrom: [
+    '<rootDir>/src/app/**/*.{ts,tsx}', // Inclure les fichiers dans le dossier pages
+    '<rootDir>/src/components/**/*.{ts,tsx}', // Inclure les fichiers dans le dossier components
+    '<rootDir>/lib/**/*.{ts,tsx}', // Inclure les fichiers dans le dossier lib
+    '!**/__tests__/**', // Exclure les fichiers de tests
+    '!**/*.d.ts', // Exclure les fichiers de déclaration TypeScript
+  ],
 } 
 
 // createJestConfig is exported this way to ensure that next/jest can load the Next.js config which is async
