@@ -8,9 +8,10 @@ import {Form, FormControl, FormField, FormItem, FormLabel, FormMessage} from "@/
 import {Select, SelectContent, SelectItem, SelectTrigger, SelectValue} from "@/components/ui/select";
 import {Button} from "@/components/ui/button";
 import CategoryTypeGetPayload = Prisma.CategoryTypeGetPayload;
-import {useState} from "react";
+import {useContext, useState} from "react";
 import {Undo2} from "lucide-react";
 import {usePathname, useRouter, useSearchParams} from "next/navigation";
+import {OffersListContext} from "@/context/OffersListContext";
 
 type CategoryTypeWithSubCategories = CategoryTypeGetPayload<{
     include: { categories: true }
@@ -30,6 +31,8 @@ interface FilterFormProps {
 
 export default function FilterForm({categoryTypes, categories}: FilterFormProps) {
     const [categoryTypeSelection, setCategoryTypeSelection] = useState<CategoryTypeWithSubCategories | undefined>();
+
+    const {setOffers} = useContext(OffersListContext)
 
     const form = useForm<z.infer<typeof formSchema>>({
         resolver: zodResolver(formSchema),
@@ -53,17 +56,30 @@ export default function FilterForm({categoryTypes, categories}: FilterFormProps)
 
         try {
             const res = await fetch(`/api/offers?page=1&${querySearchParams.toString()}`)
+            const data = await res.json()
 
-            console.log(await res.json());
-
+            setOffers(data)
             replace(`${pathname}?${querySearchParams.toString()}`)
         } catch (e) {
             console.error(e);
         }
     }
 
-    function handleReset() {
+    async function resetFilters() {
+        try {
+            const res = await fetch(`/api/offers?page=1`)
+            const data = await res.json()
+
+            setOffers(data)
+            replace(`${pathname}`)
+        } catch (e) {
+            console.error(e);
+        }
+    }
+
+    async function handleReset() {
         setCategoryTypeSelection(undefined);
+        await resetFilters()
         form.resetField("categoryType")
         form.reset()
     }
@@ -98,7 +114,7 @@ export default function FilterForm({categoryTypes, categories}: FilterFormProps)
                                                     value={categoryType.id.toString()}
                                                     key={categoryType.id}
                                                 >
-                                                    {categoryType.name}
+                                                    <p className="truncate max-w-[90vw]">{categoryType.name}</p>
                                                 </SelectItem>
                                             )
                                         })}
@@ -127,14 +143,14 @@ export default function FilterForm({categoryTypes, categories}: FilterFormProps)
                                             <SelectValue placeholder="Choisissez une sous catégorie"/>
                                         </SelectTrigger>
                                     </FormControl>
-                                    <SelectContent>
+                                    <SelectContent className="w-[90vw]">
                                         {categoryTypeSelection.categories.map((category) => {
                                             return (
                                                 <SelectItem
                                                     value={category.id.toString()}
                                                     key={category.id}
                                                 >
-                                                    {category.name}
+                                                    <p>{category.name}</p>
                                                 </SelectItem>
                                             )
                                         })}

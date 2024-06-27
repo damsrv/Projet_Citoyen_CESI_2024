@@ -7,6 +7,9 @@ import {zodResolver} from "@hookform/resolvers/zod";
 import {Form, FormControl, FormField, FormItem, FormLabel, FormMessage} from "@/components/ui/form";
 import {Textarea} from "@/components/ui/textarea";
 import {Button} from "@/components/ui/button";
+import toast from "react-hot-toast";
+import A from "@/components/ui/Typography/a";
+import {useRouter} from "next/navigation";
 
 
 const formSchema = z.object({
@@ -27,11 +30,12 @@ export default function ContactDialogForm({offer, user}: ContactDialogFormProps)
         }
     })
 
+    const router = useRouter()
+
 
     async function onSubmit(values: z.infer<typeof formSchema>) {
-        // Create Offer Student
         try {
-            const res = await fetch('/api/offer-student', {
+            await fetch('/api/offer-student', {
                 method: "POST",
                 body: JSON.stringify({
                     data: {
@@ -42,9 +46,16 @@ export default function ContactDialogForm({offer, user}: ContactDialogFormProps)
                 })
             })
 
-            console.log(res)
+            toast.success((t) => (
+                <div>
+                    <p>Demande envoyée avec succès !</p>
+                    <A href={"/mon-compte/suivi-demandes"}>Mes demandes</A>
+                </div>
+            ))
+
+            router.refresh()
         } catch (e) {
-            console.error(e)
+            toast.error("Une erreur est survenue dans l'envoi de la demande, veuillez réessayer")
         }
     }
 

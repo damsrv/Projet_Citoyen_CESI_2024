@@ -3,8 +3,19 @@ import {getServerSession} from "next-auth";
 import {authOptions} from "@/lib/authOptions";
 import {permanentRedirect} from "next/navigation";
 import prisma from "@/lib/prisma";
-import {useContext} from "react";
-import {CurrentConversationContext} from "@/context/CurrentConversationContext";
+import {User, UserRoom} from "@prisma/client";
+import toast from "react-hot-toast";
+
+function isConnectedUserInUserRooms(user: User, userRooms: UserRoom[]) {
+    let isUserAllowed = false
+    userRooms.forEach((userRoom) => {
+        if (userRoom.userId === user.id) {
+            isUserAllowed = true
+        }
+    })
+
+    return isUserAllowed
+}
 
 export default async function ChatRoomById({params}: { params: { roomId: string } }) {
     const session = await getServerSession(authOptions);
@@ -19,7 +30,7 @@ export default async function ChatRoomById({params}: { params: { roomId: string 
 
     if (!user) permanentRedirect("/login");
 
-    const userRoom = await prisma.room.findFirst({
+    const room = await prisma.room.findFirst({
         where: {
             id: parseInt(params.roomId),
         },
@@ -28,7 +39,21 @@ export default async function ChatRoomById({params}: { params: { roomId: string 
         }
     })
 
-    if (!userRoom) permanentRedirect('/login');
+    if (!room) {
+        toast.error("Impossible d'accéder à cette conversation")
+        permanentRedirect('/login');
+    }
+
+    const userRooms = await prisma.userRoom.findMany({
+        where: {
+            roomId: parseInt(params.roomId),
+        }
+    })
+
+    if(userRooms.length !== 2 || !isConnectedUserInUserRooms(user, userRooms)) {
+        toast.error("Impossible d'accéder à cette conversation")
+        permanentRedirect("/login")
+    }
 
     const otherUserRoom = await prisma.userRoom.findFirst({
         where: {
@@ -50,7 +75,7 @@ export default async function ChatRoomById({params}: { params: { roomId: string 
 
     return (
         <div className="flex grow bg-white rounded-md">
-            <Chat user={user} room={userRoom} interlocutor={otherUser!}/>
+            <Chat user={user} room={room} interlocutor={otherUser!}/>
         </div>
     )
 }

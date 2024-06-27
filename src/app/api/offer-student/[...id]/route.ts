@@ -38,6 +38,12 @@ export async function PUT(req: Request, params: Params) {
         if (data.status === 1) {
             const userIds = [studentId, mentorId];
 
+            const offer = await prisma.offer.findFirst({
+                where: {
+                    id: offerId
+                }
+            })
+
             const newRoom = await prisma.room.create({
                 data: {
                     userRooms: {
@@ -46,6 +52,7 @@ export async function PUT(req: Request, params: Params) {
                             { user: { connect: { id: mentorId } } },
                         ],
                     },
+                    name: offer!.title,
                     offer: {
                         connect: { id: offerId },
                     },
