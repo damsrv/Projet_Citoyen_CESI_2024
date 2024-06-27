@@ -3,6 +3,7 @@ import {Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle} f
 import {Button} from "@/components/ui/button";
 import OfferGetPayload = Prisma.OfferGetPayload;
 import OfferCategories from "@/components/OfferCard/OfferCategories/OfferCategories";
+import {Loader2} from "lucide-react";
 
 interface OfferCardProps {
     offer: OfferGetPayload<{ include: { mentor: true, category: { include: { categoryType: true } } } }>
@@ -29,7 +30,7 @@ export default function OfferCard({offer}: OfferCardProps) {
                 </p>
             </CardContent>
             <CardFooter className="flex shrink justify-end">
-                <Button variant="primary" asChild>
+                <Button variant="primary" size="sm" asChild>
                     <a href={`/offres-mentorat/${offer.id}`}>Voir l'offre</a>
                 </Button>
             </CardFooter>

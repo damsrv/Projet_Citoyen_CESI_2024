@@ -92,9 +92,20 @@ export async function GET(req: NextRequest) {
     }
 
     try {
-        const offers = await prisma.offer.findMany(prismaArgs);
+        if(req.nextUrl.searchParams.get("count") !== null) {
+            const numberOfRows = await prisma.offer.count({
+                where: prismaArgs.where,
+                skip: undefined,
+                take: undefined,
+            })
 
-        return NextResponse.json(offers, {status: 200});
+            return NextResponse.json(numberOfRows, {status: 200});
+        } else {
+            const offers = await prisma.offer.findMany(prismaArgs);
+
+            return NextResponse.json(offers, {status: 200});
+        }
+
     } catch (e) {
         return NextResponse.json(
             {

@@ -9,10 +9,14 @@ export type OffersList = OfferGetPayload<{
 
 interface OffersListContext {
     offers: OffersList,
-    setOffers: Dispatch<SetStateAction<OffersList>>
+    setOffers: Dispatch<SetStateAction<OffersList>>,
+    nbOfPages: number,
+    setNbOfPages: Dispatch<SetStateAction<number>>,
 }
 
 export const OffersListContext = createContext<OffersListContext>({
     offers: [],
-    setOffers: () => null
+    setOffers: () => null,
+    nbOfPages: 0,
+    setNbOfPages: () => null
 });
