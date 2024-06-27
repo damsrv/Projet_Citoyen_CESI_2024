@@ -15,7 +15,7 @@ export default async function ChatLayout({
     if (!session) permanentRedirect("/login");
 
     return (
-        <main className="flex grow bg-secondary-light p-4 lg:p-10 lg:gap-10 min-h-[80vh] lg:max-h-[calc(100vh-56px)]">
+        <main className="flex flex-col lg:flex-row grow bg-secondary-light p-4 lg:p-10 lg:gap-10 min-h-[80vh] lg:max-h-[calc(100vh-56px)]">
             <CurrentConversationIdProvider>
                 {children}
             </CurrentConversationIdProvider>

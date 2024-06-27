@@ -18,8 +18,8 @@ export default function ChatNav({ rooms }: ChatNavProps) {
     return (
         <>
             {rooms.length > 0 ? (
-                <div className="h-full rounded-lg bg-white w-72 border py-2 ">
-                    <H4 className=" px-4 !mb-2">Conversations</H4>
+                <div className="w-full rounded-lg bg-white lg:w-72 border py-2 ">
+                    <H4 className="px-4 !mb-2">Conversations</H4>
                     <ScrollArea className="flex flex-col ">
                         {rooms.map((userRoom, idx) => {
                             return (
