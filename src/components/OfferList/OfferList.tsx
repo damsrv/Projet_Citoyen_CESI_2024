@@ -146,7 +146,7 @@ export default function OfferList() {
 
                             })}
                             <PaginationItem>
-                                <PaginationNext href={`/offres-mentorat?page=${getNextPageSearchParams(searchParams, parseInt(searchParams.get("page")!))}`} />
+                                <PaginationNext href={`/offres-mentorat?${getNextPageSearchParams(searchParams, parseInt(searchParams.get("page")!))}`} />
                             </PaginationItem>
                         </>
                     )}
