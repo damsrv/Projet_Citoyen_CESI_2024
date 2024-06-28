@@ -4,8 +4,8 @@ import FilterForm from "@/components/FilterForm/FilterForm";
 import OfferList from "@/components/OfferList/OfferList";
 import OffersListProvider from "@/components/Providers/OffersListProvider/OffersListProvider";
 import type {Metadata} from "next";
-import {Suspense} from "react";
-import {Loader2} from "lucide-react";
+import {Prisma} from "@prisma/client";
+import OfferFindManyArgs = Prisma.OfferFindManyArgs;
 
 export const metadata: Metadata = {
     title: "Liste des offres",
@@ -13,10 +13,87 @@ export const metadata: Metadata = {
 };
 
 export default async function MentoringPage({searchParams}: {
-    searchParams?: { [key: string]: string | string[] | undefined }
+    searchParams?: URLSearchParams
 }) {
     const categoryTypes = await prisma.categoryType.findMany({include: {categories: true}});
     const categories = await prisma.category.findMany();
+
+    const params = new URLSearchParams(searchParams);
+
+    const OFFERS_BY_PAGE = 20;
+
+    let prismaArgs: OfferFindManyArgs = {
+        include: {
+            mentor: true,
+            category: {
+                include: {
+                    categoryType: true
+                }
+            }
+        }
+    }
+
+    if (params) {
+        if (params.get("page") !== null) {
+            let value = parseInt(params.get("page")!);
+            if (isNaN(value) || value <= 0) {
+                value = 1
+            }
+
+            prismaArgs = {
+                ...prismaArgs,
+                skip: (value - 1) * OFFERS_BY_PAGE,
+                take: OFFERS_BY_PAGE,
+            }
+        }
+
+        if (params.get("category") !== null) {
+            const value = parseInt(params.get("category")!);
+
+            try {
+                await prisma.category.findFirst({
+                    where: {
+                        id: value
+                    }
+                })
+
+                prismaArgs.where = {
+                    categoryId: value,
+                }
+            } catch (e) {
+                params.delete("category")
+            }
+        }
+
+        if (params.get("categoryType") !== null) {
+            const value = parseInt(params.get("categoryType")!);
+
+            try {
+                await prisma.categoryType.findFirst({
+                    where: {
+                        id: value
+                    }
+                })
+
+                prismaArgs.where = {
+                    ...prismaArgs.where,
+                    AND: {
+                        category: {
+                            categoryTypeId: value
+                        }
+                    }
+                }
+            } catch (e) {
+                params.delete("categoryType")
+            }
+        }
+    }
+
+    const numberOfRows = await prisma.offer.count({
+        where: prismaArgs.where,
+    })
+
+    const nbOfPages = Math.ceil(numberOfRows / OFFERS_BY_PAGE);
 
     return (
         <div className="bg-secondary-light">
@@ -27,14 +104,8 @@ export default async function MentoringPage({searchParams}: {
                         <FilterForm categoryTypes={categoryTypes} categories={categories}/>
                     </div>
                 </section>
-                <section className="py-3 container-custom">
-                    <Suspense fallback={
-                        <div className="flex grow">
-                            <Loader2 className="mr-2 h-4 w-4 animate-spin text-black"/>
-                        </div>
-                    }>
-                        <OfferList/>
-                    </Suspense>
+                <section className="flex w-full grow py-3 container-custom min-h-80">
+                    <OfferList nbOfPages={nbOfPages}/>
                 </section>
             </OffersListProvider>
         </div>

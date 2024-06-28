@@ -16,45 +16,38 @@ import prisma from "@/lib/prisma";
 import toast from "react-hot-toast";
 import {OffersListContext} from "@/context/OffersListContext";
 import {Loader2} from "lucide-react";
+import OfferListItems from "@/components/OfferList/OfferItems/OfferItems";
+import {QueryClient, useQuery, useQueryClient} from "@tanstack/react-query";
+import {Button} from "@/components/ui/button";
 
 interface OfferListProps {
     nbOfPages: number;
 }
 
-export default function OfferList() {
-    const {offers, setOffers, nbOfPages, setNbOfPages} = useContext(OffersListContext)
+export default function OfferList({nbOfPages}: OfferListProps) {
     const searchParams = useSearchParams()
+
+    const {setCanFilter} = useContext(OffersListContext)
+
+    const offersQuery = useQuery({
+        queryKey: ["offers"], queryFn: async () => {
+            const params = new URLSearchParams(searchParams);
+            const res = await fetch(`/api/offers?${searchParams.toString()}`)
+            if (!res.ok) {
+                toast.error("Filtres invalides")
+                push("/offres-mentorat?page=1")
+            } else {
+                return await res.json()
+            }
+        }
+    })
+
+    useEffect(() => {
+        offersQuery.refetch().then()
+    }, [searchParams]);
 
     const pathname = usePathname()
     const {replace, push} = useRouter()
-
-    async function getPaginatedOffers(params: URLSearchParams) {
-        try {
-            const res = await fetch(`/api/offers?${params.toString()}`)
-            if (!res.ok) {
-                toast.error("Filtres invalides")
-                push("/offres-mentorat")
-            } else {
-                return await res.json()
-            }
-        } catch (e) {
-
-        }
-    }
-
-    async function getCount(params: URLSearchParams) {
-        try {
-            const res = await fetch(`/api/offers?count=true&${params.toString()}`)
-            if (!res.ok) {
-                toast.error("Filtres invalides")
-                push("/offres-mentorat")
-            } else {
-                return await res.json()
-            }
-        } catch (e) {
-
-        }
-    }
 
     function getPreviousPageSearchParams(params: URLSearchParams, currentPageNumber: number) {
         const newParams = new URLSearchParams(params);
@@ -75,44 +68,23 @@ export default function OfferList() {
         return newParams;
     }
 
-    useEffect(() => {
-        const params = new URLSearchParams(searchParams);
+    if (offersQuery.isLoading || offersQuery.isRefetching) {
+        return (
+            <div className="flex grow w-full justify-center items-center">
+                <Loader2 className="w-7 h-7 animate-spin"/>
+            </div>
+        )
+    }
 
-        if (params.get("page") === null || parseInt(params.get("page")!) <= 0 || isNaN(parseInt(params.get("page")!)) || parseInt(params.get('page')!) > nbOfPages) {
-            params.set("page", "1")
-        }
-
-        replace(`${pathname}?${params.toString()}`)
-
-        getCount(params).then(data => {
-            setNbOfPages(Math.ceil(data / 20))
-        })
-
-        getPaginatedOffers(params).then(data => {
-            setOffers(data)
-        })
-    }, [searchParams])
+    if (offersQuery.error) {
+        return (
+            <Button onClick={() => offersQuery.refetch()}>Réessayer</Button>
+        )
+    }
 
     return (
-        <>
-            {offers.length > 0 ? (
-                    <ul className="grid grid-cols-1 px-4 md:px-0 md:grid-cols-2 lg:grid-cols-3 my-5 gap-3">
-                        {offers.map((offer) => {
-                            return (
-                                <OfferCard offer={offer} key={offer.id}/>
-                            )
-                        })}
-                    </ul>
-                )
-                :
-                (
-                    <div>
-                        <p>Aucun résultat ne correspond à votre recherche</p>
-                    </div>
-                )
-            }
-
-
+        <div>
+            <OfferListItems offers={offersQuery.data}/>
             <Pagination className="py-4">
                 <PaginationContent>
                     {nbOfPages > 1 && (
@@ -121,7 +93,7 @@ export default function OfferList() {
                                 (
                                     <PaginationItem>
                                         <PaginationPrevious
-                                            href={`/offres-mentorat?page=${getPreviousPageSearchParams(searchParams, parseInt(searchParams.get("page")!))}`}/>
+                                            href={`/offres-mentorat?${getPreviousPageSearchParams(searchParams, parseInt(searchParams.get("page")!))}`}/>
                                     </PaginationItem>
                                 )}
                             {Array(nbOfPages).fill(0).map((_, idx) => {
@@ -131,7 +103,8 @@ export default function OfferList() {
                                 if (position < 3) {
                                     return (
                                         <PaginationItem key={idx}>
-                                            <PaginationLink href={`${pathname}?${params}`} className={position === parseInt(searchParams.get('page')!) ? "opacity-50 pointer-events-none" : ""}>{position}</PaginationLink>
+                                            <PaginationLink href={`${pathname}?${params}`}
+                                                            className={position === parseInt(searchParams.get('page')!) ? "opacity-50 pointer-events-none" : ""}>{position}</PaginationLink>
                                         </PaginationItem>
                                     )
                                 }
@@ -145,13 +118,19 @@ export default function OfferList() {
                                 }
 
                             })}
-                            <PaginationItem>
-                                <PaginationNext href={`/offres-mentorat?page=${getNextPageSearchParams(searchParams, parseInt(searchParams.get("page")!))}`} />
-                            </PaginationItem>
+                            {parseInt(searchParams.get("page")!) !== nbOfPages &&
+                                (
+                                    <PaginationItem>
+                                        <PaginationNext
+                                            href={`/offres-mentorat?${getNextPageSearchParams(searchParams, parseInt(searchParams.get("page")!))}`}/>
+                                    </PaginationItem>
+                                )
+                            }
                         </>
                     )}
                 </PaginationContent>
             </Pagination>
-        </>
+
+        </div>
     )
 }

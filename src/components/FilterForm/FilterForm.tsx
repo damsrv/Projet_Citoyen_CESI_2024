@@ -12,6 +12,7 @@ import {useContext, useState} from "react";
 import {Undo2} from "lucide-react";
 import {usePathname, useRouter, useSearchParams} from "next/navigation";
 import {OffersListContext} from "@/context/OffersListContext";
+import {useMutation, useQueryClient} from "@tanstack/react-query";
 
 type CategoryTypeWithSubCategories = CategoryTypeGetPayload<{
     include: { categories: true }
@@ -30,9 +31,11 @@ interface FilterFormProps {
 }
 
 export default function FilterForm({categoryTypes, categories}: FilterFormProps) {
-    const [categoryTypeSelection, setCategoryTypeSelection] = useState<CategoryTypeWithSubCategories | undefined>();
-
-    const {setOffers} = useContext(OffersListContext)
+    const [categorySelection, setCategorySelection] = useState<CategoryTypeWithSubCategories | undefined>();
+    const {canFilter,setCanFilter} = useContext(OffersListContext)
+    const pathname = usePathname()
+    const searchParams = useSearchParams()
+    const {push, replace} = useRouter()
 
     const form = useForm<z.infer<typeof formSchema>>({
         resolver: zodResolver(formSchema),
@@ -42,11 +45,11 @@ export default function FilterForm({categoryTypes, categories}: FilterFormProps)
         }
     })
 
-    const pathname = usePathname()
-    const searchParams = useSearchParams()
-    const {replace} = useRouter()
+
+    const queryClient = useQueryClient();
 
     async function onSubmit(data: z.infer<typeof formSchema>) {
+        setCanFilter(false);
         if (data.categoryType === undefined) return;
 
         const querySearchParams = new URLSearchParams();
@@ -54,31 +57,15 @@ export default function FilterForm({categoryTypes, categories}: FilterFormProps)
 
         if (data.category) querySearchParams.set("category", String(data.category));
 
-        try {
-            const res = await fetch(`/api/offers?page=1&${querySearchParams.toString()}`)
-            const data = await res.json()
-
-            setOffers(data)
-            replace(`${pathname}?${querySearchParams.toString()}`)
-        } catch (e) {
-            console.error(e);
-        }
+        push(`${pathname}?page=1&${querySearchParams.toString()}`)
     }
 
     async function resetFilters() {
-        try {
-            const res = await fetch(`/api/offers?page=1`)
-            const data = await res.json()
-
-            setOffers(data)
-            replace(`${pathname}`)
-        } catch (e) {
-            console.error(e);
-        }
+        push(`${pathname}?page=1`)
     }
 
     async function handleReset() {
-        setCategoryTypeSelection(undefined);
+        setCategorySelection(undefined);
         await resetFilters()
         form.resetField("categoryType")
         form.reset()
@@ -100,7 +87,7 @@ export default function FilterForm({categoryTypes, categories}: FilterFormProps)
                             <div className="flex items-center gap-3">
                                 <Select onValueChange={(e) => {
                                     field.onChange(e)
-                                    setCategoryTypeSelection(getCategoryTypeById(e))
+                                    setCategorySelection(getCategoryTypeById(e))
                                 }} defaultValue={field.value} value={field.value}>
                                     <FormControl>
                                         <SelectTrigger>
@@ -130,7 +117,7 @@ export default function FilterForm({categoryTypes, categories}: FilterFormProps)
                 />
 
 
-                {categoryTypeSelection && (
+                {categorySelection && (
                     <FormField
                         control={form.control}
                         name="category"
@@ -144,7 +131,7 @@ export default function FilterForm({categoryTypes, categories}: FilterFormProps)
                                         </SelectTrigger>
                                     </FormControl>
                                     <SelectContent className="w-[90vw]">
-                                        {categoryTypeSelection.categories.map((category) => {
+                                        {categorySelection.categories.map((category) => {
                                             return (
                                                 <SelectItem
                                                     value={category.id.toString()}
@@ -163,7 +150,7 @@ export default function FilterForm({categoryTypes, categories}: FilterFormProps)
                 )}
 
                 <Button type="submit"
-                        disabled={form.getValues('categoryType') === "" || form.formState.isLoading}>Filtrer</Button>
+                        disabled={form.getValues('categoryType') === ""}>Filtrer</Button>
             </form>
         </Form>
     )
