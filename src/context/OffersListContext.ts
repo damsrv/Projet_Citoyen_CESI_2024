@@ -8,11 +8,11 @@ export type OffersList = OfferGetPayload<{
 }>[]
 
 interface OffersListContext {
-    offers: OffersList,
-    setOffers: Dispatch<SetStateAction<OffersList>>
+    canFilter: boolean
+    setCanFilter: Dispatch<SetStateAction<boolean>>
 }
 
 export const OffersListContext = createContext<OffersListContext>({
-    offers: [],
-    setOffers: () => null
+    canFilter: false,
+    setCanFilter: () => null
 });

@@ -17,7 +17,7 @@ export default function SheetLinks() {
                 (
                     <>
                         {/* <Link href="/demandes-mentorat" className="text-star">Demandes</Link> */}
-                        <Link href="/demandes-mentorat/nouveau">Nouvelle offre</Link>
+                        <Link href="/offres-mentorat/nouveau">Nouvelle offre</Link>
                         <Separator className="my-2" />
                         <Link href="/mon-compte/suivi-offres">Suivi offres</Link>
                         <Separator className="my-2" />

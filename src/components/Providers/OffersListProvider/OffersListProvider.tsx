@@ -5,11 +5,11 @@ import {CurrentConversationContext} from "@/context/CurrentConversationContext";
 import {OffersList, OffersListContext} from "@/context/OffersListContext";
 
 export default function OffersListProvider({children}: { children: ReactNode }) {
-    const [offers, setOffers] = useState<OffersList>([])
+    const [canFilter, setCanFilter] = useState<boolean>(true)
 
     return (
         <OffersListContext.Provider
-            value={{offers: offers, setOffers: setOffers}}>
+            value={{canFilter: canFilter, setCanFilter}}>
             {children}
         </OffersListContext.Provider>
     )

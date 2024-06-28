@@ -1,7 +1,5 @@
 import prisma from "@/lib/prisma";
-import {PrismaClient, Prisma} from '@prisma/client'
 import {NextResponse} from "next/server";
-import PrismaClientKnownRequestError = Prisma.PrismaClientKnownRequestError;
 import {PrismaClientValidationError} from "@prisma/client/runtime/library";
 import {pusherServer} from "@/lib/pusher";
 

@@ -17,7 +17,7 @@ export default function TopbarLinks() {
                             <a href="/demandes-mentorat">Demandes</a>
                         </Button> */}
                         <Button variant="link" asChild>
-                            <a href="/demandes-mentorat/nouveau">Nouvelle offre</a>
+                            <a href="/offres-mentorat/nouveau">Nouvelle offre</a>
                         </Button>
                         <Button variant="link" asChild>
                             <a href="/mon-compte/suivi-offres">Suivi offres</a>

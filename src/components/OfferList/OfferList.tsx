@@ -15,103 +15,122 @@ import {useContext, useEffect, useState} from "react";
 import prisma from "@/lib/prisma";
 import toast from "react-hot-toast";
 import {OffersListContext} from "@/context/OffersListContext";
+import {Loader2} from "lucide-react";
+import OfferListItems from "@/components/OfferList/OfferItems/OfferItems";
+import {QueryClient, useQuery, useQueryClient} from "@tanstack/react-query";
+import {Button} from "@/components/ui/button";
 
 interface OfferListProps {
     nbOfPages: number;
 }
 
-export default function OfferList() {
-    const [nbOfPages, setNbOfPages] = useState<number>(1)
-
-    const {offers, setOffers} = useContext(OffersListContext)
+export default function OfferList({nbOfPages}: OfferListProps) {
     const searchParams = useSearchParams()
+
+    const {setCanFilter} = useContext(OffersListContext)
+
+    const offersQuery = useQuery({
+        queryKey: ["offers"], queryFn: async () => {
+            const params = new URLSearchParams(searchParams);
+            const res = await fetch(`/api/offers?${searchParams.toString()}`)
+            if (!res.ok) {
+                toast.error("Filtres invalides")
+                push("/offres-mentorat?page=1")
+            } else {
+                return await res.json()
+            }
+        }
+    })
+
+    useEffect(() => {
+        offersQuery.refetch().then()
+    }, [searchParams]);
 
     const pathname = usePathname()
     const {replace, push} = useRouter()
 
-    useEffect(() => {
-        const params = new URLSearchParams(searchParams);
+    function getPreviousPageSearchParams(params: URLSearchParams, currentPageNumber: number) {
+        const newParams = new URLSearchParams(params);
 
-        if (params.get("page") === null || parseInt(params.get("page")!) <= 0 || isNaN(parseInt(params.get("page")!)) || parseInt(params.get('page')!) > nbOfPages) {
-            params.set("page", "1")
+        if (currentPageNumber > 1) {
+            newParams.set('page', String(currentPageNumber - 1))
+        }
+        return newParams;
+    }
+
+    function getNextPageSearchParams(params: URLSearchParams, currentPageNumber: number) {
+        const newParams = new URLSearchParams(params);
+
+        if (currentPageNumber < nbOfPages) {
+            newParams.set('page', String(currentPageNumber + 1))
         }
 
-        replace(`${pathname}?${params.toString()}`)
+        return newParams;
+    }
 
-        async function getPaginatedOffers() {
-            try {
-                const res = await fetch(`/api/offers?${params.toString()}`)
-                if (!res.ok) {
-                    toast.error("Filtres invalides")
-                    push("/offres-mentorat")
-                } else {
-                    const data = await res.json();
-                    setOffers(data)
-                }
-            } catch (e) {
+    if (offersQuery.isLoading || offersQuery.isRefetching) {
+        return (
+            <div className="flex grow w-full justify-center items-center">
+                <Loader2 className="w-7 h-7 animate-spin"/>
+            </div>
+        )
+    }
 
-            }
-        }
-
-        getPaginatedOffers()
-    }, [searchParams])
+    if (offersQuery.error) {
+        return (
+            <Button onClick={() => offersQuery.refetch()}>Réessayer</Button>
+        )
+    }
 
     return (
-        <>
-            {offers.length > 0 ? (
-                <>
-                    <ul className="grid grid-cols-2 lg:grid-cols-3 my-5 gap-3">
-                        {offers.map((offer) => {
-                            return (
-                                <OfferCard offer={offer} key={offer.id}/>
-                            )
-                        })}
-                    </ul>
-
-                    <Pagination>
-                        <PaginationContent>
-                            {nbOfPages >= 1 && (
-                                <>
+        <div>
+            <OfferListItems offers={offersQuery.data}/>
+            <Pagination className="py-4">
+                <PaginationContent>
+                    {nbOfPages > 1 && (
+                        <>
+                            {parseInt(searchParams.get("page")!) !== 1 &&
+                                (
                                     <PaginationItem>
-                                        <PaginationPrevious href={`/offres-mentorat?page=${searchParams.get("page")}`}/>
+                                        <PaginationPrevious
+                                            href={`/offres-mentorat?${getPreviousPageSearchParams(searchParams, parseInt(searchParams.get("page")!))}`}/>
                                     </PaginationItem>
-                                    {Array(nbOfPages).fill(0).map((_, idx) => {
-                                        const position = idx + 1
+                                )}
+                            {Array(nbOfPages).fill(0).map((_, idx) => {
+                                const position = idx + 1
+                                const params = new URLSearchParams(searchParams);
+                                params.set("page", position.toString());
+                                if (position < 3) {
+                                    return (
+                                        <PaginationItem key={idx}>
+                                            <PaginationLink href={`${pathname}?${params}`}
+                                                            className={position === parseInt(searchParams.get('page')!) ? "opacity-50 pointer-events-none" : ""}>{position}</PaginationLink>
+                                        </PaginationItem>
+                                    )
+                                }
 
-                                        if (position < 3) {
-                                            return (
-                                                <PaginationItem key={idx}>
-                                                    <PaginationLink href="#">1</PaginationLink>
-                                                </PaginationItem>
-                                            )
-                                        }
+                                if (position === 3) {
+                                    return (
+                                        <PaginationItem key={idx}>
+                                            <PaginationEllipsis/>
+                                        </PaginationItem>
+                                    )
+                                }
 
-                                        if (position === 3) {
-                                            return (
-                                                <PaginationItem key={idx}>
-                                                    <PaginationEllipsis/>
-                                                </PaginationItem>
-                                            )
-                                        }
-
-                                    })}
+                            })}
+                            {parseInt(searchParams.get("page")!) !== nbOfPages &&
+                                (
                                     <PaginationItem>
-                                        <PaginationNext href="#"/>
+                                        <PaginationNext
+                                            href={`/offres-mentorat?${getNextPageSearchParams(searchParams, parseInt(searchParams.get("page")!))}`}/>
                                     </PaginationItem>
-                                </>
-                            )}
-                        </PaginationContent>
-                    </Pagination>
-                </>
-            )
-            :
-                (
-                    <div className="flex h-full w-full">
-                        Aucun résultat ne correspond à votre recherche.
-                    </div>
-                )
-            }
+                                )
+                            }
+                        </>
+                    )}
+                </PaginationContent>
+            </Pagination>
 
-        </>
+        </div>
     )
 }
