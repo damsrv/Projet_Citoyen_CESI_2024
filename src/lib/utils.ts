@@ -19,5 +19,22 @@ export function exclude(user: User, keys: Key[]) {
 }
 
 export function getDateDeltaFromNowString(date: Date) {
-    return formatDistanceToNow(date, {locale: fr })
+  return formatDistanceToNow(date, {locale: fr })
+}
+
+// schema use in test JEST (sans password)
+export const schema = {
+  properties: {
+    id: { type: 'number' },
+    firstname: { type: 'string' },
+    lastname: { type: 'string' },
+    email: { type: 'string' },
+    avatar: { type: ["null", "string"] },
+    status: { type: 'number' },
+    description: { type: 'string' },
+    birthdate: { type: 'string' },
+    experiences: { type: ["null", "string"] },
+    roleId: { type: 'number' },
+    registerAt: { type: 'string' }
+  }
 }

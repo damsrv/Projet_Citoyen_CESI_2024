@@ -9,9 +9,9 @@ import Image from "next/image";
 import Link from "next/link";
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger, } from "@/components/ui/accordion";
 
-export default async function Page() {
+export default function Page() {
     return (
-        <main className="min-h-screen">
+        <main className="min-h-screen" data-testid="main">
             <section
                 className=" flex flex-col items-center gap-5  p-5  py-10 md:flex-row md:gap-10 container-custom lg:py-16">
                 <Image
