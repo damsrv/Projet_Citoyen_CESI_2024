@@ -39,15 +39,12 @@ jobs:
           - name: Install NPM dependencies
             run: npm install
 
-          # - name: Build project 
-          #   run: npm run build
-
           - name: Prisma generate
             run: npx prisma generate
 
-          # - name: Build project 
-          #   run: npm run build
-            
+          - name: Run Prisma migrations (if using Prisma)
+            run: npx prisma migrate deploy
+
           #- run: sleep 20
           ## Commande pour lancer des test dans le futur avec JEST ?
           #- run: docker compose exec web npm run test
