@@ -23,16 +23,15 @@ SET row_security = off;
 -- Name: public; Type: SCHEMA; Schema: -; Owner: postgres
 --
 
-CREATE SCHEMA public;
-
+CREATE SCHEMA IF NOT EXISTS public
 
 
 
 ALTER SCHEMA public OWNER TO "postgres";
 
-SET postgres_tablespace = '';
+-- SET postgres_tablespace = '';
 
-SET postgres_table_access_method = heap;
+-- SET postgres_table_access_method = heap;
 
 --
 -- TOC entry 217 (class 1259 OID 196623)
