@@ -60,7 +60,7 @@ jobs:
             env:
               PGPASSWORD: secretpassword
             run: |
-              psql -U postgres -d projet-citoyen -c "SELECT * FROM \"User\";"
+              psql -h localhost -p 5432 -U postgres -d projet-citoyen -c "SELECT * FROM \"User\";"
 
           #- run: sleep 20
           ## Commande pour lancer des test dans le futur avec JEST ?
