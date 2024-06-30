@@ -29,12 +29,7 @@ services:
       interval: 10s
       timeout: 5s
       retries: 5
-    volumes:
-      - db-data:/var/lib/postgresql/data
 
-
-  volumes:
-    db-data:
 
   # pgadmin:
   #   image: dpage/pgadmin4

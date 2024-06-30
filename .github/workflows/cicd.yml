@@ -34,7 +34,7 @@ jobs:
 
           - name: Set up environment variables
             run: |
-              echo "POSTGRES_PRISMA_URL=postgres://postgres:secretpassword@localhost:5432/projet-citoyen" >> $GITHUB_ENV
+              echo "POSTGRES_PRISMA_URL=postgresql://postgres:secretpassword@localhost:5432/projet-citoyen" >> $GITHUB_ENV
 
           - name: Install NPM dependencies
             run: npm install
