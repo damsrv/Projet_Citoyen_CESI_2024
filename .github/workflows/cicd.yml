@@ -27,7 +27,7 @@ jobs:
           #   run: npm run build
 
           - name: Set up Docker Compose
-            run: docker-compose up --build -d && sleep 30s
+            run: docker-compose up --build -d
 
           # - name: Wait for services to be ready
           #   run: docker-compose exec -T postgres bash -c "while ! pg_isready; do sleep 1; done"
@@ -38,6 +38,12 @@ jobs:
 
           - name: Install NPM dependencies
             run: npm install
+
+          - name: List running containers
+            run: docker ps -a
+
+          - name: Check PostgreSQL status
+            run: pg_isready -h localhost -p 5432 -U postgres
 
           - name: Prisma generate
             run: npx prisma generate
