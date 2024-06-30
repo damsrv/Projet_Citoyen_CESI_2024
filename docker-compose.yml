@@ -14,7 +14,9 @@ services:
   #     NODE_ENV: development
 
   db:
-    image: db
+    build:
+        context: .
+        dockerfile: Dockerfile.db.dev
     container_name: db
     environment:
       POSTGRES_USER: postgres
