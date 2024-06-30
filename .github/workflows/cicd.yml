@@ -27,7 +27,7 @@ jobs:
           #   run: npm run build
 
           - name: Set up Docker Compose
-            run: docker-compose up --build -d && sleep 30s.
+            run: docker-compose up --build -d && sleep 30s
 
           # - name: Wait for services to be ready
           #   run: docker-compose exec -T postgres bash -c "while ! pg_isready; do sleep 1; done"
