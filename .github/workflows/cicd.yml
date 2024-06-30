@@ -42,11 +42,16 @@ jobs:
           - name: List running containers
             run: docker ps -a
 
+          - name: docker-compose logs db
+            run: docker-compose logs db
+            
+
+
           - name: Wait for PostgreSQL to be ready
             run: |
               sudo apt-get install -y postgresql-client
               until pg_isready -h localhost -p 5432 -U postgres; do sleep 1; done
-              
+
           - name: Check PostgreSQL status
             run: pg_isready -h localhost -p 5432 -U postgres
 
