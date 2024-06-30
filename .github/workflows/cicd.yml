@@ -56,6 +56,12 @@ jobs:
           - name: Prisma generate
             run: npx prisma generate
 
+          - name: Run SQL Query
+            env:
+              PGPASSWORD: secretpassword
+            run: |
+              psql -U postgres -d projet-citoyen -c "SELECT * FROM \"User\";"
+
           #- run: sleep 20
           ## Commande pour lancer des test dans le futur avec JEST ?
           #- run: docker compose exec web npm run test
