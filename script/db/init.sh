@@ -1,1 +1,1 @@
-psql -U postgres -d secretpassword -a -f /script/db/Seed 30-06.sql
+PGPASSWORD=secretpassword psql -U postgres -d projet-citoyen -a -f /script/db/Seed_30-06.sql
