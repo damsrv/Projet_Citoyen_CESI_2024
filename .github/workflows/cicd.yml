@@ -44,8 +44,6 @@ jobs:
 
           - name: docker-compose logs db
             run: docker-compose logs db
-            
-
 
           - name: Wait for PostgreSQL to be ready
             run: |
@@ -57,9 +55,6 @@ jobs:
 
           - name: Prisma generate
             run: npx prisma generate
-
-          - name: Run Prisma migrations (if using Prisma)
-            run: npx prisma migrate deploy
 
           #- run: sleep 20
           ## Commande pour lancer des test dans le futur avec JEST ?
