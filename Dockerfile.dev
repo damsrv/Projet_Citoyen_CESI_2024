@@ -1,5 +1,5 @@
 # Utiliser une image Node.js Alpine comme base
-FROM node:22-alpine AS next
+FROM node:20-alpine AS next
 
 # Créer le répertoire de travail dans l'image Docker
 WORKDIR /app
@@ -23,3 +23,6 @@ EXPOSE 3000
 
 # Commande de démarrage pour exécuter l'application Next.js
 CMD ["npm", "run", "dev"]
+
+
+

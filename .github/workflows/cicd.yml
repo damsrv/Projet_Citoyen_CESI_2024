@@ -3,10 +3,12 @@ run-name: ${{ github.actor }} CICD
 on: 
   push:
     branches:
-      - develop
+      # - develop
+      - mise-en-place-cicd-integration
+
 env:
-  POSTGRES_PRISMA_URL: ${{ vars.POSTGRES_PRISMA_URL }}
-  POSTGRES_URL_NON_POOLING: ${{ vars.POSTGRES_URL_NON_POOLING }}
+  # POSTGRES_PRISMA_URL: ${{ vars.POSTGRES_PRISMA_URL }}
+  # POSTGRES_URL_NON_POOLING: ${{ vars.POSTGRES_URL_NON_POOLING }}
   NEXT_PUBLIC_PUSHER_APP_KEY: ${{ vars.NEXT_PUBLIC_PUSHER_APP_KEY }}
   PUSHER_APP_ID: ${{ vars.PUSHER_APP_ID }}
   PUSHER_APP_SECRET: ${{ vars.PUSHER_APP_SECRET }}
@@ -17,10 +19,23 @@ jobs:
         steps:
           - name: Checkout code
             uses: actions/checkout@v4
+
+          - name: Set up Docker Compose
+            run: docker-compose up --build -d
+
+          - name: Wait for services to be ready
+            run: docker-compose exec -T postgres bash -c "while ! pg_isready; do sleep 1; done"
+
+          - name: Set up environment variables
+            run: |
+              echo "POSTGRES_PRISMA_URL=postgres://postgres:secretpassword@localhost:5432/projet-citoyen" >> $GITHUB_ENV
+
           - name: Install NPM dependencies
             run: npm install
+
           - name: Prisma generate
             run: npx prisma generate
+
           - name: Build project 
             run: npm run build
             

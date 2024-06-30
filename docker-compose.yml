@@ -13,9 +13,9 @@ services:
     environment:
       NODE_ENV: development
 
-  postgres:
-    image: postgres:16-alpine
-    container_name: postgres
+  db:
+    image: db
+    container_name: db
     environment:
       POSTGRES_USER: postgres
       POSTGRES_PASSWORD: secretpassword
@@ -23,12 +23,12 @@ services:
     ports:
       - "5432:5432"
 
-  pgadmin:
-    image: dpage/pgadmin4
-    container_name: pgadmin
-    environment:
-      PGADMIN_DEFAULT_EMAIL: pcitoyen@gmail.com
-      PGADMIN_DEFAULT_PASSWORD: secretpassword
-    ports:
-      - "5050:80"
+  # pgadmin:
+  #   image: dpage/pgadmin4
+  #   container_name: pgadmin
+  #   environment:
+  #     PGADMIN_DEFAULT_EMAIL: pcitoyen@gmail.com
+  #     PGADMIN_DEFAULT_PASSWORD: secretpassword
+  #   ports:
+  #     - "5050:80"
 
