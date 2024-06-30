@@ -20,6 +20,9 @@ jobs:
           - name: Checkout code
             uses: actions/checkout@v4
 
+          - name: Install NPM dependencies
+            run: npm install
+
           - name: Build project 
             run: npm run build
 
@@ -33,8 +36,7 @@ jobs:
             run: |
               echo "POSTGRES_PRISMA_URL=postgres://postgres:secretpassword@localhost:5432/projet-citoyen" >> $GITHUB_ENV
 
-          - name: Install NPM dependencies
-            run: npm install
+
 
           - name: Prisma generate
             run: npx prisma generate
