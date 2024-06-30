@@ -15,8 +15,8 @@ services:
 
   db:
     build:
-        context: .
-        dockerfile: Dockerfile.db.dev
+      context: .
+      dockerfile: Dockerfile.db.dev
     container_name: db
     environment:
       POSTGRES_USER: postgres
