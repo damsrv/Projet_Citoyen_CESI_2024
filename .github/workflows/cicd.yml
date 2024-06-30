@@ -20,6 +20,9 @@ jobs:
           - name: Checkout code
             uses: actions/checkout@v4
 
+          - name: Build project 
+            run: npm run build
+
           - name: Set up Docker Compose
             run: docker-compose up --build -d
 
@@ -36,8 +39,8 @@ jobs:
           - name: Prisma generate
             run: npx prisma generate
 
-          - name: Build project 
-            run: npm run build
+          # - name: Build project 
+          #   run: npm run build
             
           #- run: sleep 20
           ## Commande pour lancer des test dans le futur avec JEST ?
