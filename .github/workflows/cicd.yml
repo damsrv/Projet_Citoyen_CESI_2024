@@ -4,7 +4,7 @@ on:
   push:
     branches:
       # - develop
-      - mise-en-place-cicd-integration
+      - feat/mise-en-place-cicd-integration
 
 env:
   # POSTGRES_PRISMA_URL: ${{ vars.POSTGRES_PRISMA_URL }}
