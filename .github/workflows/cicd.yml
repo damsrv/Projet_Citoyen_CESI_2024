@@ -20,11 +20,11 @@ jobs:
           - name: Checkout code
             uses: actions/checkout@v4
 
-          - name: Install NPM dependencies
-            run: npm install
+          # - name: Install NPM dependencies
+          #   run: npm install
 
-          - name: Build project 
-            run: npm run build
+          # - name: Build project 
+          #   run: npm run build
 
           - name: Set up Docker Compose
             run: docker-compose up --build -d
@@ -36,7 +36,11 @@ jobs:
             run: |
               echo "POSTGRES_PRISMA_URL=postgres://postgres:secretpassword@localhost:5432/projet-citoyen" >> $GITHUB_ENV
 
+          - name: Install NPM dependencies
+            run: npm install
 
+          # - name: Build project 
+          #   run: npm run build
 
           - name: Prisma generate
             run: npx prisma generate
