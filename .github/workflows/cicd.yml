@@ -32,9 +32,9 @@ jobs:
           # - name: Wait for services to be ready
           #   run: docker-compose exec -T postgres bash -c "while ! pg_isready; do sleep 1; done"
 
-          - name: Set up environment variables
-            run: |
-              echo "POSTGRES_PRISMA_URL=postgresql://postgres:secretpassword@localhost:5432/projet-citoyen?connect_timeout=300" >> $GITHUB_ENV
+          # - name: Set up environment variables
+          #   run: |
+          #     echo "POSTGRES_PRISMA_URL=postgresql://postgres:secretpassword@localhost:5432/projet-citoyen" >> $GITHUB_ENV
 
           - name: Install NPM dependencies
             run: npm install
