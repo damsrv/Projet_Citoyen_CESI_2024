@@ -61,7 +61,7 @@ jobs:
         env:
           PGPASSWORD: secretpassword
         run: |
-          psql -h localhost -p 5432 -U postgres -d projet-citoyen -c "SELECT * FROM \"Role\";"
+          psql -h localhost -p 5432 -U postgres -d projet-citoyen -c "SELECT * FROM \"Offer\";"
 
       # Uncomment the next lines if you want to run tests with Jest
       # - name: Run tests
