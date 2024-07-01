@@ -62,6 +62,12 @@ jobs:
           - name: Make migrations Prisma
             run: prisma migrate deploy
 
+          - name: Seed the database
+            env:
+              PGPASSWORD: secretpassword
+            run: |
+              psql -h localhost -p 5432 -U postgres -d projet-citoyen -f /script/db/seedData_01-07.sql
+
           - name: Run SQL Query
             env:
               PGPASSWORD: secretpassword
