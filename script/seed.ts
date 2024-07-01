@@ -82,12 +82,12 @@ async function main() {
         email: 'jacouche@test.fr',
         password: '$2b$10$anygZDlcyQ0l16JaTY3lJe.tUFXyeE/DEN0ZG7/s/AzktwZJSXjcy',
         avatar: null,
-        roleId: 1,
+        status: 1,
         description: 'une description ...',
         birthdate: '1990-11-08T00:00:00.000Z',
-        specialties: null,
-        comTypeId: 2,
-        createdAt: '2024-05-23T11:44:09.735Z'
+        experiences: null,
+        roleId: 2,
+        registerAt: '2024-05-23T11:44:09.735Z'
       },
       {
         id: 1,
@@ -96,12 +96,12 @@ async function main() {
         email: 'jjg@test.fr',
         password: '$2b$10$anygZDlcyQ0l16JaTY3lJe.tUFXyeE/DEN0ZG7/s/AzktwZJSXjcy',
         avatar: null,
-        roleId: 1,
+        status: 1,
         description: 'une description de mentor ...',
         birthdate: '1990-11-08T00:00:00.000Z',
-        specialties: 'Gestion de projet\nLeadership\nCommunication efficace',
-        comTypeId: 2,
-        createdAt: '2024-05-23T11:44:09.735Z'
+        experiences: 'Gestion de projet\nLeadership\nCommunication efficace',
+        roleId: 2,
+        registerAt: '2024-05-23T11:44:09.735Z'
       },
       {
         id: 9,
@@ -110,12 +110,12 @@ async function main() {
         email: 'jcvd@test.fr',
         password: '$2b$10$anygZDlcyQ0l16JaTY3lJe.tUFXyeE/DEN0ZG7/s/AzktwZJSXjcy',
         avatar: null,
-        roleId: 1,
+        status: 1,
         description: 'une description de mentor ...',
         birthdate: '1990-11-08T00:00:00.000Z',
-        specialties: 'Développement web\nBase de données\nSécurité informatique',
-        comTypeId: 2,
-        createdAt: '2024-05-25T16:29:20.964Z'
+        experiences: 'Développement web\nBase de données\nSécurité informatique',
+        roleId: 2,
+        registerAt: '2024-05-25T16:29:20.964Z'
       },
       {
         id: 22,
@@ -124,12 +124,12 @@ async function main() {
         email: 'dcote@test.fr',
         password: '$2b$10$anygZDlcyQ0l16JaTY3lJe.tUFXyeE/DEN0ZG7/s/AzktwZJSXjcy',
         avatar: null,
-        roleId: 1,
+        status: 1,
         description: null,
         birthdate: '1990-11-08T00:00:00.000Z',
-        specialties: null,
-        comTypeId: 1,
-        createdAt: '2024-05-23T11:44:09.735Z'
+        experiences: null,
+        roleId: 1,
+        registerAt: '2024-05-23T11:44:09.735Z'
       },
       {
         id: 17,
@@ -138,12 +138,12 @@ async function main() {
         email: 'jaimelargent@test.fr',
         password: '$2b$10$anygZDlcyQ0l16JaTY3lJe.tUFXyeE/DEN0ZG7/s/AzktwZJSXjcy',
         avatar: '/uploads/avatar/bb37318462c90131d1db4da0e68399dc-1719304201662-459386511.png',
-        roleId: 1,
+        status: 1,
         description: 'une description de mentor ...',
         birthdate: '2024-06-02T00:00:00.000Z',
-        specialties: 'Marketing digital\nSEO/SEA\nAnalyse de données',
-        comTypeId: 2,
-        createdAt: '2024-06-02T12:35:48.570Z'
+        experiences: 'Marketing digital\nSEO/SEA\nAnalyse de données',
+        roleId: 2,
+        registerAt: '2024-06-02T12:35:48.570Z'
       },
       {
         id: 18,
@@ -152,12 +152,12 @@ async function main() {
         email: 'j-dujardin@test.fr',
         password: '$2b$10$anygZDlcyQ0l16JaTY3lJe.tUFXyeE/DEN0ZG7/s/AzktwZJSXjcy',
         avatar: null,
-        roleId: 1,
+        status: 1,
         description: 'une description de mentor ...',
         birthdate: '1990-06-23T10:36:17.450Z',
-        specialties: 'Intelligence artificielle\nApprentissage automatique\nTraitement du langage naturel',
-        comTypeId: 2,
-        createdAt: '1990-06-23T10:36:17.451Z'
+        experiences: 'Intelligence artificielle\nApprentissage automatique\nTraitement du langage naturel',
+        roleId: 2,
+        registerAt: '1990-06-23T10:36:17.451Z'
       },
       {
         id: 28,
@@ -166,12 +166,12 @@ async function main() {
         email: 'tesjfdsd@ui.fr',
         password: '$2b$10$85iKlA4IRuoPZnB4yDm.dujVm27nrUJbjA5ePlHxUP4qEHjE15kb2',
         avatar: null,
-        roleId: 1,
+        status: 1,
         description: null,
         birthdate: '2024-06-28T08:04:34.981Z',
-        specialties: null,
-        comTypeId: 2,
-        createdAt: '2024-06-28T08:04:36.126Z'
+        experiences: null,
+        roleId: 2,
+        registerAt: '2024-06-28T08:04:36.126Z'
       },
       {
         id: 29,
@@ -180,12 +180,12 @@ async function main() {
         email: 'contact@alexis-petit.fr',
         password: '$2b$10$DaRZ3IPN46Af0M0o.a0VTuTXxQq0rx0OL9gCn1W8fHUzgvfZcyB0.',
         avatar: null,
-        roleId: 1,
+        status: 1,
         description: null,
         birthdate: '2024-06-28T08:36:49.708Z',
-        specialties: null,
-        comTypeId: 2,
-        createdAt: '2024-06-28T08:36:50.839Z'
+        experiences: null,
+        roleId: 2,
+        registerAt: '2024-06-28T08:36:50.839Z'
       },
       {
         id: 30,
@@ -194,12 +194,12 @@ async function main() {
         email: 'j-tallut@test.fr',
         password: '$2b$10$QJ1kEkgcKfCF2F8N/sUr.OUe5GrgEBOxPy6nKGZ4Kwm/bd9id2oNO',
         avatar: null,
-        roleId: 1,
+        status: 1,
         description: null,
         birthdate: '2024-06-28T08:36:56.724Z',
-        specialties: null,
-        comTypeId: 2,
-        createdAt: '2024-06-28T08:36:56.725Z'
+        experiences: null,
+        roleId: 2,
+        registerAt: '2024-06-28T08:36:56.725Z'
       }
     ],
   });
