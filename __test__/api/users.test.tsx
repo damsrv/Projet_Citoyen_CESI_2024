@@ -21,57 +21,38 @@ describe('/api/users', () => { //OK
 
     const response = await GET();
     const body = await response.json();
-
-    console.log(body);
-    
     
     expect(response.status).toBe(200)
     expect(body[0]).toMatchSchema(schema);
   });
 
-  // // POST USER
-  // test('return a newly created user with status 201', async () => {
+  // POST USER
+  test('return a newly created user with status 201', async () => {
 
-  //   const user = {
-  //     id: 1,
-  //     firstname: "Damien",
-  //     lastname: "COTE",
-  //     email: "dcote12@test.fr",
-  //     password: "password",
-  //     avatar: null,
-  //     status: 1,
-  //     description: "blablabla",
-  //     birthdate: new Date("1990-11-08T00:00:00.000Z"),
-  //     experiences: null,
-  //     roleId: 1,
-  //     registerAt: new Date("2024-05-24T09:47:19.265Z")
-  //   }
+    const user = {
+      firstname: "Damien",
+      lastname: "COTE",
+      email: "dcote12@test.fr",
+      password: "password",
+      avatar: null,
+      status: 1,
+      description: "blablabla",
+      birthdate: new Date("1990-11-08T00:00:00.000Z"),
+      experiences: null,
+      roleId: 1,
+      registerAt: new Date("2024-05-24T09:47:19.265Z")
+    }
 
-  //   const requestObj = {
-  //     json: async () => ({data: user}),
-  //   } as any;
+    const requestObj = {
+      json: async () => ({data: user}),
+    } as any;
 
-  //   const response = await POST(requestObj);
-  //   const newUser = await response.json();   
+    const response = await POST(requestObj);
+    const newUser = await response!.json();   
     
-  //   expect(response.status).toBe(201);
-
-  //   await expect(createUser(newUser)).resolves.toEqual({
-  //     id: 1,
-  //     firstname: "Damien",
-  //     lastname: "COTE",
-  //     email: "dcote12@test.fr",
-  //     password: newUser.password,
-  //     avatar: null,
-  //     status: 1,
-  //     description: "blablabla",
-  //     birthdate: new Date("1990-11-08T00:00:00.000Z"),
-  //     experiences: null,
-  //     roleId: 1,
-  //     registerAt: new Date("2024-05-24T09:47:19.265Z")
-  //   })
-
-  //  });
+    expect(response!.status).toBe(201);
+    
+   });
   
   
 });
