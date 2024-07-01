@@ -313,10 +313,10 @@ async function main() {
       },
       { id: 2, createdAt: '2024-05-22 00:00:00', description: 'Développement web front-end et back-end, base de données et sécurité.', location: 'Lyon', status: 1, userId: 9, title: 'Mentorat en Développement Web', categoryId: 7 },
       { id: 3, createdAt: '2024-05-22 00:00:00', description: 'Stratégies de marketing digital, SEO/SEA et analyse de données.', location: 'Marseille', status: 1, userId: 17, title: 'Mentorat en Marketing Digital', categoryId: 9 },
-      { id: 4, createdAt: '2024-05-22 00:00:00', description: 'Je souhaite vous aider à apprendre la potterie à la terre cuite traditionnelle comme je l''ai apprise de mes grands parents.', location: 'Rouen', status: 1, userId: 18, title: 'Atelier Potterie en ligne et en direct.', categoryId: 8 },
+      { id: 4, createdAt: '2024-05-22 00:00:00', description: 'Je souhaite vous aider à apprendre la potterie à la terre cuite traditionnelle comme je l\'ai apprise de mes grands parents.', location: 'Rouen', status: 1, userId: 18, title: 'Atelier Potterie en ligne et en direct.', categoryId: 8 },
       { id: 12, createdAt: '2024-06-08 13:51:18.452', description: 'Cours de cuisine française traditionnelle, exploration des techniques de base et des recettes classiques.', location: 'Anger', status: 1, userId: 19, title: 'Mentorat en Cuisine Française', categoryId: 10 },
       { id: 16, createdAt: '2024-06-22 13:34:50.757', description: 'Assistance pour les démarches administratives, incluant la préparation des documents et la compréhension des procédures.', location: 'Strasbourg', status: 2, userId: 1, title: 'Mentorat en Démarches Administratives', categoryId: 5 },
-      { id: 18, createdAt: '2024-05-22 00:00:00', description: 'Je souhaite vous guider dans votre création d''entreprise. La création d''entreprise peut faire peur mais je serais là pour vous guider si vous le souhaitez.', location: 'Versailles', status: 1, userId: 1, title: 'Aide à la création d''entreprise.', categoryId: 2 },
+      { id: 18, createdAt: '2024-05-22 00:00:00', description: 'Je souhaite vous guider dans votre création d\'entreprise. La création d\'entreprise peut faire peur mais je serais là pour vous guider si vous le souhaitez.', location: 'Versailles', status: 1, userId: 1, title: 'Aide à la création d\'entreprise.', categoryId: 2 },
       {
         id: 19,
         createdAt: new Date('2024-05-22T00:00:00Z'),
