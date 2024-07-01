@@ -209,41 +209,41 @@ async function main() {
       {
         id: 1,
         createdAt: '2024-06-26T12:06:31.106Z',
-        mentorId: 20,
-        menteeId: 1,
-        rating: 3,
+        studentId: 20,
+        mentorId: 1,
+        value: 3,
         comment: 'Pas terrible ....'
       },
       {
         id: 3,
         createdAt: '2024-06-26T12:08:22.537Z',
-        mentorId: 20,
-        menteeId: 18,
-        rating: 1,
+        studentId: 20,
+        mentorId: 18,
+        value: 1,
         comment: 'Nul !!!'
       },
       {
         id: 4,
         createdAt: '2024-06-26T12:08:22.537Z',
-        mentorId: 21,
-        menteeId: 19,
-        rating: 5,
+        studentId: 21,
+        mentorId: 19,
+        value: 5,
         comment: 'Très bon !'
       },
       {
         id: 5,
         createdAt: '2024-06-26T12:09:57.412Z',
-        mentorId: 21,
-        menteeId: 9,
-        rating: 2,
+        studentId: 21,
+        mentorId: 9,
+        value: 2,
         comment: 'Vraiment nul !'
       },
       {
         id: 6,
         createdAt: '2024-06-26T12:09:57.412Z',
-        mentorId: 21,
-        menteeId: 17,
-        rating: 5,
+        studentId: 21,
+        mentorId: 17,
+        value: 5,
         comment: 'Très très bien !'
       }
     ],
@@ -253,269 +253,269 @@ async function main() {
     data: [
       {
         id: 7,
-        startDate: '2024-05-22T00:00:00.000Z',
-        description: 'Cours de peinture à l\'huile pour débutants et intermédiaires, exploration des techniques et de la théorie des couleurs.',
+        createdAt: '2024-05-22T00:00:00.000Z',
+        content: 'Cours de peinture à l\'huile pour débutants et intermédiaires, exploration des techniques et de la théorie des couleurs.',
         location: 'Toulouse',
-        comTypeId: 2,
+        status: 2,
         mentorId: 9,
         title: 'Mentorat en Peinture à l\'Huile',
-        categoryTypeId: 11
+        categoryId: 11
       },
       {
         id: 5,
-        startDate: '2024-05-22T00:00:00.000Z',
-        description: 'Mentorat idéal pour commencer la couture ! Le crochet vous fait peur ? N\'ayez crainte, je le pratique depuis 40 ans et tous mes petits enfants n\'ont jamais eu à acheter de chaussettes !',
+        createdAt: '2024-05-22T00:00:00.000Z',
+        content: 'Mentorat idéal pour commencer la couture ! Le crochet vous fait peur ? N\'ayez crainte, je le pratique depuis 40 ans et tous mes petits enfants n\'ont jamais eu à acheter de chaussettes !',
         location: 'Rambouillet',
-        comTypeId: 1,
+        status: 1,
         mentorId: 19,
         title: 'Apprendre la couture avec Jean',
-        categoryTypeId: 8
+        categoryId: 8
       },
       {
         id: 6,
-        startDate: '2024-05-22T00:00:00.000Z',
-        description: 'Je souhaite vous guider dans votre création d\'entreprise. La création d\'entreprise peut faire peur mais je serai là pour vous guider si vous le souhaitez.',
+        createdAt: '2024-05-22T00:00:00.000Z',
+        content: 'Je souhaite vous guider dans votre création d\'entreprise. La création d\'entreprise peut faire peur mais je serai là pour vous guider si vous le souhaitez.',
         location: 'Versailles',
-        comTypeId: 1,
+        status: 1,
         mentorId: 1,
         title: 'Aide à la création d\'entreprise',
-        categoryTypeId: 2
+        categoryId: 2
       },
       {
         id: 1,
-        startDate: '2024-05-22T00:00:00.000Z',
-        description: 'Aide à la gestion de projet pour améliorer vos compétences en leadership et communication.',
+        createdAt: '2024-05-22T00:00:00.000Z',
+        content: 'Aide à la gestion de projet pour améliorer vos compétences en leadership et communication.',
         location: 'Paris',
-        comTypeId: 1,
+        status: 1,
         mentorId: 1,
         title: 'Mentorat en Gestion de Projet',
-        categoryTypeId: 9
+        categoryId: 9
       },
       {
         id: 8,
-        startDate: '2024-05-22T00:00:00.000Z',
-        description: 'Ateliers de sculpture sur bois, du choix du matériau à la finition des œuvres.',
+        createdAt: '2024-05-22T00:00:00.000Z',
+        content: 'Ateliers de sculpture sur bois, du choix du matériau à la finition des œuvres.',
         location: 'Brest',
-        comTypeId: 1,
+        status: 1,
         mentorId: 17,
         title: 'Mentorat en Sculpture sur Bois',
-        categoryTypeId: 11
+        categoryId: 11
       },
       {
         id: 9,
-        startDate: '2024-05-22T00:00:00.000Z',
-        description: 'Sessions de photographie artistique, exploration de la lumière et de la composition pour créer des œuvres uniques.',
+        createdAt: '2024-05-22T00:00:00.000Z',
+        content: 'Sessions de photographie artistique, exploration de la lumière et de la composition pour créer des œuvres uniques.',
         location: 'Dijon',
-        comTypeId: 1,
+        status: 1,
         mentorId: 18,
         title: 'Mentorat en Photographie Artistique',
-        categoryTypeId: 11
+        categoryId: 11
       },
-      { id: 2, createdAt: '2024-05-22 00:00:00', description: 'Développement web front-end et back-end, base de données et sécurité.', location: 'Lyon', status: 1, userId: 9, title: 'Mentorat en Développement Web', categoryTypeId: 7 },
-      { id: 3, createdAt: '2024-05-22 00:00:00', description: 'Stratégies de marketing digital, SEO/SEA et analyse de données.', location: 'Marseille', status: 1, userId: 17, title: 'Mentorat en Marketing Digital', categoryTypeId: 9 },
-      { id: 4, createdAt: '2024-05-22 00:00:00', description: 'Je souhaite vous aider à apprendre la potterie à la terre cuite traditionnelle comme je l\'ai apprise de mes grands parents.', location: 'Rouen', status: 1, userId: 18, title: 'Atelier Potterie en ligne et en direct.', categoryTypeId: 8 },
-      { id: 12, createdAt: '2024-06-08 13:51:18.452', description: 'Cours de cuisine française traditionnelle, exploration des techniques de base et des recettes classiques.', location: 'Anger', status: 1, userId: 19, title: 'Mentorat en Cuisine Française', categoryTypeId: 10 },
-      { id: 16, createdAt: '2024-06-22 13:34:50.757', description: 'Assistance pour les démarches administratives, incluant la préparation des documents et la compréhension des procédures.', location: 'Strasbourg', status: 2, userId: 1, title: 'Mentorat en Démarches Administratives', categoryTypeId: 5 },
-      { id: 18, createdAt: '2024-05-22 00:00:00', description: 'Je souhaite vous guider dans votre création d\'entreprise. La création d\'entreprise peut faire peur mais je serais là pour vous guider si vous le souhaitez.', location: 'Versailles', status: 1, userId: 1, title: 'Aide à la création d\'entreprise.', categoryTypeId: 2 },
+      { id: 2, createdAt: '2024-05-22 00:00:00', content: 'Développement web front-end et back-end, base de données et sécurité.', location: 'Lyon', status: 1, userId: 9, title: 'Mentorat en Développement Web', categoryId: 7 },
+      { id: 3, createdAt: '2024-05-22 00:00:00', content: 'Stratégies de marketing digital, SEO/SEA et analyse de données.', location: 'Marseille', status: 1, userId: 17, title: 'Mentorat en Marketing Digital', categoryId: 9 },
+      { id: 4, createdAt: '2024-05-22 00:00:00', content: 'Je souhaite vous aider à apprendre la potterie à la terre cuite traditionnelle comme je l\'ai apprise de mes grands parents.', location: 'Rouen', status: 1, userId: 18, title: 'Atelier Potterie en ligne et en direct.', categoryId: 8 },
+      { id: 12, createdAt: '2024-06-08 13:51:18.452', content: 'Cours de cuisine française traditionnelle, exploration des techniques de base et des recettes classiques.', location: 'Anger', status: 1, userId: 19, title: 'Mentorat en Cuisine Française', categoryId: 10 },
+      { id: 16, createdAt: '2024-06-22 13:34:50.757', content: 'Assistance pour les démarches administratives, incluant la préparation des documents et la compréhension des procédures.', location: 'Strasbourg', status: 2, userId: 1, title: 'Mentorat en Démarches Administratives', categoryId: 5 },
+      { id: 18, createdAt: '2024-05-22 00:00:00', content: 'Je souhaite vous guider dans votre création d\'entreprise. La création d\'entreprise peut faire peur mais je serais là pour vous guider si vous le souhaitez.', location: 'Versailles', status: 1, userId: 1, title: 'Aide à la création d\'entreprise.', categoryId: 2 },
       {
         id: 19,
         createdAt: new Date('2024-05-22T00:00:00Z'),
-        description: 'Cours de peinture à l\'huile pour débutants et intermédiaires, exploration des techniques et de la théorie des couleurs.',
+        content: 'Cours de peinture à l\'huile pour débutants et intermédiaires, exploration des techniques et de la théorie des couleurs.',
         location: 'Toulouse',
         status: 1,
         userId: 9,
         title: 'Mentorat en Peinture à l\'Huile',
-        categoryTypeId: 11,
+        categoryId: 11,
       },
       {
         id: 20,
         createdAt: new Date('2024-05-22T00:00:00Z'),
-        description: 'Aide à la gestion de projet pour améliorer vos compétences en leadership et communication.',
+        content: 'Aide à la gestion de projet pour améliorer vos compétences en leadership et communication.',
         location: 'Paris',
         status: 1,
         userId: 1,
         title: 'Mentorat en Gestion de Projet',
-        categoryTypeId: 9,
+        categoryId: 9,
       },
       {
         id: 21,
         createdAt: new Date('2024-05-22T00:00:00Z'),
-        description: 'Ateliers de sculpture sur bois, du choix du matériau à la finition des œuvres.',
+        content: 'Ateliers de sculpture sur bois, du choix du matériau à la finition des œuvres.',
         location: 'Brest',
         status: 1,
         userId: 17,
         title: 'Mentorat en Sculpture sur Bois',
-        categoryTypeId: 11,
+        categoryId: 11,
       },
       {
         id: 22,
         createdAt: new Date('2024-05-22T00:00:00Z'),
-        description: 'Sessions de photographie artistique, exploration de la lumière et de la composition pour créer des œuvres uniques.',
+        content: 'Sessions de photographie artistique, exploration de la lumière et de la composition pour créer des œuvres uniques.',
         location: 'Dijon',
         status: 1,
         userId: 18,
         title: 'Mentorat en Photographie Artistique',
-        categoryTypeId: 11,
+        categoryId: 11,
       },
       {
         id: 23,
         createdAt: new Date('2024-05-22T00:00:00Z'),
-        description: 'Développement web front-end et back-end, base de données et sécurité.',
+        content: 'Développement web front-end et back-end, base de données et sécurité.',
         location: 'Lyon',
         status: 1,
         userId: 9,
         title: 'Mentorat en Développement Web',
-        categoryTypeId: 7,
+        categoryId: 7,
       },
       {
         id: 24,
         createdAt: new Date('2024-05-22T00:00:00Z'),
-        description: 'Stratégies de marketing digital, SEO/SEA et analyse de données.',
+        content: 'Stratégies de marketing digital, SEO/SEA et analyse de données.',
         location: 'Marseille',
         status: 1,
         userId: 17,
         title: 'Mentorat en Marketing Digital',
-        categoryTypeId: 9,
+        categoryId: 9,
       },
       {
         id: 25,
         createdAt: new Date('2024-05-22T00:00:00Z'),
-        description: 'Je souhaite vous aider à apprendre la potterie à la terre cuite traditionnelle comme je l\'ai apprise de mes grands-parents.',
+        content: 'Je souhaite vous aider à apprendre la potterie à la terre cuite traditionnelle comme je l\'ai apprise de mes grands-parents.',
         location: 'Rouen',
         status: 1,
         userId: 18,
         title: 'Atelier Potterie en ligne et en direct.',
-        categoryTypeId: 8,
+        categoryId: 8,
       },
       {
         id: 26,
         createdAt: new Date('2024-06-08T13:51:18.452Z'),
-        description: 'Cours de cuisine française traditionnelle, exploration des techniques de base et des recettes classiques.',
+        content: 'Cours de cuisine française traditionnelle, exploration des techniques de base et des recettes classiques.',
         location: 'Angers',
         status: 1,
         userId: 19,
         title: 'Mentorat en Cuisine Française',
-        categoryTypeId: 10,
+        categoryId: 10,
       },
       {
         id: 27,
         createdAt: new Date('2024-06-22T13:34:50.757Z'),
-        description: 'Assistance pour les démarches administratives, incluant la préparation des documents et la compréhension des procédures.',
+        content: 'Assistance pour les démarches administratives, incluant la préparation des documents et la compréhension des procédures.',
         location: 'Strasbourg',
         status: 2,
         userId: 1,
         title: 'Mentorat en Démarches Administratives',
-        categoryTypeId: 5,
+        categoryId: 5,
       },
       {
         id: 28,
         createdAt: new Date('2024-05-22T00:00:00Z'),
-        description: 'Je souhaite vous guider dans votre création d\'entreprise. La création d\'entreprise peut faire peur mais je serais là pour vous guider si vous le souhaitez.',
+        content: 'Je souhaite vous guider dans votre création d\'entreprise. La création d\'entreprise peut faire peur mais je serais là pour vous guider si vous le souhaitez.',
         location: 'Versailles',
         status: 1,
         userId: 1,
         title: 'Aide à la création d\'entreprise.',
-        categoryTypeId: 2,
+        categoryId: 2,
       },
       {
         id: 29,
         createdAt: new Date('2024-05-22T00:00:00Z'),
-        description: 'Cours de peinture à l\'huile pour débutants et intermédiaires, exploration des techniques et de la théorie des couleurs.',
+        content: 'Cours de peinture à l\'huile pour débutants et intermédiaires, exploration des techniques et de la théorie des couleurs.',
         location: 'Toulouse',
         status: 1,
         userId: 9,
         title: 'Mentorat en Peinture à l\'Huile',
-        categoryTypeId: 11,
+        categoryId: 11,
       },
       {
         id: 30,
         createdAt: new Date('2024-05-22T00:00:00Z'),
-        description: 'Aide à la gestion de projet pour améliorer vos compétences en leadership et communication.',
+        content: 'Aide à la gestion de projet pour améliorer vos compétences en leadership et communication.',
         location: 'Paris',
         status: 1,
         userId: 1,
         title: 'Mentorat en Gestion de Projet',
-        categoryTypeId: 9,
+        categoryId: 9,
       },
       {
         id: 31,
         createdAt: new Date('2024-05-22T00:00:00Z'),
-        description: 'Ateliers de sculpture sur bois, du choix du matériau à la finition des œuvres.',
+        content: 'Ateliers de sculpture sur bois, du choix du matériau à la finition des œuvres.',
         location: 'Brest',
         status: 1,
         userId: 17,
         title: 'Mentorat en Sculpture sur Bois',
-        categoryTypeId: 11,
+        categoryId: 11,
       },
       {
         id: 32,
         createdAt: new Date('2024-05-22T00:00:00Z'),
-        description: 'Sessions de photographie artistique, exploration de la lumière et de la composition pour créer des œuvres uniques.',
+        content: 'Sessions de photographie artistique, exploration de la lumière et de la composition pour créer des œuvres uniques.',
         location: 'Dijon',
         status: 1,
         userId: 18,
         title: 'Mentorat en Photographie Artistique',
-        categoryTypeId: 11,
+        categoryId: 11,
       },
       {
         id: 33,
         createdAt: new Date('2024-05-22T00:00:00Z'),
-        description: 'Développement web front-end et back-end, base de données et sécurité.',
+        content: 'Développement web front-end et back-end, base de données et sécurité.',
         location: 'Lyon',
         status: 1,
         userId: 9,
         title: 'Mentorat en Développement Web',
-        categoryTypeId: 7,
+        categoryId: 7,
       },
       {
         id: 34,
         createdAt: new Date('2024-05-22T00:00:00Z'),
-        description: 'Stratégies de marketing digital, SEO/SEA et analyse de données.',
+        content: 'Stratégies de marketing digital, SEO/SEA et analyse de données.',
         location: 'Marseille',
         status: 1,
         userId: 17,
         title: 'Mentorat en Marketing Digital',
-        categoryTypeId: 9,
+        categoryId: 9,
       },
       {
         id: 35,
         createdAt: new Date('2024-05-22T00:00:00Z'),
-        description: 'Je souhaite vous aider à apprendre la potterie à la terre cuite traditionnelle comme je l\'ai apprise de mes grands-parents.',
+        content: 'Je souhaite vous aider à apprendre la potterie à la terre cuite traditionnelle comme je l\'ai apprise de mes grands-parents.',
         location: 'Rouen',
         status: 1,
         userId: 18,
         title: 'Atelier Potterie en ligne et en direct.',
-        categoryTypeId: 8,
+        categoryId: 8,
       },
       {
         id: 36,
         createdAt: new Date('2024-06-08T13:51:18.452Z'),
-        description: 'Cours de cuisine française traditionnelle, exploration des techniques de base et des recettes classiques.',
+        content: 'Cours de cuisine française traditionnelle, exploration des techniques de base et des recettes classiques.',
         location: 'Angers',
         status: 1,
         userId: 19,
         title: 'Mentorat en Cuisine Française',
-        categoryTypeId: 10,
+        categoryId: 10,
       },
       {
         id: 37,
         createdAt: new Date('2024-06-22T13:34:50.757Z'),
-        description: 'Assistance pour les démarches administratives, incluant la préparation des documents et la compréhension des procédures.',
+        content: 'Assistance pour les démarches administratives, incluant la préparation des documents et la compréhension des procédures.',
         location: 'Strasbourg',
         status: 2,
         userId: 1,
         title: 'Mentorat en Démarches Administratives',
-        categoryTypeId: 5,
+        categoryId: 5,
       },
       {
         id: 43,
         createdAt: new Date('2024-06-28T08:38:55.051Z'),
-        description: 'Je vais vous apprendre à faire du covering sur votre voiture. Je vous propose des rencontres dans mon garage avec bière et saucisson dans la bonne humeur.',
+        content: 'Je vais vous apprendre à faire du covering sur votre voiture. Je vous propose des rencontres dans mon garage avec bière et saucisson dans la bonne humeur.',
         location: 'Rouen',
         status: 1,
         userId: 30,
         title: 'Comment tuner sa voiture avec du covering.',
-        categoryTypeId: 8,
+        categoryId: 8,
       },
     ],
   });
@@ -526,19 +526,19 @@ async function main() {
         id: 6,
         createdAt: '2024-06-26T13:41:25.109Z',
         name: 'New room',
-        ownerId: 12
+        offerId: 12
       },
       {
         id: 7,
         createdAt: '2024-06-27T13:33:40.143Z',
         name: 'Apprendre la couture avec Jean',
-        ownerId: 5
+        offerId: 5
       },
       {
         id: 8,
         createdAt: '2024-06-28T08:41:25.749Z',
         name: 'Comment tuner sa voiture avec du covering',
-        ownerId: 43
+        offerId: 43
       }
     ],
   });
@@ -547,77 +547,77 @@ async function main() {
     data: [
       {
         id: 4,
-        createdAt: '2024-06-26T13:54:38.967Z',
+        sentAt: '2024-06-26T13:54:38.967Z',
         roomId: 6,
         senderId: 20,
         content: 'Bonjour Mr MOULIN j\'aimerais discuter avec vous.',
-        type: 0
+        status: 0
       },
       {
         id: 5,
-        createdAt: '2024-06-26T13:54:38.967Z',
+        sentAt: '2024-06-26T13:54:38.967Z',
         roomId: 6,
         senderId: 19,
         content: 'Oui bien sûr allons-y parlons cuisine.',
-        type: 0
+        status: 0
       },
       {
         id: 6,
-        createdAt: '2024-06-26T13:56:10.350Z',
+        sentAt: '2024-06-26T13:56:10.350Z',
         roomId: 6,
         senderId: 20,
         content: 'Je vous explique, ma femme adore la crème fraîche mais je ne sais pas cuisiner avec ... :( :( :( :(',
-        type: 0
+        status: 0
       },
       {
         id: 7,
-        createdAt: '2024-06-26T13:56:49.670Z',
+        sentAt: '2024-06-26T13:56:49.670Z',
         roomId: 6,
         senderId: 19,
         content: 'Vous irez plus vite à changer de femme car cuisiner à la crème ne s\'apprend pas comme ça.',
-        type: 0
+        status: 0
       },
       {
         id: 8,
-        createdAt: '2024-06-27T12:30:51.322Z',
+        sentAt: '2024-06-27T12:30:51.322Z',
         roomId: 6,
         senderId: 19,
         content: 'Si vous voulez divorcer je connais un très bon avocat ...',
-        type: 0
+        status: 0
       },
       {
         id: 9,
-        createdAt: '2024-06-27T13:35:56.130Z',
+        sentAt: '2024-06-27T13:35:56.130Z',
         roomId: 7,
         senderId: 9,
         content: 'Wesh',
-        type: 0
+        status: 0
       },
       {
         id: 10,
-        createdAt: '2024-06-27T13:35:23.383Z',
+        sentAt: '2024-06-27T13:35:23.383Z',
         roomId: 7,
         senderId: 19,
         content: 'Désolé je ne parle pas allemand',
-        type: 0
+        status: 0
       },
       {
         id: 11,
-        createdAt: '2024-06-28T08:42:09.485Z',
+        sentAt: '2024-06-28T08:42:09.485Z',
         roomId: 8,
         senderId: 19,
         content: 'Bonjour',
-        type: 0
+        status: 0
       },
       {
         id: 12,
-        createdAt: '2024-06-28T08:42:17.406Z',
+        sentAt: '2024-06-28T08:42:17.406Z',
         roomId: 8,
         senderId: 30,
         content: 'Bonjour',
-        type: 0
+        status: 0
       },
-
+  
     ],
   });
 
@@ -635,59 +635,59 @@ async function main() {
   await prisma.offerStudent.createMany({
     data: [
       {
-        offerId: 21,
-        createdAt: '2024-06-23T11:31:46.758Z',
-        studentId: 2,
-        content: 'Bonjour, je voudrais échanger avec vous',
+        studentId: 21,
+        date: '2024-06-23T11:31:46.758Z',
+        offerId: 2,
+        message: 'Bonjour, je voudrais échanger avec vous',
         status: 2
       },
       {
-        offerId: 21,
-        createdAt: '2024-06-23T11:32:13.265Z',
-        studentId: 16,
-        content: 'Bonjour, je voudrais échanger avec vous',
+        studentId: 21,
+        date: '2024-06-23T11:32:13.265Z',
+        offerId: 16,
+        message: 'Bonjour, je voudrais échanger avec vous',
         status: 2
       },
       {
-        offerId: 20,
-        createdAt: '2024-06-23T10:37:05.548Z',
-        studentId: 12,
-        content: 'Bonjour, je voudrais échanger avec vous',
+        studentId: 20,
+        date: '2024-06-23T10:37:05.548Z',
+        offerId: 12,
+        message: 'Bonjour, je voudrais échanger avec vous',
         status: 1
       },
       {
-        offerId: 19,
-        createdAt: '2024-06-27T12:18:30.507Z',
-        studentId: 25,
-        content: 'salut jean ca va ? ca jardinne ?',
+        studentId: 19,
+        date: '2024-06-27T12:18:30.507Z',
+        offerId: 25,
+        message: 'salut jean ca va ? ca jardinne ?',
         status: 0
       },
       {
-        offerId: 9,
-        createdAt: '2024-06-27T13:33:37.137Z',
-        studentId: 5,
-        content: 'Wesh, je veux apprendre la couture Jean stp',
+        studentId: 9,
+        date: '2024-06-27T13:33:37.137Z',
+        offerId: 5,
+        message: 'Wesh, je veux apprendre la couture Jean stp',
         status: 1
       },
       {
-        offerId: 9,
-        createdAt: '2024-06-27T13:36:53.589Z',
-        studentId: 12,
-        content: 'Mais si stp',
+        studentId: 9,
+        date: '2024-06-27T13:36:53.589Z',
+        offerId: 12,
+        message: 'Mais si stp',
         status: 2
       },
       {
-        offerId: 29,
-        createdAt: '2024-06-28T08:40:31.548Z',
-        studentId: 43,
-        content: 'Bonjour, oui',
+        studentId: 29,
+        date: '2024-06-28T08:40:31.548Z',
+        offerId: 43,
+        message: 'Bonjour, oui',
         status: 0
       },
       {
-        offerId: 19,
-        createdAt: '2024-06-28T08:40:34.583Z',
-        studentId: 43,
-        content: 'J\'aimerais en apprendre un peu plus',
+        studentId: 19,
+        date: '2024-06-28T08:40:34.583Z',
+        offerId: 43,
+        message: 'J\'aimerais en apprendre un peu plus',
         status: 1
       }
     ],
@@ -715,14 +715,14 @@ async function main() {
 
   await prisma.skillCategory.createMany({
     data: [
-      { skillId: 5, categoryTypeId: 8 },
-      { skillId: 4, categoryTypeId: 8 },
-      { skillId: 1, categoryTypeId: 7 },
+      { skillId: 5, categoryId: 8 },
+      { skillId: 4, categoryId: 8 },
+      { skillId: 1, categoryId: 7 },
     ],
     // Ignorer les erreurs de duplication si les enregistrements existent déjà
     skipDuplicates: true,
   });
-
+  
   await prisma.userRoom.createMany({
     data: [
       { userId: 20, roomId: 6 },
