@@ -37,10 +37,10 @@ describe('/api/users', () => { //OK
       avatar: null,
       status: 1,
       description: "blablabla",
-      birthdate: new Date("1990-11-08T00:00:00.000Z"),
+      birthdate: '1990-11-08T00:00:00.000Z',
       experiences: null,
       roleId: 1,
-      registerAt: new Date("2024-05-24T09:47:19.265Z")
+      registerAt: '2024-05-24T09:47:19.265Z'
     }
 
     const requestObj = {
@@ -48,7 +48,10 @@ describe('/api/users', () => { //OK
     } as any;
 
     const response = await POST(requestObj);
-    const newUser = await response!.json();   
+    const newUser = await response!.json(); 
+    
+    console.log(response);
+    
     
     expect(response!.status).toBe(201);
     
