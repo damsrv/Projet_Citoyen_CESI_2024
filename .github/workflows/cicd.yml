@@ -21,6 +21,9 @@ jobs:
       - name: Set up Docker Compose
         run: docker-compose up --build -d
 
+      - name: Check file in PostgreSQL container
+        run: docker exec db ls /seedData_01-07.sql
+
       - name: Set up environment variables
         run: |
           echo "POSTGRES_PRISMA_URL=postgres://postgres:secretpassword@localhost:5432/projet-citoyen" >> $GITHUB_ENV
@@ -49,7 +52,7 @@ jobs:
         env:
           PGPASSWORD: secretpassword
         run: |
-          psql -h localhost -p 5432 -U postgres -d projet-citoyen -a -f /seedData_01-07.sql
+          psql -h localhost -p 5432 -U postgres -d projet-citoyen -f /seedData_01-07.sql
 
       - name: Verify data seeding
         env:
