@@ -51,7 +51,7 @@ jobs:
         run: |
           psql -h localhost -p 5432 -U postgres -d projet-citoyen -c "SELECT * FROM \"Offer\";"
 
-  build-project:
+  run-tests:
 
     runs-on: ubuntu-latest
     needs: build-project
