@@ -21,17 +21,17 @@ async function main() {
 
   await prisma.category.createMany({
     data: [
-      { id: 1, name: 'Orientation professionnelle', categoryId: 1 },
-      { id: 2, name: 'Création d\'entreprise', categoryId: 1 },
-      { id: 3, name: 'Accompagnement et soutien recherche formation/stage/alternance', categoryId: 1 },
-      { id: 4, name: 'Autres', categoryId: 1 },
-      { id: 5, name: 'Démarches administratives', categoryId: 2 },
-      { id: 6, name: 'Soutien scolaire', categoryId: 2 },
-      { id: 7, name: 'Informatique', categoryId: 3 },
-      { id: 8, name: 'Artisanat', categoryId: 3 },
-      { id: 9, name: 'Marketing', categoryId: 3 },
-      { id: 10, name: 'Cuisine', categoryId: 3 },
-      { id: 11, name: 'Arts', categoryId: 3 },
+      { id: 1, name: 'Orientation professionnelle', categoryTypeId: 1 },
+      { id: 2, name: 'Création d\'entreprise', categoryTypeId: 1 },
+      { id: 3, name: 'Accompagnement et soutien recherche formation/stage/alternance', categoryTypeId: 1 },
+      { id: 4, name: 'Autres', categoryTypeId: 1 },
+      { id: 5, name: 'Démarches administratives', categoryTypeId: 2 },
+      { id: 6, name: 'Soutien scolaire', categoryTypeId: 2 },
+      { id: 7, name: 'Informatique', categoryTypeId: 3 },
+      { id: 8, name: 'Artisanat', categoryTypeId: 3 },
+      { id: 9, name: 'Marketing', categoryTypeId: 3 },
+      { id: 10, name: 'Cuisine', categoryTypeId: 3 },
+      { id: 11, name: 'Arts', categoryTypeId: 3 },
     ],
   });
 
@@ -259,7 +259,7 @@ async function main() {
         comTypeId: 2,
         mentorId: 9,
         title: 'Mentorat en Peinture à l\'Huile',
-        categoryId: 11
+        categoryTypeId: 11
       },
       {
         id: 5,
@@ -269,7 +269,7 @@ async function main() {
         comTypeId: 1,
         mentorId: 19,
         title: 'Apprendre la couture avec Jean',
-        categoryId: 8
+        categoryTypeId: 8
       },
       {
         id: 6,
@@ -279,7 +279,7 @@ async function main() {
         comTypeId: 1,
         mentorId: 1,
         title: 'Aide à la création d\'entreprise',
-        categoryId: 2
+        categoryTypeId: 2
       },
       {
         id: 1,
@@ -289,7 +289,7 @@ async function main() {
         comTypeId: 1,
         mentorId: 1,
         title: 'Mentorat en Gestion de Projet',
-        categoryId: 9
+        categoryTypeId: 9
       },
       {
         id: 8,
@@ -299,7 +299,7 @@ async function main() {
         comTypeId: 1,
         mentorId: 17,
         title: 'Mentorat en Sculpture sur Bois',
-        categoryId: 11
+        categoryTypeId: 11
       },
       {
         id: 9,
@@ -309,14 +309,14 @@ async function main() {
         comTypeId: 1,
         mentorId: 18,
         title: 'Mentorat en Photographie Artistique',
-        categoryId: 11
+        categoryTypeId: 11
       },
-      { id: 2, createdAt: '2024-05-22 00:00:00', description: 'Développement web front-end et back-end, base de données et sécurité.', location: 'Lyon', status: 1, userId: 9, title: 'Mentorat en Développement Web', categoryId: 7 },
-      { id: 3, createdAt: '2024-05-22 00:00:00', description: 'Stratégies de marketing digital, SEO/SEA et analyse de données.', location: 'Marseille', status: 1, userId: 17, title: 'Mentorat en Marketing Digital', categoryId: 9 },
-      { id: 4, createdAt: '2024-05-22 00:00:00', description: 'Je souhaite vous aider à apprendre la potterie à la terre cuite traditionnelle comme je l\'ai apprise de mes grands parents.', location: 'Rouen', status: 1, userId: 18, title: 'Atelier Potterie en ligne et en direct.', categoryId: 8 },
-      { id: 12, createdAt: '2024-06-08 13:51:18.452', description: 'Cours de cuisine française traditionnelle, exploration des techniques de base et des recettes classiques.', location: 'Anger', status: 1, userId: 19, title: 'Mentorat en Cuisine Française', categoryId: 10 },
-      { id: 16, createdAt: '2024-06-22 13:34:50.757', description: 'Assistance pour les démarches administratives, incluant la préparation des documents et la compréhension des procédures.', location: 'Strasbourg', status: 2, userId: 1, title: 'Mentorat en Démarches Administratives', categoryId: 5 },
-      { id: 18, createdAt: '2024-05-22 00:00:00', description: 'Je souhaite vous guider dans votre création d\'entreprise. La création d\'entreprise peut faire peur mais je serais là pour vous guider si vous le souhaitez.', location: 'Versailles', status: 1, userId: 1, title: 'Aide à la création d\'entreprise.', categoryId: 2 },
+      { id: 2, createdAt: '2024-05-22 00:00:00', description: 'Développement web front-end et back-end, base de données et sécurité.', location: 'Lyon', status: 1, userId: 9, title: 'Mentorat en Développement Web', categoryTypeId: 7 },
+      { id: 3, createdAt: '2024-05-22 00:00:00', description: 'Stratégies de marketing digital, SEO/SEA et analyse de données.', location: 'Marseille', status: 1, userId: 17, title: 'Mentorat en Marketing Digital', categoryTypeId: 9 },
+      { id: 4, createdAt: '2024-05-22 00:00:00', description: 'Je souhaite vous aider à apprendre la potterie à la terre cuite traditionnelle comme je l\'ai apprise de mes grands parents.', location: 'Rouen', status: 1, userId: 18, title: 'Atelier Potterie en ligne et en direct.', categoryTypeId: 8 },
+      { id: 12, createdAt: '2024-06-08 13:51:18.452', description: 'Cours de cuisine française traditionnelle, exploration des techniques de base et des recettes classiques.', location: 'Anger', status: 1, userId: 19, title: 'Mentorat en Cuisine Française', categoryTypeId: 10 },
+      { id: 16, createdAt: '2024-06-22 13:34:50.757', description: 'Assistance pour les démarches administratives, incluant la préparation des documents et la compréhension des procédures.', location: 'Strasbourg', status: 2, userId: 1, title: 'Mentorat en Démarches Administratives', categoryTypeId: 5 },
+      { id: 18, createdAt: '2024-05-22 00:00:00', description: 'Je souhaite vous guider dans votre création d\'entreprise. La création d\'entreprise peut faire peur mais je serais là pour vous guider si vous le souhaitez.', location: 'Versailles', status: 1, userId: 1, title: 'Aide à la création d\'entreprise.', categoryTypeId: 2 },
       {
         id: 19,
         createdAt: new Date('2024-05-22T00:00:00Z'),
@@ -325,7 +325,7 @@ async function main() {
         status: 1,
         userId: 9,
         title: 'Mentorat en Peinture à l\'Huile',
-        categoryId: 11,
+        categoryTypeId: 11,
       },
       {
         id: 20,
@@ -335,7 +335,7 @@ async function main() {
         status: 1,
         userId: 1,
         title: 'Mentorat en Gestion de Projet',
-        categoryId: 9,
+        categoryTypeId: 9,
       },
       {
         id: 21,
@@ -345,7 +345,7 @@ async function main() {
         status: 1,
         userId: 17,
         title: 'Mentorat en Sculpture sur Bois',
-        categoryId: 11,
+        categoryTypeId: 11,
       },
       {
         id: 22,
@@ -355,7 +355,7 @@ async function main() {
         status: 1,
         userId: 18,
         title: 'Mentorat en Photographie Artistique',
-        categoryId: 11,
+        categoryTypeId: 11,
       },
       {
         id: 23,
@@ -365,7 +365,7 @@ async function main() {
         status: 1,
         userId: 9,
         title: 'Mentorat en Développement Web',
-        categoryId: 7,
+        categoryTypeId: 7,
       },
       {
         id: 24,
@@ -375,7 +375,7 @@ async function main() {
         status: 1,
         userId: 17,
         title: 'Mentorat en Marketing Digital',
-        categoryId: 9,
+        categoryTypeId: 9,
       },
       {
         id: 25,
@@ -385,7 +385,7 @@ async function main() {
         status: 1,
         userId: 18,
         title: 'Atelier Potterie en ligne et en direct.',
-        categoryId: 8,
+        categoryTypeId: 8,
       },
       {
         id: 26,
@@ -395,7 +395,7 @@ async function main() {
         status: 1,
         userId: 19,
         title: 'Mentorat en Cuisine Française',
-        categoryId: 10,
+        categoryTypeId: 10,
       },
       {
         id: 27,
@@ -405,7 +405,7 @@ async function main() {
         status: 2,
         userId: 1,
         title: 'Mentorat en Démarches Administratives',
-        categoryId: 5,
+        categoryTypeId: 5,
       },
       {
         id: 28,
@@ -415,7 +415,7 @@ async function main() {
         status: 1,
         userId: 1,
         title: 'Aide à la création d\'entreprise.',
-        categoryId: 2,
+        categoryTypeId: 2,
       },
       {
         id: 29,
@@ -425,7 +425,7 @@ async function main() {
         status: 1,
         userId: 9,
         title: 'Mentorat en Peinture à l\'Huile',
-        categoryId: 11,
+        categoryTypeId: 11,
       },
       {
         id: 30,
@@ -435,7 +435,7 @@ async function main() {
         status: 1,
         userId: 1,
         title: 'Mentorat en Gestion de Projet',
-        categoryId: 9,
+        categoryTypeId: 9,
       },
       {
         id: 31,
@@ -445,7 +445,7 @@ async function main() {
         status: 1,
         userId: 17,
         title: 'Mentorat en Sculpture sur Bois',
-        categoryId: 11,
+        categoryTypeId: 11,
       },
       {
         id: 32,
@@ -455,7 +455,7 @@ async function main() {
         status: 1,
         userId: 18,
         title: 'Mentorat en Photographie Artistique',
-        categoryId: 11,
+        categoryTypeId: 11,
       },
       {
         id: 33,
@@ -465,7 +465,7 @@ async function main() {
         status: 1,
         userId: 9,
         title: 'Mentorat en Développement Web',
-        categoryId: 7,
+        categoryTypeId: 7,
       },
       {
         id: 34,
@@ -475,7 +475,7 @@ async function main() {
         status: 1,
         userId: 17,
         title: 'Mentorat en Marketing Digital',
-        categoryId: 9,
+        categoryTypeId: 9,
       },
       {
         id: 35,
@@ -485,7 +485,7 @@ async function main() {
         status: 1,
         userId: 18,
         title: 'Atelier Potterie en ligne et en direct.',
-        categoryId: 8,
+        categoryTypeId: 8,
       },
       {
         id: 36,
@@ -495,7 +495,7 @@ async function main() {
         status: 1,
         userId: 19,
         title: 'Mentorat en Cuisine Française',
-        categoryId: 10,
+        categoryTypeId: 10,
       },
       {
         id: 37,
@@ -505,7 +505,7 @@ async function main() {
         status: 2,
         userId: 1,
         title: 'Mentorat en Démarches Administratives',
-        categoryId: 5,
+        categoryTypeId: 5,
       },
       {
         id: 43,
@@ -515,7 +515,7 @@ async function main() {
         status: 1,
         userId: 30,
         title: 'Comment tuner sa voiture avec du covering.',
-        categoryId: 8,
+        categoryTypeId: 8,
       },
     ],
   });
@@ -715,9 +715,9 @@ async function main() {
 
   await prisma.skillCategory.createMany({
     data: [
-      { skillId: 5, categoryId: 8 },
-      { skillId: 4, categoryId: 8 },
-      { skillId: 1, categoryId: 7 },
+      { skillId: 5, categoryTypeId: 8 },
+      { skillId: 4, categoryTypeId: 8 },
+      { skillId: 1, categoryTypeId: 7 },
     ],
     // Ignorer les erreurs de duplication si les enregistrements existent déjà
     skipDuplicates: true,
