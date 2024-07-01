@@ -49,7 +49,7 @@ jobs:
         env:
           PGPASSWORD: secretpassword
         run: |
-          psql -h localhost -p 5432 -U postgres -d projet-citoyen -f /seedData_01-07.sql
+          psql -h localhost -p 5432 -U postgres -d projet-citoyen -a -f /seedData_01-07.sql
 
       - name: Verify data seeding
         env:
