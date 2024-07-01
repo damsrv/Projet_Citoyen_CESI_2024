@@ -2,7 +2,8 @@
  * @jest-environment node
  */
 
-import { GET, POST } from "../mock/api/users/route"
+import { GET, POST } from "../../src/app/api/users/route"
+
 import { matchers } from 'jest-json-schema';
 expect.extend(matchers);
 import { schema } from "../../src/lib/utils";
@@ -20,6 +21,9 @@ describe('/api/users', () => { //OK
 
     const response = await GET();
     const body = await response.json();
+
+    console.log(body);
+    
     
     expect(response.status).toBe(200)
     expect(body[0]).toMatchSchema(schema);
