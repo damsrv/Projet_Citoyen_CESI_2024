@@ -253,7 +253,7 @@ async function main() {
     data: [
       {
         id: 7,
-        createdAt: '2024-05-22T00:00:00.000Z',
+        createdAt: '2024-05-22 00:00:00',
         content: 'Cours de peinture à l\'huile pour débutants et intermédiaires, exploration des techniques et de la théorie des couleurs.',
         location: 'Toulouse',
         status: 2,
@@ -263,7 +263,7 @@ async function main() {
       },
       {
         id: 5,
-        createdAt: '2024-05-22T00:00:00.000Z',
+        createdAt: '2024-05-22 00:00:00',
         content: 'Mentorat idéal pour commencer la couture ! Le crochet vous fait peur ? N\'ayez crainte, je le pratique depuis 40 ans et tous mes petits enfants n\'ont jamais eu à acheter de chaussettes !',
         location: 'Rambouillet',
         status: 1,
@@ -273,7 +273,7 @@ async function main() {
       },
       {
         id: 6,
-        createdAt: '2024-05-22T00:00:00.000Z',
+        createdAt: '2024-05-22 00:00:00',
         content: 'Je souhaite vous guider dans votre création d\'entreprise. La création d\'entreprise peut faire peur mais je serai là pour vous guider si vous le souhaitez.',
         location: 'Versailles',
         status: 1,
@@ -283,7 +283,7 @@ async function main() {
       },
       {
         id: 1,
-        createdAt: '2024-05-22T00:00:00.000Z',
+        createdAt: '2024-05-22 00:00:00',
         content: 'Aide à la gestion de projet pour améliorer vos compétences en leadership et communication.',
         location: 'Paris',
         status: 1,
@@ -293,7 +293,7 @@ async function main() {
       },
       {
         id: 8,
-        createdAt: '2024-05-22T00:00:00.000Z',
+        createdAt: '2024-05-22 00:00:00',
         content: 'Ateliers de sculpture sur bois, du choix du matériau à la finition des œuvres.',
         location: 'Brest',
         status: 1,
@@ -303,7 +303,7 @@ async function main() {
       },
       {
         id: 9,
-        createdAt: '2024-05-22T00:00:00.000Z',
+        createdAt: '2024-05-22 00:00:00',
         content: 'Sessions de photographie artistique, exploration de la lumière et de la composition pour créer des œuvres uniques.',
         location: 'Dijon',
         status: 1,
