@@ -32,7 +32,7 @@ describe('/api/users', () => { //OK
     const user = {
       firstname: "Damien",
       lastname: "COTE",
-      email: "dcote12@test.fr",
+      email: "dcote76@test.fr",
       password: "password",
       avatar: null,
       status: 1,
