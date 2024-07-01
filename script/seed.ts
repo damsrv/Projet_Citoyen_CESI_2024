@@ -744,9 +744,9 @@ async function main() {
 
   await prisma.savedOffer.createMany({
     data: [
-      { userId: 4, offerId: 17 },
-      { userId: 6, offerId: 20 },
-      { userId: 43, offerId: 19 },
+      { offerId: 4, userId: 17 },
+      { offerId: 6, userId: 20 },
+      { offerId: 43, userId: 19 },
     ],
     // Ignorer les erreurs de duplication si les enregistrements existent déjà
     skipDuplicates: true,
