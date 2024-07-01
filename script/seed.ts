@@ -368,7 +368,7 @@ async function main() {
       },
       {
         id: 19,
-        createdAt: new Date('2024-05-22T00:00:00Z'),
+        createdAt: '2024-05-22 00:00:00',
         content: 'Cours de peinture à l\'huile pour débutants et intermédiaires, exploration des techniques et de la théorie des couleurs.',
         location: 'Toulouse',
         status: 1,
@@ -378,7 +378,7 @@ async function main() {
       },
       {
         id: 20,
-        createdAt: new Date('2024-05-22T00:00:00Z'),
+        createdAt: '2024-05-22 00:00:00',
         content: 'Aide à la gestion de projet pour améliorer vos compétences en leadership et communication.',
         location: 'Paris',
         status: 1,
@@ -388,7 +388,7 @@ async function main() {
       },
       {
         id: 21,
-        createdAt: new Date('2024-05-22T00:00:00Z'),
+        createdAt: '2024-05-22 00:00:00',
         content: 'Ateliers de sculpture sur bois, du choix du matériau à la finition des œuvres.',
         location: 'Brest',
         status: 1,
@@ -398,7 +398,7 @@ async function main() {
       },
       {
         id: 22,
-        createdAt: new Date('2024-05-22T00:00:00Z'),
+        createdAt: '2024-05-22 00:00:00',
         content: 'Sessions de photographie artistique, exploration de la lumière et de la composition pour créer des œuvres uniques.',
         location: 'Dijon',
         status: 1,
@@ -408,7 +408,7 @@ async function main() {
       },
       {
         id: 23,
-        createdAt: new Date('2024-05-22T00:00:00Z'),
+        createdAt: '2024-05-22 00:00:00',
         content: 'Développement web front-end et back-end, base de données et sécurité.',
         location: 'Lyon',
         status: 1,
@@ -418,7 +418,7 @@ async function main() {
       },
       {
         id: 24,
-        createdAt: new Date('2024-05-22T00:00:00Z'),
+        createdAt: '2024-05-22 00:00:00',
         content: 'Stratégies de marketing digital, SEO/SEA et analyse de données.',
         location: 'Marseille',
         status: 1,
@@ -428,7 +428,7 @@ async function main() {
       },
       {
         id: 25,
-        createdAt: new Date('2024-05-22T00:00:00Z'),
+        createdAt: '2024-05-22 00:00:00',
         content: 'Je souhaite vous aider à apprendre la potterie à la terre cuite traditionnelle comme je l\'ai apprise de mes grands-parents.',
         location: 'Rouen',
         status: 1,
@@ -438,7 +438,7 @@ async function main() {
       },
       {
         id: 26,
-        createdAt: new Date('2024-06-08T13:51:18.452Z'),
+        createdAt: '2024-05-22 00:00:00',
         content: 'Cours de cuisine française traditionnelle, exploration des techniques de base et des recettes classiques.',
         location: 'Angers',
         status: 1,
@@ -448,7 +448,7 @@ async function main() {
       },
       {
         id: 27,
-        createdAt: new Date('2024-06-22T13:34:50.757Z'),
+        createdAt: '2024-05-22 00:00:00',
         content: 'Assistance pour les démarches administratives, incluant la préparation des documents et la compréhension des procédures.',
         location: 'Strasbourg',
         status: 2,
@@ -458,7 +458,7 @@ async function main() {
       },
       {
         id: 28,
-        createdAt: new Date('2024-05-22T00:00:00Z'),
+        createdAt: '2024-05-22 00:00:00',
         content: 'Je souhaite vous guider dans votre création d\'entreprise. La création d\'entreprise peut faire peur mais je serais là pour vous guider si vous le souhaitez.',
         location: 'Versailles',
         status: 1,
@@ -468,7 +468,7 @@ async function main() {
       },
       {
         id: 29,
-        createdAt: new Date('2024-05-22T00:00:00Z'),
+        createdAt: '2024-05-22 00:00:00',
         content: 'Cours de peinture à l\'huile pour débutants et intermédiaires, exploration des techniques et de la théorie des couleurs.',
         location: 'Toulouse',
         status: 1,
@@ -478,7 +478,7 @@ async function main() {
       },
       {
         id: 30,
-        createdAt: new Date('2024-05-22T00:00:00Z'),
+        createdAt: '2024-05-22 00:00:00',
         content: 'Aide à la gestion de projet pour améliorer vos compétences en leadership et communication.',
         location: 'Paris',
         status: 1,
@@ -488,7 +488,7 @@ async function main() {
       },
       {
         id: 31,
-        createdAt: new Date('2024-05-22T00:00:00Z'),
+        createdAt: '2024-05-22 00:00:00',
         content: 'Ateliers de sculpture sur bois, du choix du matériau à la finition des œuvres.',
         location: 'Brest',
         status: 1,
@@ -498,7 +498,7 @@ async function main() {
       },
       {
         id: 32,
-        createdAt: new Date('2024-05-22T00:00:00Z'),
+        createdAt: '2024-05-22 00:00:00',
         content: 'Sessions de photographie artistique, exploration de la lumière et de la composition pour créer des œuvres uniques.',
         location: 'Dijon',
         status: 1,
@@ -508,7 +508,7 @@ async function main() {
       },
       {
         id: 33,
-        createdAt: new Date('2024-05-22T00:00:00Z'),
+        createdAt: '2024-05-22 00:00:00',
         content: 'Développement web front-end et back-end, base de données et sécurité.',
         location: 'Lyon',
         status: 1,
@@ -518,7 +518,7 @@ async function main() {
       },
       {
         id: 34,
-        createdAt: new Date('2024-05-22T00:00:00Z'),
+        createdAt: '2024-05-22 00:00:00',
         content: 'Stratégies de marketing digital, SEO/SEA et analyse de données.',
         location: 'Marseille',
         status: 1,
@@ -528,7 +528,7 @@ async function main() {
       },
       {
         id: 35,
-        createdAt: new Date('2024-05-22T00:00:00Z'),
+        createdAt: '2024-05-22 00:00:00',
         content: 'Je souhaite vous aider à apprendre la potterie à la terre cuite traditionnelle comme je l\'ai apprise de mes grands-parents.',
         location: 'Rouen',
         status: 1,
@@ -538,7 +538,7 @@ async function main() {
       },
       {
         id: 36,
-        createdAt: new Date('2024-06-08T13:51:18.452Z'),
+        createdAt: '2024-05-22 00:00:00',
         content: 'Cours de cuisine française traditionnelle, exploration des techniques de base et des recettes classiques.',
         location: 'Angers',
         status: 1,
@@ -548,7 +548,7 @@ async function main() {
       },
       {
         id: 37,
-        createdAt: new Date('2024-06-22T13:34:50.757Z'),
+        createdAt: '2024-05-22 00:00:00',
         content: 'Assistance pour les démarches administratives, incluant la préparation des documents et la compréhension des procédures.',
         location: 'Strasbourg',
         status: 2,
@@ -558,7 +558,7 @@ async function main() {
       },
       {
         id: 43,
-        createdAt: new Date('2024-06-28T08:38:55.051Z'),
+        createdAt: '2024-05-22 00:00:00',
         content: 'Je vais vous apprendre à faire du covering sur votre voiture. Je vous propose des rencontres dans mon garage avec bière et saucisson dans la bonne humeur.',
         location: 'Rouen',
         status: 1,
