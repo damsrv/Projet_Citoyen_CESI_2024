@@ -22,7 +22,7 @@ jobs:
         run: docker-compose up --build -d
 
       - name: Check file in PostgreSQL container
-        run: docker exec db ls /seedData_01-07.sql
+        run: docker exec db ls /
 
       - name: Set up environment variables
         run: |
