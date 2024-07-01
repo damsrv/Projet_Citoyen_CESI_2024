@@ -66,7 +66,7 @@ jobs:
             env:
               PGPASSWORD: secretpassword
             run: |
-              psql -h localhost -p 5432 -U postgres -d projet-citoyen -f /script/db/seedData_01-07.sql
+              psql -h localhost -p 5432 -U postgres -d projet-citoyen -f /docker-entrypoint-initdb.d/seedData_01-07.sql
 
           - name: Run SQL Query
             env:
