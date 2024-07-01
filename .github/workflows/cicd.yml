@@ -45,9 +45,6 @@ jobs:
       - name: List Docker containers
         run: docker ps -a
 
-      - name: Copy seed data to PostgreSQL container
-        run: docker cp script/db/seedData_01-07.sql db:/seedData_01-07.sql
-
       - name: Seed the database
         env:
           PGPASSWORD: secretpassword
