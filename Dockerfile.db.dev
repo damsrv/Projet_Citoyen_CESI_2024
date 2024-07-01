@@ -1,4 +1,4 @@
 
-FROM postgres:16.3-alpine3.20 as db
-WORKDIR /docker-entrypoint-initdb.d
-COPY /script/db/seedData_01-07.sql .
+# FROM postgres:16.3-alpine3.20 as db
+# WORKDIR /docker-entrypoint-initdb.d
+# COPY /script/db/seedData_01-07.sql .
