@@ -30,6 +30,7 @@ describe('/api/users', () => { //OK
   test('return a newly created user with status 201', async () => {
 
     const user = {
+      id:5000,
       firstname: "Damien",
       lastname: "COTE",
       email: "dcote76@test.fr",
