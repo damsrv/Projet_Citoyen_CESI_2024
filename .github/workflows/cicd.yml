@@ -39,6 +39,9 @@ jobs:
           - name: Install NPM dependencies
             run: npm install
 
+          - name: Install Prisma global
+            run: npm install -g prisma
+
           - name: List running containers
             run: docker ps -a
 
