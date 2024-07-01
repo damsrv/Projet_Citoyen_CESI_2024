@@ -1,17 +1,4 @@
-
 services:
-  # app_dev:
-  #   build:
-  #     context: .
-  #     dockerfile: Dockerfile.dev
-  #   volumes:
-  #     - .:/app
-  #     - /app/node_modules
-  #   command: npm run dev
-  #   ports:
-  #     - "3000:3000"
-  #   environment:
-  #     NODE_ENV: development
 
   db:
     build:
@@ -24,19 +11,10 @@ services:
       POSTGRES_DB: projet-citoyen
     ports:
       - "5432:5432"
+    volumes:
+      - ./script/db/seedData_01-07.sql:/seedData_01-07.sql  # Montage du fichier dans le conteneur
     healthcheck:
       test: ["CMD-SHELL", "pg_isready -U postgres"]
       interval: 10s
       timeout: 5s
       retries: 5
-
-
-  # pgadmin:
-  #   image: dpage/pgadmin4
-  #   container_name: pgadmin
-  #   environment:
-  #     PGADMIN_DEFAULT_EMAIL: pcitoyen@gmail.com
-  #     PGADMIN_DEFAULT_PASSWORD: secretpassword
-  #   ports:
-  #     - "5050:80"
-
