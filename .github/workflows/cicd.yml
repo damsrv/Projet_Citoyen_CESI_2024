@@ -56,6 +56,9 @@ jobs:
           - name: Prisma generate
             run: npx prisma generate
 
+          - name: Make migrations Prisma
+            run: prisma migrate deploy
+
           - name: Run SQL Query
             env:
               PGPASSWORD: secretpassword
