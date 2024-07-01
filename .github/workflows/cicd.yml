@@ -49,6 +49,9 @@ jobs:
       - name: Apply Prisma migrations
         run: npx prisma migrate deploy
 
+      - name: List Docker containers
+        run: docker ps -a
+
       - name: Copy seed data to PostgreSQL container
         run: docker cp script/db/seedData_01-07.sql postgres:/seedData_01-07.sql
 
