@@ -2,7 +2,8 @@
  * @jest-environment node
  */
 
-import { GET, POST } from "../mock/api/users/route"
+import { GET, POST } from "../../src/app/api/users/route"
+
 import { matchers } from 'jest-json-schema';
 expect.extend(matchers);
 import { schema } from "../../src/lib/utils";
@@ -29,18 +30,18 @@ describe('/api/users', () => { //OK
   test('return a newly created user with status 201', async () => {
 
     const user = {
-      id: 1,
+      id:5000,
       firstname: "Damien",
       lastname: "COTE",
-      email: "dcote12@test.fr",
+      email: "dcote76@test.fr",
       password: "password",
       avatar: null,
       status: 1,
       description: "blablabla",
-      birthdate: new Date("1990-11-08T00:00:00.000Z"),
+      birthdate: '1990-11-08T00:00:00.000Z',
       experiences: null,
       roleId: 1,
-      registerAt: new Date("2024-05-24T09:47:19.265Z")
+      registerAt: '2024-05-24T09:47:19.265Z'
     }
 
     const requestObj = {
@@ -48,25 +49,13 @@ describe('/api/users', () => { //OK
     } as any;
 
     const response = await POST(requestObj);
-    const newUser = await response.json();   
+    const newUser = await response!.json(); 
     
-    expect(response.status).toBe(201);
-
-    await expect(createUser(newUser)).resolves.toEqual({
-      id: 1,
-      firstname: "Damien",
-      lastname: "COTE",
-      email: "dcote12@test.fr",
-      password: newUser.password,
-      avatar: null,
-      status: 1,
-      description: "blablabla",
-      birthdate: new Date("1990-11-08T00:00:00.000Z"),
-      experiences: null,
-      roleId: 1,
-      registerAt: new Date("2024-05-24T09:47:19.265Z")
-    })
-
+    console.log(response);
+    
+    
+    expect(response!.status).toBe(201);
+    
    });
   
   

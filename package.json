@@ -10,7 +10,8 @@
     "lint": "next lint",
     "test": "jest",
     "test:watch": "jest --watchAll",
-    "coverage": "jest --coverage"
+    "coverage": "jest --coverage",
+    "seed": "node script/seed.ts"
   },
   "dependencies": {
     "@ducanh2912/next-pwa": "^10.2.7",
@@ -39,6 +40,7 @@
     "clsx": "^2.1.1",
     "cmdk": "^1.0.0",
     "date-fns": "^3.6.0",
+    "jest-cli": "^29.7.0",
     "lodash": "^4.17.21",
     "lucide-react": "^0.378.0",
     "mime": "^4.0.3",
@@ -55,9 +57,7 @@
     "sharp": "^0.33.4",
     "tailwind-merge": "^2.3.0",
     "tailwindcss-animate": "^1.0.7",
-    "ts-node": "^10.9.2",
-    "zod": "^3.23.8",
-    "jest-cli": "^29.7.0"
+    "zod": "^3.23.8"
   },
   "devDependencies": {
     "@babel/core": "^7.24.7",
@@ -70,7 +70,7 @@
     "@types/bcrypt": "^5.0.2",
     "@types/jest": "^29.5.12",
     "@types/jest-json-schema": "^6.1.4",
-    "@types/node": "^20",
+    "@types/node": "^20.14.9",
     "@types/react": "^18",
     "@types/react-dom": "^18",
     "autoprefixer": "^10.4.19",
@@ -84,6 +84,7 @@
     "prisma": "^5.15.0",
     "tailwindcss": "^3.4.3",
     "ts-jest": "^29.1.5",
-    "typescript": "^5"
+    "ts-node": "^10.9.2",
+    "typescript": "^5.5.2"
   }
 }
