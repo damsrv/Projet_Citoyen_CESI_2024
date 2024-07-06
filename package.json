@@ -3,7 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "dev": "next dev",
+    "dev": "next dev -p 8080",
     "postinstall": "prisma generate",
     "build": "next build",
     "start": "next start",
@@ -11,7 +11,12 @@
     "test": "jest",
     "test:watch": "jest --watchAll",
     "coverage": "jest --coverage",
-    "seed": "node script/seed.ts"
+    "seed": "node script/seed.ts",
+    "cypress:open": "cypress open",
+    "e2e": "start-server-and-test dev http://localhost:3000 \"cypress open --e2e\"",
+    "e2e:headless": "start-server-and-test dev http://localhost:3000 \"cypress run --e2e\"",
+    "component": "cypress open --component",
+    "component:headless": "cypress run --component"
   },
   "dependencies": {
     "@ducanh2912/next-pwa": "^10.2.7",
@@ -76,6 +81,7 @@
     "autoprefixer": "^10.4.19",
     "babel-core": "^7.0.0-bridge.0",
     "babel-jest": "^29.7.0",
+    "cypress": "^13.13.0",
     "jest": "^29.7.0",
     "jest-environment-jsdom": "^29.7.0",
     "jest-json-schema": "^6.1.0",
