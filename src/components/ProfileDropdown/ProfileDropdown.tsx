@@ -18,7 +18,7 @@ interface ProfileDropdownProps {
 export default async function ProfileDropdown({ user }: ProfileDropdownProps) {
     return (
         <DropdownMenu>
-            <DropdownMenuTrigger>
+            <DropdownMenuTrigger className="profile-menu">
                 <Avatar aria-label="Ouvrir le menu utilisateur" className="">
                     {!!user.avatar && (
                         <AvatarImage src={user.avatar} alt="Avatar de l'utilisateur" />
