@@ -125,6 +125,7 @@ const FormProfile = ({
                 body: JSON.stringify({ data: dataToSend }),
             });
             if (response.ok) {
+                toast.success("L'offre a bien été enregistrée.");
                 router.back();
                 // TODO : toast success
             } else {
@@ -208,18 +209,18 @@ const FormProfile = ({
                             <FormItem>
                                 <FormLabel>Catégorie*</FormLabel>
                                 <FormControl>
-                                    <Select
+                                    <Select data-testid="category-select"
                                         onValueChange={field.onChange}
                                         defaultValue={
                                             defaultData.categoryId ?? ""
                                         }
                                     >
                                         <FormControl>
-                                            <SelectTrigger className="">
+                                            <SelectTrigger id="select-category">
                                                 <SelectValue placeholder="Sélectionner une catégorie" />
                                             </SelectTrigger>
                                         </FormControl>
-                                        <SelectContent>
+                                        <SelectContent id="select-category-content">
                                             {categories.map(
                                                 (categoryType, index) => (
                                                     <SelectGroup key={index}>
@@ -283,20 +284,20 @@ const FormProfile = ({
                                                                 ) => {
                                                                     return checked
                                                                         ? field.onChange(
-                                                                              [
-                                                                                  ...field.value!,
-                                                                                  comType.id,
-                                                                              ]
-                                                                          )
+                                                                            [
+                                                                                ...field.value!,
+                                                                                comType.id,
+                                                                            ]
+                                                                        )
                                                                         : field.onChange(
-                                                                              field.value?.filter(
-                                                                                  (
-                                                                                      value
-                                                                                  ) =>
-                                                                                      value !==
-                                                                                      comType.id
-                                                                              )
-                                                                          );
+                                                                            field.value?.filter(
+                                                                                (
+                                                                                    value
+                                                                                ) =>
+                                                                                    value !==
+                                                                                    comType.id
+                                                                            )
+                                                                        );
                                                                 }}
                                                             />
                                                         </FormControl>
