@@ -1,18 +1,18 @@
 "use client"
 
-import {z} from "zod";
-import {Category, CategoryType, Prisma} from "@prisma/client";
-import {useForm} from "react-hook-form";
-import {zodResolver} from "@hookform/resolvers/zod";
-import {Form, FormControl, FormField, FormItem, FormLabel, FormMessage} from "@/components/ui/form";
-import {Select, SelectContent, SelectItem, SelectTrigger, SelectValue} from "@/components/ui/select";
-import {Button} from "@/components/ui/button";
+import { z } from "zod";
+import { Category, CategoryType, Prisma } from "@prisma/client";
+import { useForm } from "react-hook-form";
+import { zodResolver } from "@hookform/resolvers/zod";
+import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "@/components/ui/form";
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
+import { Button } from "@/components/ui/button";
 import CategoryTypeGetPayload = Prisma.CategoryTypeGetPayload;
-import {useContext, useState} from "react";
-import {Undo2} from "lucide-react";
-import {usePathname, useRouter, useSearchParams} from "next/navigation";
-import {OffersListContext} from "@/context/OffersListContext";
-import {useMutation, useQueryClient} from "@tanstack/react-query";
+import { useContext, useState } from "react";
+import { Undo2 } from "lucide-react";
+import { usePathname, useRouter, useSearchParams } from "next/navigation";
+import { OffersListContext } from "@/context/OffersListContext";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
 
 type CategoryTypeWithSubCategories = CategoryTypeGetPayload<{
     include: { categories: true }
@@ -30,12 +30,12 @@ interface FilterFormProps {
     categories: Category[],
 }
 
-export default function FilterForm({categoryTypes, categories}: FilterFormProps) {
+export default function FilterForm({ categoryTypes, categories }: FilterFormProps) {
     const [categorySelection, setCategorySelection] = useState<CategoryTypeWithSubCategories | undefined>();
-    const {canFilter,setCanFilter} = useContext(OffersListContext)
+    const { canFilter, setCanFilter } = useContext(OffersListContext)
     const pathname = usePathname()
     const searchParams = useSearchParams()
-    const {push, replace} = useRouter()
+    const { push, replace } = useRouter()
 
     const form = useForm<z.infer<typeof formSchema>>({
         resolver: zodResolver(formSchema),
@@ -78,23 +78,25 @@ export default function FilterForm({categoryTypes, categories}: FilterFormProps)
     return (
         <Form {...form}>
             <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-6">
+
+
                 <FormField
                     control={form.control}
                     name="categoryType"
-                    render={({field}) => (
+                    render={({ field }) => (
                         <FormItem>
                             <FormLabel>Type</FormLabel>
                             <div className="flex items-center gap-3">
-                                <Select onValueChange={(e) => {
+                                <Select date-testid="categorytype-select" onValueChange={(e) => {
                                     field.onChange(e)
                                     setCategorySelection(getCategoryTypeById(e))
                                 }} defaultValue={field.value} value={field.value}>
                                     <FormControl>
-                                        <SelectTrigger>
-                                            <SelectValue placeholder="Choisissez une catégorie"/>
+                                        <SelectTrigger id="select-categorytype">
+                                            <SelectValue placeholder="Choisissez une catégorie" />
                                         </SelectTrigger>
                                     </FormControl>
-                                    <SelectContent>
+                                    <SelectContent id="select-categorytype-content">
                                         {categoryTypes.map((categoryType) => {
                                             return (
                                                 <SelectItem
@@ -108,10 +110,10 @@ export default function FilterForm({categoryTypes, categories}: FilterFormProps)
                                     </SelectContent>
                                 </Select>
                                 <button type="button" onClick={handleReset}>
-                                    <Undo2/>
+                                    <Undo2 />
                                 </button>
                             </div>
-                            <FormMessage/>
+                            <FormMessage />
                         </FormItem>
                     )}
                 />
@@ -121,16 +123,16 @@ export default function FilterForm({categoryTypes, categories}: FilterFormProps)
                     <FormField
                         control={form.control}
                         name="category"
-                        render={({field}) => (
+                        render={({ field }) => (
                             <FormItem>
                                 <FormLabel>Catégorie</FormLabel>
-                                <Select onValueChange={field.onChange} defaultValue={field.value}>
+                                <Select onValueChange={field.onChange} defaultValue={field.value} date-testid="category-select" >
                                     <FormControl>
-                                        <SelectTrigger>
-                                            <SelectValue placeholder="Choisissez une sous catégorie"/>
+                                        <SelectTrigger id="select-category" >
+                                            <SelectValue placeholder="Choisissez une sous catégorie" />
                                         </SelectTrigger>
                                     </FormControl>
-                                    <SelectContent className="w-[90vw]">
+                                    <SelectContent className="w-[90vw]" id="select-category-content" >
                                         {categorySelection.categories.map((category) => {
                                             return (
                                                 <SelectItem
@@ -143,14 +145,14 @@ export default function FilterForm({categoryTypes, categories}: FilterFormProps)
                                         })}
                                     </SelectContent>
                                 </Select>
-                                <FormMessage/>
+                                <FormMessage />
                             </FormItem>
                         )}
                     />
                 )}
 
                 <Button type="submit"
-                        disabled={form.getValues('categoryType') === ""}>Filtrer</Button>
+                    disabled={form.getValues('categoryType') === ""}>Filtrer</Button>
             </form>
         </Form>
     )
