@@ -102,6 +102,7 @@ export default function Chat({ user, room, interlocutor }: ChatProps) {
                     placeholder="Entrez votre message ..."
                     className="flex grow"
                     type="text"
+                    name="message"
                     value={message}
                     onChange={(e) => setMessage(e.target.value)}
                 />
