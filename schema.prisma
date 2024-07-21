@@ -195,7 +195,7 @@ model Room {
 
   userRooms UserRoom[]
 
-  offer Offer @relation(fields: [offerId], references:[id])
+  offer Offer @relation(fields: [offerId], references: [id], onDelete: Cascade)
 
   offerId Int
 }

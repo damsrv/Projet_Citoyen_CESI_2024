@@ -23,7 +23,6 @@ export function ModalAccepted({
 }) {
     const router = useRouter();
     const handleClick = async () => {
-        console.log("Accepter la demande");
         //  si l'utilisateur accepte la demande de contact, on met à jour l'offerStudent avec le statut 1
         //  et on envoie un message à l'étudiant pour lui dire que sa demande a été acceptée
         let offerId = offerStudent.offer.id;
@@ -81,7 +80,7 @@ export function ModalAccepted({
                         variant={"positive"}
                         onClick={() => handleClick()}
                     >
-                        Accepter
+                        Accepter la demande
                     </Button>
                 </DialogFooter>
             </DialogContent>

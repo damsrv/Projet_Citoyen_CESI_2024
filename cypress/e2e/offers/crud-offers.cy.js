@@ -1,4 +1,4 @@
-describe("Gestion des offres de mentorat", () => {
+describe("CRUD des offres de mentorat", () => {
     beforeEach(() => {
         cy.visit("/connexion");
         // Connexion de l'utilisateur avant chaque test
@@ -54,6 +54,7 @@ describe("Gestion des offres de mentorat", () => {
         cy.visit("/mon-compte/gerer-offres");
         // trouver l'offre à modifier, remonter à la ligne du tableau avec <tr> et chercher le bouton pour ouvrir les actions (3e colonne) puis cliquer sur le lien modifier l'offre
         cy.contains("Offre de mentorat en développement web")
+            .first()
             .get("tr")
             .find("button.trigger-actions")
             .click();
@@ -77,20 +78,20 @@ describe("Gestion des offres de mentorat", () => {
         );
     });
 
-    // it("should delete an existing offer", () => {
-    //     cy.visit("/mon-compte/gerer-offres");
-    //     cy.contains("Offre de mentorat en développement web avancé")
-    //         .parent()
-    //         .find("button[title='Supprimer l'offre']")
-    //         .click();
+    it("should delete an existing offer", () => {
+        cy.visit("/mon-compte/gerer-offres");
+        cy.contains("Offre de mentorat en développement web avancé")
+            .get("tr")
+            .find("button.trigger-actions")
+            .click();
+        cy.contains("Supprimer l'offre").click();
 
-    //     // Confirmer la suppression
-    //     cy.contains("Valider").click();
+        // Confirmer la suppression
+        cy.contains("Valider").click();
 
-    //     // Vérifier que l'offre a été supprimée avec succès
-    //     cy.contains("Offre supprimée avec succès").should("be.visible");
-    //     cy.contains("Offre de mentorat en développement web avancé").should(
-    //         "not.exist"
-    //     );
-    // });
+        // Vérifier que l'offre a été supprimée avec succès
+        cy.contains("Offre de mentorat en développement web avancé").should(
+            "not.exist"
+        );
+    });
 });

@@ -26,7 +26,7 @@ export default async function ProfileDropdown({ user }: ProfileDropdownProps) {
                     <AvatarFallback>{user.firstname.charAt(0).toUpperCase()}{user.lastname.charAt(0).toUpperCase()}</AvatarFallback>
                 </Avatar>
             </DropdownMenuTrigger>
-            <DropdownMenuContent align="end" className="min-w-64">
+            <DropdownMenuContent align="end" className="min-w-64 profile-menu-content" >
                 <DropdownMenuLabel className="flex justify-start items-center gap-4">
                     <Avatar>
                         {!!user.avatar && (
