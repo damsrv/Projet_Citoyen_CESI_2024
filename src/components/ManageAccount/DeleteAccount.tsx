@@ -73,7 +73,7 @@ const DeleteAccount = ({ userId }:
                             <Button variant="error" type="button">Supprimer mon compte</Button>
                         </DialogTrigger>
 
-                        <DialogContent className="modal-change-email sm:max-w-[425px]" >
+                        <DialogContent className="modal-change-email sm:max-w-[625px]" >
                             <DialogHeader>
                                 <DialogTitle>Supprimer mon compte</DialogTitle>
                                 <DialogDescription>
@@ -112,7 +112,7 @@ const DeleteAccount = ({ userId }:
                                     </Button>
                                 </DialogClose>
                                 <DialogClose asChild>
-                                    <Button type="submit" variant="error" onClick={form.handleSubmit(onSubmit)}>Supprimer mon compte</Button>
+                                    <Button type="submit" variant="error" onClick={form.handleSubmit(onSubmit)}>Supprimer définitivement mon compte</Button>
                                 </DialogClose>
                             </DialogFooter>
                         </DialogContent>
