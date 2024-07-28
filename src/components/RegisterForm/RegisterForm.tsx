@@ -49,6 +49,7 @@ const formSchema = z
 export function RegisterForm() {
     const { push } = useRouter();
     const [error, setError] = useState<string | null>(null);
+    const [isLoading, setIsLoading] = useState(false);
 
     const form = useForm<z.infer<typeof formSchema>>({
         resolver: zodResolver(formSchema),
@@ -62,6 +63,7 @@ export function RegisterForm() {
     });
 
     async function onSubmit(values: z.infer<typeof formSchema>) {
+        setIsLoading(true);
         console.log("--------------- REGISTER FORM SUBMIT ---------------");
         console.log(values);
         const res = await fetch("/api/register", {
@@ -73,6 +75,7 @@ export function RegisterForm() {
         if (!res.ok) {
             const json = await res.json();
             setError(json.message);
+            setIsLoading(false);
         } else {
             toast.success(
                 "Inscription réussie ! Vous pouvez maintenant vous connecter."
@@ -173,7 +176,11 @@ export function RegisterForm() {
                         </FormItem>
                     )}
                 />
-                <Button type="submit">S'inscrire</Button>
+                {isLoading ?
+                    <Button type="submit" disabled>Chargement...</Button>
+                    :
+                    <Button type="submit">S'inscrire</Button>
+                }
                 <Button type="button" variant="link">
                     <a href="/connexion">Déjà un compte ? Connectez-vous</a>
                 </Button>

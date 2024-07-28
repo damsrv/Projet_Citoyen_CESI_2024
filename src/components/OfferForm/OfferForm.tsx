@@ -74,6 +74,7 @@ const FormProfile = ({
     const router = useRouter();
 
     const [isCitySelected, setIsCitySelected] = useState(false);
+    const [isLoading, setIsLoading] = useState(false);
 
     const formSchema = z.object({
         content: z
@@ -130,6 +131,7 @@ const FormProfile = ({
     }, [defaultData]);
 
     async function onSubmit(data: z.infer<typeof formSchema>) {
+        setIsLoading(true);
         let dataToSend = {
             content: data.content,
             title: data.title,
@@ -157,6 +159,7 @@ const FormProfile = ({
                     "Une erreur est survenue lors de l'enregistrement de l'offre."
                 );
             }
+
         } else {
             const response = await fetch(`/api/offers`, {
                 method: "POST",
@@ -175,6 +178,7 @@ const FormProfile = ({
                 );
             }
         }
+        setIsLoading(false);
     }
 
     return (
@@ -424,9 +428,14 @@ const FormProfile = ({
                     </Alert>
                 )}
                 <div className="flex justify-end">
-                    <Button className="mt-5 " type="submit">
-                        Enregistrer l'offre
-                    </Button>
+
+                    {isLoading ?
+                        <Button type="submit" disabled>Chargement...</Button>
+                        :
+                        <Button className="mt-5 " type="submit">
+                            Enregistrer l'offre
+                        </Button>
+                    }
                 </div>
             </form>
         </Form>

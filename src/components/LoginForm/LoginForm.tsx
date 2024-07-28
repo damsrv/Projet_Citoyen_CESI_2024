@@ -1,15 +1,15 @@
 "use client"
 
-import {zodResolver} from "@hookform/resolvers/zod";
-import {useForm} from "react-hook-form";
-import {z} from "zod";
-import {Form, FormControl, FormField, FormItem, FormMessage} from "@/components/ui/form";
-import {Input} from "@/components/ui/input";
-import {Button} from "@/components/ui/button";
-import {useEffect, useState} from "react";
-import {Alert, AlertDescription, AlertTitle} from "@/components/ui/alert";
-import {signIn} from "next-auth/react";
-import {AlertCircle} from "lucide-react";
+import { zodResolver } from "@hookform/resolvers/zod";
+import { useForm } from "react-hook-form";
+import { z } from "zod";
+import { Form, FormControl, FormField, FormItem, FormMessage } from "@/components/ui/form";
+import { Input } from "@/components/ui/input";
+import { Button } from "@/components/ui/button";
+import { useEffect, useState } from "react";
+import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
+import { signIn } from "next-auth/react";
+import { AlertCircle } from "lucide-react";
 
 const formSchema = z.object({
     email: z.string().email("Merci d'entrer une adresse mail valide."),
@@ -22,6 +22,7 @@ interface LoginFormProps {
 
 export function LoginForm({ error }: LoginFormProps) {
     const [errorMessage, setErrorMessage] = useState<string | undefined>(error)
+    const [isLoading, setIsLoading] = useState(false)
 
     const form = useForm<z.infer<typeof formSchema>>({
         resolver: zodResolver(formSchema),
@@ -32,12 +33,14 @@ export function LoginForm({ error }: LoginFormProps) {
     })
 
     async function onSubmit(values: z.infer<typeof formSchema>) {
+        setIsLoading(true)
         await signIn("credentials", {
             email: values.email,
             password: values.password,
             callbackUrl: "/",
             redirect: true
         })
+        setIsLoading(false)
     }
 
     const [changedEmail, setChangedEmail] = useState<string | null>(null)
@@ -98,7 +101,11 @@ export function LoginForm({ error }: LoginFormProps) {
                         </FormItem>
                     )}
                 />
-                <Button type="submit">Se connecter</Button>
+                {isLoading ?
+                    <Button type="submit" disabled>Chargement...</Button>
+                    :
+                    <Button type="submit">Se connecter</Button>
+                }
                 <Button type="button" variant='link'>
                     <a href="/inscription">
                         Pas encore de compte ? Créez-en un
