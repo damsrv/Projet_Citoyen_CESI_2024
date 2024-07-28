@@ -23,7 +23,6 @@ export async function POST(req: Request, params: Params) {
 
     const userId = parseInt(params.params.id);
 
-
     if (!(await isUserOrAdmin(userId))) {
       return NextResponse.json(
           {
@@ -32,8 +31,7 @@ export async function POST(req: Request, params: Params) {
           },
           { status: 401 }
       );
-  }
-
+    }
 
     const formData = await req.formData()
     const file = formData.get("file") as File || null;

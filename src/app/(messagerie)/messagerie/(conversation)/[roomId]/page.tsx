@@ -1,17 +1,18 @@
 import Chat from "@/components/Chat/Chat";
-import {getServerSession} from "next-auth";
-import {authOptions} from "@/lib/authOptions";
-import {permanentRedirect} from "next/navigation";
+import { getServerSession } from "next-auth";
+import { authOptions } from "@/lib/authOptions";
+import { permanentRedirect } from "next/navigation";
 import prisma from "@/lib/prisma";
-import {useContext} from "react";
-import {CurrentConversationContext} from "@/context/CurrentConversationContext";
+import { useContext } from "react";
+import { CurrentConversationContext } from "@/context/CurrentConversationContext";
 import ChatNav from "@/components/Chat/ChatNav/ChatNav";
 import Link from "next/link";
-import {Undo2} from "lucide-react";
+import { Undo2 } from "lucide-react";
+import { Button } from "@/components/ui/button";
 
 export default async function ChatRoomById({
-                                               params,
-                                           }: {
+    params,
+}: {
     params: { roomId: string };
 }) {
     const session = await getServerSession(authOptions);
@@ -68,12 +69,14 @@ export default async function ChatRoomById({
     return (
         <>
             <div className="hidden lg:flex">
-                <ChatNav rooms={user.userRooms}/>
+                <ChatNav rooms={user.userRooms} />
             </div>
-            <Link className="flex lg:hidden items-center px-4 gap-2 mb-5" href="/messagerie">
-                <Undo2 />
-                Retour aux conversations
-            </Link>
+            <Button asChild variant={"ghost"}>
+                <Link className="flex lg:hidden items-center px-4 gap-2 mb-5" href="/messagerie">
+                    <Undo2 />
+                    Retour aux conversations
+                </Link>
+            </Button>
             <section className="flex grow bg-white border rounded-lg">
                 <div className="flex grow bg-white rounded-md">
                     <Chat
