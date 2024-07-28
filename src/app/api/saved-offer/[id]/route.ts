@@ -5,6 +5,7 @@ import PrismaClientKnownRequestError = Prisma.PrismaClientKnownRequestError;
 import { getServerSession } from "next-auth";
 import { authOptions } from "@/lib/authOptions";
 import { PrismaClientValidationError } from "@prisma/client/runtime/library";
+import { isUserOrAdmin } from "@/services/check-authorization";
 
 
 interface Params {
@@ -17,6 +18,17 @@ export async function GET(req: Request, params: Params) {
     const offerId = parseInt(params.params.id);
     const session = await getServerSession(authOptions);
     const userId = session?.user.id ;
+
+
+    if (!(await isUserOrAdmin(userId!))) {
+        return NextResponse.json(
+            {
+                message:
+                    "Vous n'êtes pas autorisé à envoyer une demande de contact pour cet utilisateur.",
+            },
+            { status: 401 }
+        );
+    }
 
     try {
         if (userId) {

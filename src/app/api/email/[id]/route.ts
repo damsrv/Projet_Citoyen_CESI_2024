@@ -5,6 +5,7 @@ import { NextResponse } from "next/server";
 import * as bcrypt from 'bcrypt';
 import PrismaClientKnownRequestError = Prisma.PrismaClientKnownRequestError;
 import { PrismaClientValidationError } from "@prisma/client/runtime/library";
+import { isUserOrAdmin } from "@/services/check-authorization";
 
 interface Params {
     params: {
@@ -18,6 +19,16 @@ export async function PUT(req: Request, params: Params) {
     const userId = parseInt(params.params.id);
 
     const { email, currentPassword} =  data;
+
+    if (!(await isUserOrAdmin(userId))) {
+        return NextResponse.json(
+            {
+                message:
+                    "Vous n'êtes pas autorisé à modifier cet utilisateur.",
+            },
+            { status: 401 }
+        );
+    }
 
     try {
         // récup ancien password en base.

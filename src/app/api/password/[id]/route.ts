@@ -5,6 +5,7 @@ import { NextResponse } from "next/server";
 import * as bcrypt from 'bcrypt';
 import PrismaClientKnownRequestError = Prisma.PrismaClientKnownRequestError;
 import { PrismaClientValidationError } from "@prisma/client/runtime/library";
+import { isUserOrAdmin } from "@/services/check-authorization";
 
 
 interface Params {
@@ -17,6 +18,18 @@ export async function PUT(req: Request, params: Params) {
     const { data } = await req.json();
     const userId = parseInt(params.params.id);
     const { oldPassword, newPassword} =  data;
+
+
+    if (!(await isUserOrAdmin(userId))) {
+        return NextResponse.json(
+            {
+                message:
+                    "Vous n'êtes pas autorisé à répondre à une demande de contact pour cet utilisateur.",
+            },
+            { status: 401 }
+        );
+    }
+
 
     try {
         // récup ancien password en base.

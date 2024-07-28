@@ -5,6 +5,7 @@ import { NextResponse } from "next/server";
 import * as bcrypt from 'bcrypt';
 import PrismaClientKnownRequestError = Prisma.PrismaClientKnownRequestError;
 import { PrismaClientValidationError } from "@prisma/client/runtime/library";
+import { isUserOrAdmin } from "@/services/check-authorization";
 
 interface Params {
     params: {
@@ -17,6 +18,16 @@ export async function DELETE(req: Request, params: Params) { //OK
     const userId = parseInt(params.params.id);
 
     const { currentPassword} =  data;
+
+    if (!(await isUserOrAdmin(userId))) {
+        return NextResponse.json(
+            {
+                message:
+                    "Vous n'êtes pas autorisé à supprimer cet utilisateur.",
+            },
+            { status: 401 }
+        );
+    }
     
     try{
         const user = await prisma.user.findUnique({

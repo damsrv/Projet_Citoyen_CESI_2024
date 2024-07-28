@@ -4,7 +4,7 @@ import { Session } from "next-auth";
 import { getServerSession } from "next-auth";
 import { authOptions } from "@/lib/authOptions";
 
-export const isOfferOwner = async (offerMentorId: number) => {
+export const isOfferOwnerOrAdmin = async (offerMentorId: number) => {
     const session = await getServerSession(authOptions);
 
     if (session?.user.roleId != 1 && session?.user.id != offerMentorId) {
@@ -13,7 +13,7 @@ export const isOfferOwner = async (offerMentorId: number) => {
     return true;
 };
 
-export const isUserOwner = async (userId: number) => {
+export const isUserOrAdmin = async (userId: number) => {
     const session = await getServerSession(authOptions);
 
     if (session?.user.roleId != 1 && session?.user.id != userId) {

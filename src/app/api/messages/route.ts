@@ -2,6 +2,7 @@ import prisma from "@/lib/prisma";
 import {NextResponse} from "next/server";
 import {PrismaClientValidationError} from "@prisma/client/runtime/library";
 import {pusherServer} from "@/lib/pusher";
+import { isUserOrAdmin } from "@/services/check-authorization";
 
 
 export async function POST(req: Request) {
@@ -9,8 +10,17 @@ export async function POST(req: Request) {
     const {data} = await req.json();
     const {roomId, senderId, content, status} = data;
 
-    try {
+    if (!(await isUserOrAdmin(senderId))) {
+        return NextResponse.json(
+            {
+                message:
+                    "Vous n'êtes pas autorisé à envoyer un message pour cet utilisateur.",
+            },
+            { status: 401 }
+        );
+    }
 
+    try {
         const newMessage = await prisma.message.create({
             data: {
                 roomId: parseInt(roomId),

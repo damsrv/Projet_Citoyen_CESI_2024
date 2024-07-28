@@ -6,6 +6,7 @@ import * as bcrypt from "bcrypt";
 import PrismaClientKnownRequestError = Prisma.PrismaClientKnownRequestError;
 import { PrismaClientValidationError } from "@prisma/client/runtime/library";
 import { Key } from "react";
+import { isUserOrAdmin } from "@/services/check-authorization";
 
 interface Params {
     params: {
@@ -21,6 +22,16 @@ export async function PUT(req: Request, params: Params) {
     const mentorId = parseInt(params.params.id[1]);
     const offerId = parseInt(params.params.id[2]);
     let newRoom: Room;
+
+    if (!(await isUserOrAdmin(mentorId))) {
+        return NextResponse.json(
+            {
+                message:
+                    "Vous n'êtes pas autorisé à répondre à une demande de contact pour cet utilisateur.",
+            },
+            { status: 401 }
+        );
+    }
 
     try {
         const updatedOfferStudent = await prisma.offerStudent.update({

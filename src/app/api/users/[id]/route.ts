@@ -7,7 +7,7 @@ import PrismaClientKnownRequestError = Prisma.PrismaClientKnownRequestError;
 import { PrismaClientValidationError } from "@prisma/client/runtime/library";
 import { Key } from "react";
 import { exclude } from "@/lib/utils";
-import { isUserOwner } from "@/services/check-authorization";
+import { isUserOrAdmin } from "@/services/check-authorization";
 
 interface Params {
     params: {
@@ -60,7 +60,7 @@ export async function PUT(req: Request, params: Params) {
 
     let skillsArray = [];
 
-    if (!(await isUserOwner(userId))) {
+    if (!(await isUserOrAdmin(userId))) {
         return NextResponse.json(
             {
                 message: "Vous n'êtes pas autorisé à modifier cet utilisateur.",
@@ -125,7 +125,7 @@ export async function DELETE(req: Request, params: Params) {
 
     const userId = parseInt(params.params.id);
 
-    if (!(await isUserOwner(userId))) {
+    if (!(await isUserOrAdmin(userId))) {
         return NextResponse.json(
             {
                 message:

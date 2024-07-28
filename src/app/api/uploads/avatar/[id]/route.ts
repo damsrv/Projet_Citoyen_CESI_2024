@@ -10,6 +10,7 @@ import mime from "mime";
 import { join } from "path";
 import { stat, mkdir, writeFile, unlink } from "fs/promises";
 import { NextRequest, NextResponse } from "next/server";
+import { isUserOrAdmin } from "@/services/check-authorization";
 
 interface Params {
     params: {
@@ -21,6 +22,18 @@ export async function POST(req: Request, params: Params) {
     //OK
 
     const userId = parseInt(params.params.id);
+
+
+    if (!(await isUserOrAdmin(userId))) {
+      return NextResponse.json(
+          {
+              message:
+                  "Vous n'êtes pas autorisé à envoyer un fichier pour cet utilisateur.",
+          },
+          { status: 401 }
+      );
+  }
+
 
     const formData = await req.formData()
     const file = formData.get("file") as File || null;

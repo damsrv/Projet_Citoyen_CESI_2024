@@ -5,7 +5,7 @@ import { NextResponse } from "next/server";
 import * as bcrypt from "bcrypt";
 import PrismaClientKnownRequestError = Prisma.PrismaClientKnownRequestError;
 import { PrismaClientValidationError } from "@prisma/client/runtime/library";
-import { isOfferOwner } from "@/services/check-authorization";
+import { isOfferOwnerOrAdmin } from "@/services/check-authorization";
 import { getServerSession } from "next-auth";
 import { authOptions } from "@/lib/authOptions";
 
@@ -61,7 +61,7 @@ export async function PUT(req: Request, params: Params) {
 
     const { offerComTypes, ...offer } = data;
 
-    if (!(await isOfferOwner(offer.mentorId))) {
+    if (!(await isOfferOwnerOrAdmin(offer.mentorId))) {
         return NextResponse.json(
             {
                 message: "Vous n'êtes pas autorisé à voir cette offre.",
@@ -140,7 +140,7 @@ export async function DELETE(req: Request, params: Params) {
                 { status: 404 }
             );
         } else {
-            if (!(await isOfferOwner(doesOfferExist.mentorId))) {
+            if (!(await isOfferOwnerOrAdmin(doesOfferExist.mentorId))) {
                 return NextResponse.json(
                     {
                         message:

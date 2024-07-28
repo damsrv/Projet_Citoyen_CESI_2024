@@ -1,7 +1,7 @@
 import prisma from "@/lib/prisma";
 import {NextRequest, NextResponse} from "next/server";
 import {PrismaClientValidationError} from "@prisma/client/runtime/library";
-import {isOfferOwner} from "@/services/check-authorization";
+import {isOfferOwnerOrAdmin} from "@/services/check-authorization";
 import {Prisma} from "@prisma/client";
 import OfferFindManyArgs = Prisma.OfferFindManyArgs;
 
@@ -122,7 +122,7 @@ export async function POST(req: Request) {
     const {data} = await req.json();
     const {offerComTypes, ...offer} = data;
 
-    if (!(await isOfferOwner(offer.mentorId))) {
+    if (!(await isOfferOwnerOrAdmin(offer.mentorId))) {
         return NextResponse.json(
             {
                 message: "Vous n'êtes pas autorisé à créer cette offre.",
