@@ -10,10 +10,16 @@ import { useState } from "react";
 import { useRouter } from "next/navigation";
 import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
 
+const passwordValidation = new RegExp(
+    /^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-]).{8,}$/
+);
+
 const formSchema = z.object({
     // TODO : ajouter regex sur le password & des indications visuelles de ce qui est attendu
     oldPassword: z.string().min(4, "Mot de passe actuel requis."),
-    newPassword: z.string().min(4, "Nouveau mot de passe requis."),
+    newPassword: z.string().regex(passwordValidation, {
+        message: 'Le mot de passe doit contenir au moins 8 caractères, une majuscule, une minuscule, un chiffre et un caractère spécial (#?!@$%^&*-).',
+    }),
     newPasswordConfirm: z.string().min(4, "Confirmation de mot de passe requise."),
 }).superRefine(({ newPassword, newPasswordConfirm }, ctx) => {
     if (newPasswordConfirm !== newPassword) {

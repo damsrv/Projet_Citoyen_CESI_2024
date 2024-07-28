@@ -20,12 +20,18 @@ import { signIn } from "next-auth/react";
 import { useRouter } from "next/navigation";
 import toast from "react-hot-toast";
 
+const passwordValidation = new RegExp(
+    /^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-]).{8,}$/
+);
+
 const formSchema = z
     .object({
         firstname: z.string().min(1, "Prénom requis."),
         lastname: z.string().min(1, "Nom requis."),
         email: z.string().email("Merci d'entrer une adresse mail valide."),
-        password: z.string().min(4, "Mot de passe requis."),
+        password: z.string().regex(passwordValidation, {
+            message: 'Le mot de passe doit contenir au moins 8 caractères, une majuscule, une minuscule, un chiffre et un caractère spécial (#?!@$%^&*-).',
+        }),
         passwordConfirm: z
             .string()
             .min(4, "Confirmation de mot de passe requise."),
