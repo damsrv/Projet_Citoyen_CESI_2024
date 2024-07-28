@@ -76,9 +76,9 @@ const SaveOffer = ({ offerId, userId }: { offerId: number, userId: number }) => 
     return (
         <div>
             {saved ? (
-                <button onClick={unsaveOffer} title="Retirer l'offre des favoris"><Star size={36} fill='#EBAE17' stroke='#EBAE17' /></button>
+                <button onClick={unsaveOffer} className='remove-saved-offer' title="Retirer l'offre des favoris"><Star size={36} fill='#EBAE17' stroke='#EBAE17' /></button>
             ) : (
-                <button onClick={saveOffer} title="Ajouter l'offre aux favoris"><Star size={36} /></button>
+                <button onClick={saveOffer} className='add-saved-offer' title="Ajouter l'offre aux favoris"><Star size={36} /></button>
             )}
         </div>
     )

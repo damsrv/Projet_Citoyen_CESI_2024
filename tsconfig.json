@@ -11,6 +11,7 @@
     "resolveJsonModule": true,
     "isolatedModules": true,
     "jsx": "preserve",
+    "baseUrl": ".", // Ajoutez cette ligne pour définir le baseUrl
     "incremental": true,
     "plugins": [
       {

@@ -8,7 +8,7 @@ export default function TopbarLinks() {
     const { currentRole } = useContext(RoleContext);
 
     return (
-        <nav className="hidden lg:block">
+        <nav id="navbar-user" className="hidden lg:block">
             {currentRole === UserRoles.Mentor
                 ?
                 (

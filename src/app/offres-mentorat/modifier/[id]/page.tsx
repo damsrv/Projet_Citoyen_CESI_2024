@@ -108,7 +108,6 @@ export default async function EditOfferPage({
     const status = [
         { id: 1, label: "Publiée" },
         { id: 2, label: "Brouillon" },
-        { id: 3, label: "Archivée" },
     ];
 
     return (

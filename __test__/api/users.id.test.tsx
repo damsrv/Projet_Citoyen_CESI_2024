@@ -1,7 +1,7 @@
 /**
  * @jest-environment node
  */
-import { GET } from "../mock/api/users/[id]/route"
+import { GET } from "../../src/app/api/users/[id]/route"
 import { matchers } from 'jest-json-schema';
 expect.extend(matchers);
 import { schema } from "../../src/lib/utils";

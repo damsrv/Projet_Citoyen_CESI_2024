@@ -92,7 +92,7 @@ export const columns: ColumnDef<Offer>[] = [
             return (
                 <><Dialog>
                     <DropdownMenu>
-                        <DropdownMenuTrigger asChild>
+                        <DropdownMenuTrigger asChild className="trigger-actions">
                             <Button variant="ghost" className="h-8 w-8 p-0">
                                 <span className="sr-only">Ouvrir le menu</span>
                                 <MoreHorizontal className="h-4 w-4" />

@@ -34,7 +34,7 @@ const formSchema = z
         if (passwordConfirm !== password) {
             ctx.addIssue({
                 code: "custom",
-                message: "Les mots de passes ne correspondent pas.",
+                message: "Les mots de passe ne correspondent pas.",
                 path: ["passwordConfirm"],
             });
         }
@@ -78,7 +78,8 @@ export function RegisterForm() {
     return (
         <Form {...form}>
             {error && (
-                <Alert>
+                <Alert className="mb-10" variant={"destructive"
+                }>
                     <AlertTitle>Erreur</AlertTitle>
                     <AlertDescription>{error}</AlertDescription>
                 </Alert>

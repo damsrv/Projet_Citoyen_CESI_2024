@@ -1,0 +1,4 @@
+
+FROM postgres:16.3-alpine3.20 as db
+# WORKDIR /
+# COPY /script/db/seedData_01-07.sql .

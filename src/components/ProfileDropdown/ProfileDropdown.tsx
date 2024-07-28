@@ -18,7 +18,7 @@ interface ProfileDropdownProps {
 export default async function ProfileDropdown({ user }: ProfileDropdownProps) {
     return (
         <DropdownMenu>
-            <DropdownMenuTrigger>
+            <DropdownMenuTrigger className="profile-menu">
                 <Avatar aria-label="Ouvrir le menu utilisateur" className="">
                     {!!user.avatar && (
                         <AvatarImage src={user.avatar} alt="Avatar de l'utilisateur" />
@@ -26,7 +26,7 @@ export default async function ProfileDropdown({ user }: ProfileDropdownProps) {
                     <AvatarFallback>{user.firstname.charAt(0).toUpperCase()}{user.lastname.charAt(0).toUpperCase()}</AvatarFallback>
                 </Avatar>
             </DropdownMenuTrigger>
-            <DropdownMenuContent align="end" className="min-w-64">
+            <DropdownMenuContent align="end" className="min-w-64 profile-menu-content" >
                 <DropdownMenuLabel className="flex justify-start items-center gap-4">
                     <Avatar>
                         {!!user.avatar && (

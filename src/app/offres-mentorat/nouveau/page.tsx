@@ -65,7 +65,7 @@ export default async function NewOfferPage() {
     const categories = await getCategories();
 
 
-    const status = [{ id: 1, label: "Publiée" }, { id: 2, label: "Brouillon" }, { id: 3, label: "Archivée" }]
+    const status = [{ id: 1, label: "Publiée" }, { id: 2, label: "Brouillon" }]
 
 
     return (
