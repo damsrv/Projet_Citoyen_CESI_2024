@@ -2,7 +2,7 @@ import { defineConfig } from "cypress";
 
 export default defineConfig({
   e2e: {
-    baseUrl: 'http://localhost:8080',
+    baseUrl: 'http://localhost:3000',
     viewportHeight: 900, // Hauteur de la fenêtre du navigateur
     viewportWidth: 1600, // Largeur de la fenêtre du navigateur
     chromeWebSecurity: false, // Désactiver la sécurité Web de Chrome
