@@ -34,31 +34,8 @@ import { Label } from "@/components/ui/label";
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
 import { useEffect } from "react";
 import toast from "react-hot-toast";
+import CityAutocomplete from "./CityAutocomplete";
 
-const formSchema = z.object({
-    content: z
-        .string()
-        .min(50, "Le contenu de l'offre doit faire au moins 50 caractères.")
-        .max(500, "Le contenu de l'offre est limité à 500 caractères."),
-    location: z.string().optional(),
-    title: z
-        .string()
-        .min(5, "Le titre de l'offre doit faire au moins 5 caractères.")
-        .max(255, "Le titre de l'offre est limité à 255 caractères."),
-    categoryId: z
-        .string({
-            required_error: "Champs requis",
-            invalid_type_error: "Champs requis",
-        })
-        .regex(/^\d+$/),
-    offerComTypes: z.array(z.number()).optional(),
-    status: z
-        .string({
-            required_error: "Champs requis",
-            invalid_type_error: "Champs requis",
-        })
-        .regex(/^\d+$/),
-});
 
 const FormProfile = ({
     defaultData,
@@ -96,10 +73,57 @@ const FormProfile = ({
     const [error, setError] = useState<string | null>(null);
     const router = useRouter();
 
+    const [isCitySelected, setIsCitySelected] = useState(false);
+
+    const formSchema = z.object({
+        content: z
+            .string()
+            .min(50, "Le contenu de l'offre doit faire au moins 50 caractères.")
+            .max(500, "Le contenu de l'offre est limité à 500 caractères."),
+        location: z.string().refine((value) => {
+            console.log("-----------");
+            console.log(value);
+            console.log(isCitySelected);
+            if (value.length === 0) return true; // Field is empty, this is valid
+            if (value.length > 0 && isCitySelected) return true; // Field is not empty and city is selected, this is valid
+            if (value.length > 0 && !isCitySelected) return false; // Field is not empty but city is not selected, this is invalid
+            return isCitySelected; // Validate based on the isCitySelected state
+        }, {
+            message: 'Ville invalide',
+        }),
+        title: z
+            .string()
+            .min(5, "Le titre de l'offre doit faire au moins 5 caractères.")
+            .max(255, "Le titre de l'offre est limité à 255 caractères."),
+        categoryId: z
+            .string({
+                required_error: "Champs requis",
+                invalid_type_error: "Champs requis",
+            })
+            .regex(/^\d+$/),
+        offerComTypes: z.array(z.number()).optional(),
+        status: z
+            .string({
+                required_error: "Champs requis",
+                invalid_type_error: "Champs requis",
+            })
+            .regex(/^\d+$/),
+    });
+
     const form = useForm<z.infer<typeof formSchema>>({
         resolver: zodResolver(formSchema),
         defaultValues: defaultData,
     });
+
+    const getCities = async (input: string) => {
+        const response = await fetch(
+            `https://geo.api.gouv.fr/communes?nom=${input}&boost=population&limit=10`
+        );
+        return response.json
+            ? response.json().then((json) => json)
+            : [];
+    }
+
 
     useEffect(() => {
         form.reset(defaultData);
@@ -315,21 +339,28 @@ const FormProfile = ({
                         )}
                     />
 
-                    <FormField
+                    {/* <FormField
                         control={form.control}
                         name="location"
                         render={({ field }) => (
                             <FormItem>
-                                <FormLabel>Localisation</FormLabel>
+                                <FormLabel>Ville</FormLabel>
                                 <FormControl>
                                     <Input
-                                        placeholder="Localisation"
+                                        placeholder="Ville"
                                         {...field}
                                     />
                                 </FormControl>
                                 <FormMessage />
                             </FormItem>
                         )}
+                    /> */}
+                    <CityAutocomplete
+                        control={form.control}
+                        name="location"
+                        label="Ville"
+                        placeholder="Ville"
+                        setIsCitySelected={setIsCitySelected} // Pass the setter as a prop
                     />
 
                     <FormField
