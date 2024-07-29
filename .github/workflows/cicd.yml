@@ -38,17 +38,50 @@ jobs:
         run: npm audit --audit-level=high
     
 
+  test:
+    name: Create test environment
+    runs-on: ubuntu-latest
+    need: audit
 
+      steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
 
+      - name: Set up Docker Compose
+        run: docker-compose up --build -d
 
+      - name: Set up environment variables
+        run: |
+          echo "POSTGRES_PRISMA_URL=postgres://postgres:secretpassword@localhost:5432/projet-citoyen" >> $GITHUB_ENV
 
-    # - name: Set up Docker Compose
-    #   run: docker-compose up --build -d
+      - name: Install NPM dependencies
+        run: npm install
 
-    #   tester si l'appli build.
+      - name: Install Prisma globally
+        run: npm install -g prisma
 
+      - name: Wait for PostgreSQL to be ready
+        run: |
+          sudo apt-get install -y postgresql-client
+          until pg_isready -h localhost -p 5432 -U postgres; do sleep 1; done
 
+      - name: Prisma generate
+        run: npx prisma generate
 
+      - name: Apply Prisma migrations
+        run: npx prisma migrate deploy
+
+      - name: seed database
+        run: npm run seed
+
+      - name: Verify data seeding
+        env:
+          PGPASSWORD: secretpassword
+        run: |
+          psql -h localhost -p 5432 -U postgres -d projet-citoyen -c "SELECT * FROM \"Offer\";"
+
+      - name: run test !
+        run: npm run test 
 
 
 
