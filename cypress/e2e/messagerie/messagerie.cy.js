@@ -6,6 +6,7 @@ for (let i = 0; i < 50; i++) {
 describe("Messagerie", () => {
     beforeEach(() => {
         cy.visit("/connexion");
+        cy.wait(500);
         // Connexion de l'utilisateur avant chaque test
         cy.get('input[name="email"]').type("j-moulin@test.fr");
         cy.get('input[name="password"]').type("password");
@@ -42,6 +43,7 @@ describe("Messagerie", () => {
 
     it("should see the message when it's other user", () => {
         cy.visit("/connexion");
+        cy.wait(500);
         // Connexion de l'utilisateur avant chaque test
         cy.get('input[name="email"]').type("jcvd@test.fr");
         cy.get('input[name="password"]').type("password");
