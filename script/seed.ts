@@ -5,8 +5,8 @@ const prisma = new PrismaClient();
 async function main() {
   await prisma.role.createMany({
     data: [
-      { id: 10, name: 'ADMIN' },
-      { id: 11, name: 'USER' },
+      { id: 1, name: 'ADMIN' },
+      { id: 2, name: 'USER' },
     ],
   });
 
@@ -58,7 +58,7 @@ async function main() {
         description: 'une description de mentor ...',
         birthdate: '1990-11-08T00:00:00.000Z',
         experiences: null,
-        roleId: 11,
+        roleId: 2,
         registerAt: '2024-05-23T11:44:09.735Z'
       },
       {
@@ -72,7 +72,7 @@ async function main() {
         description: 'une description de mentor ...',
         birthdate: '2024-06-25T00:00:00.000Z',
         experiences: 'Cuisine traditionnelle\nCuisine africaine\nCuisine normande à la créme fraiche',
-        roleId: 11,
+        roleId: 2,
         registerAt: '2024-06-25T09:36:17.984Z'
       },
       {
@@ -86,7 +86,7 @@ async function main() {
         description: 'une description ...',
         birthdate: '1990-11-08T00:00:00.000Z',
         experiences: null,
-        roleId: 11,
+        roleId: 2,
         registerAt: '2024-05-23T11:44:09.735Z'
       },
       {
@@ -100,7 +100,7 @@ async function main() {
         description: 'une description de mentor ...',
         birthdate: '1990-11-08T00:00:00.000Z',
         experiences: 'Gestion de projet\nLeadership\nCommunication efficace',
-        roleId: 11,
+        roleId: 2,
         registerAt: '2024-05-23T11:44:09.735Z'
       },
       {
@@ -114,7 +114,7 @@ async function main() {
         description: 'une description de mentor ...',
         birthdate: '1990-11-08T00:00:00.000Z',
         experiences: 'Développement web\nBase de données\nSécurité informatique',
-        roleId: 11,
+        roleId: 2,
         registerAt: '2024-05-25T16:29:20.964Z'
       },
       {
@@ -128,7 +128,7 @@ async function main() {
         description: null,
         birthdate: '1990-11-08T00:00:00.000Z',
         experiences: null,
-        roleId: 10,
+        roleId: 1,
         registerAt: '2024-05-23T11:44:09.735Z'
       },
       {
@@ -142,7 +142,7 @@ async function main() {
         description: 'une description de mentor ...',
         birthdate: '2024-06-02T00:00:00.000Z',
         experiences: 'Marketing digital\nSEO/SEA\nAnalyse de données',
-        roleId: 11,
+        roleId: 2,
         registerAt: '2024-06-02T12:35:48.570Z'
       },
       {
@@ -156,7 +156,7 @@ async function main() {
         description: 'une description de mentor ...',
         birthdate: '1990-06-23T10:36:17.450Z',
         experiences: 'Intelligence artificielle\nApprentissage automatique\nTraitement du langage naturel',
-        roleId: 11,
+        roleId: 2,
         registerAt: '1990-06-23T10:36:17.451Z'
       },
       {
@@ -170,7 +170,7 @@ async function main() {
         description: null,
         birthdate: '2024-06-28T08:04:34.981Z',
         experiences: null,
-        roleId: 11,
+        roleId: 2,
         registerAt: '2024-06-28T08:04:36.126Z'
       },
       {
@@ -184,7 +184,7 @@ async function main() {
         description: null,
         birthdate: '2024-06-28T08:36:49.708Z',
         experiences: null,
-        roleId: 11,
+        roleId: 2,
         registerAt: '2024-06-28T08:36:50.839Z'
       },
       {
@@ -198,7 +198,7 @@ async function main() {
         description: null,
         birthdate: '2024-06-28T08:36:56.724Z',
         experiences: null,
-        roleId: 11,
+        roleId: 2,
         registerAt: '2024-06-28T08:36:56.725Z'
       }
     ],
