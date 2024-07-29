@@ -11,26 +11,20 @@ env:
   PUSHER_APP_SECRET: ${{ vars.PUSHER_APP_SECRET }}
 
 jobs:
-  # build:
-  #   name: Build Project
-  #   runs-on: ubuntu-latest
+  build:
+    name: Build Project
+    runs-on: ubuntu-latest
 
-  #   steps:
-  #     - name: Checkout code
-  #       uses: actions/checkout@v4
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
 
-  #     - name: Install dependencies
-  #       run: npm install
+      - name: Install dependencies
+        run: npm install
 
-  #     - name: Build project
-  #       run: npm run build
+      - name: Build project
+        run: npm run build
         
-      # - uses: actions/cache/save@v3
-      #   with:
-      #     path:  |
-      #       ~/.cache/Cypress
-      #       node_modules
-      #     key: ${{ runner.os }}-node-${{ hashFiles('**/package-lock.json') }}
 
   # audit:
   #   name: Audit Project
@@ -80,7 +74,7 @@ jobs:
         run: npx prisma generate
 
       - name: Apply Prisma migrations
-        run: npx prisma migrate deploy
+        run: npx prisma db push
 
       - name: seed database
         run: npm run seed
