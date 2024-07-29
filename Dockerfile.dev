@@ -13,6 +13,10 @@ RUN npm install
 # Copier le reste des fichiers du projet
 COPY . .
 
+ENV NEXT_PUBLIC_PUSHER_APP_KEY=b8d84b979ae23b051254
+ENV PUSHER_APP_ID=1812146
+ENV PUSHER_APP_SECRET=9443d6e09ee105744eb1
+
 # Générer les fichiers clients Prisma
 RUN npx prisma generate
 
