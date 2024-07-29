@@ -16,7 +16,7 @@
     "e2e:headless": "start-server-and-test dev http://localhost:3000 \"cypress run --e2e\"",
     "component": "cypress open --component",
     "component:headless": "cypress run --component",
-    "seed": "ts-node ./script/seed.ts"
+    "seed": "node script/seed.ts"
   },
   "dependencies": {
     "@ducanh2912/next-pwa": "^10.2.7",
