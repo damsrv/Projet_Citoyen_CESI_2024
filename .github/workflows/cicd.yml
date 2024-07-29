@@ -3,7 +3,7 @@ run-name: ${{ github.actor }} CICD
 on: 
   push:
     branches:
-      - feat/mise-en-place-cicd-integration
+      - feat/cicd-finale
 
 env:
   NEXT_PUBLIC_PUSHER_APP_KEY: ${{ vars.NEXT_PUBLIC_PUSHER_APP_KEY }}
