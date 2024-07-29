@@ -1,7 +1,9 @@
 services:
 
   next:
-    build: .
+    build:
+      context: .
+      dockerfile: Dockerfile.db
     ports:
       - "3000:3000"
 
