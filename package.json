@@ -11,12 +11,12 @@
     "test": "jest",
     "test:watch": "jest --watchAll",
     "coverage": "jest --coverage",
-    "seed": "node script/seed.ts",
     "cypress:open": "cypress open",
     "e2e": "start-server-and-test dev http://localhost:3000 \"cypress open --e2e\"",
     "e2e:headless": "start-server-and-test dev http://localhost:3000 \"cypress run --e2e\"",
     "component": "cypress open --component",
-    "component:headless": "cypress run --component"
+    "component:headless": "cypress run --component",
+    "seed": "ts-node ./script/seed.ts"
   },
   "dependencies": {
     "@ducanh2912/next-pwa": "^10.2.7",
@@ -76,7 +76,7 @@
     "@types/bcrypt": "^5.0.2",
     "@types/jest": "^29.5.12",
     "@types/jest-json-schema": "^6.1.4",
-    "@types/node": "^20.14.9",
+    "@types/node": "^20.14.13",
     "@types/react": "^18",
     "@types/react-dom": "^18",
     "autoprefixer": "^10.4.19",
@@ -92,6 +92,6 @@
     "tailwindcss": "^3.4.3",
     "ts-jest": "^29.1.5",
     "ts-node": "^10.9.2",
-    "typescript": "^5.5.2"
+    "typescript": "^5.5.4"
   }
 }

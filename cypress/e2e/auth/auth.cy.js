@@ -1,6 +1,7 @@
 describe("User Authentication", () => {
     beforeEach(() => {
         cy.visit("/connexion"); // URL relative
+        cy.wait(500);
     });
 
     it("should log in successfully with valid credentials", () => {

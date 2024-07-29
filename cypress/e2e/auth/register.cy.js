@@ -1,14 +1,21 @@
 describe("User Registration", () => {
     beforeEach(() => {
         cy.visit("/inscription"); // URL relative
+        cy.wait(500);
     });
 
     it("should register a new user successfully", () => {
-        cy.get('input[name="firstname"]').type("John");
-        cy.get('input[name="lastname"]').type("Doe");
-        cy.get('input[name="email"]').type("john.doe@example.com");
-        cy.get('input[name="password"]').type("Password123!");
-        cy.get('input[name="passwordConfirm"]').type("Password123!");
+        cy.get('input[name="firstname"]').type("x").clear().type("John");
+        cy.get('input[name="lastname"]').type("x").clear().type("Doe");
+        cy.get('input[name="email"]')
+            .type("x")
+            .clear()
+            .type("john.doe@example.com");
+        cy.get('input[name="password"]').type("x").clear().type("Password123!");
+        cy.get('input[name="passwordConfirm"]')
+            .type("x")
+            .clear()
+            .type("Password123!");
         cy.get('button[type="submit"]').click();
 
         // Vérifier que l'utilisateur est redirigé vers la page de connexion après l'inscription réussie
@@ -18,10 +25,14 @@ describe("User Registration", () => {
 
     it("should show an error for already registered email", () => {
         cy.get('input[name="firstname"]').type("John");
+        cy.wait(500);
         cy.get('input[name="lastname"]').type("Doe");
-        cy.get('input[name="email"]').type("john.doe@example.com"); // Email déjà utilisé
+        cy.wait(500);
+        cy.get('input[name="email"]').type("john.doe@example.com"); // Email déjà utilisécy.wait(500);
         cy.get('input[name="password"]').type("Password123!");
+        cy.wait(500);
         cy.get('input[name="passwordConfirm"]').type("Password123!");
+        cy.wait(500);
         cy.get('button[type="submit"]').click();
 
         // Vérifier le message d'erreur
@@ -30,10 +41,15 @@ describe("User Registration", () => {
 
     it("should show an error for non-matching passwords", () => {
         cy.get('input[name="firstname"]').type("Jim");
+        cy.wait(500);
         cy.get('input[name="lastname"]').type("Beam");
+        cy.wait(500);
         cy.get('input[name="email"]').type("jim.beam@example.com");
+        cy.wait(500);
         cy.get('input[name="password"]').type("Password123!");
+        cy.wait(500);
         cy.get('input[name="passwordConfirm"]').type("DifferentPassword123!");
+        cy.wait(500);
         cy.get('button[type="submit"]').click();
 
         // Vérifier le message d'erreur
@@ -51,10 +67,13 @@ describe("User Registration", () => {
 
         cy.get("button.profile-menu:visible").click();
         cy.contains("Gérer mon compte").click();
-
+        cy.wait(500);
         cy.get('input[name="oldPassword"]').type("Password123!");
+        cy.wait(500);
         cy.get('input[name="newPassword"]').type("NewPassword123!");
+        cy.wait(500);
         cy.get('input[name="newPasswordConfirm"]').type("NewPassword123!");
+        cy.wait(500);
         cy.get('button:contains("Enregistrer")').click();
 
         cy.contains("Votre mot de passe a bien été modifié.").should(
