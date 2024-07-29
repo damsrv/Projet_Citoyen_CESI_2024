@@ -5,43 +5,43 @@ const prisma = new PrismaClient();
 async function main() {
   await prisma.role.createMany({
     data: [
-      { name: 'ADMIN' },
-      { name: 'USER' },
+      { id: 10, name: 'ADMIN' },
+      { id: 11, name: 'USER' },
     ],
   });
 
 
   await prisma.categoryType.createMany({
     data: [
-      { id: 1, name: 'PROFESSIONNEL' },
-      { id: 2, name: 'AIDE' },
-      { id: 3, name: 'PARTAGE COMPETENCES' },
+      { id: 11, name: 'PROFESSIONNEL' },
+      { id: 12, name: 'AIDE' },
+      { id: 13, name: 'PARTAGE COMPETENCES' },
     ],
   });
 
   await prisma.category.createMany({
     data: [
-      { id: 1, name: 'Orientation professionnelle', categoryTypeId: 1 },
-      { id: 2, name: 'Création d\'entreprise', categoryTypeId: 1 },
-      { id: 3, name: 'Accompagnement et soutien recherche formation/stage/alternance', categoryTypeId: 1 },
-      { id: 4, name: 'Autres', categoryTypeId: 1 },
-      { id: 5, name: 'Démarches administratives', categoryTypeId: 2 },
-      { id: 6, name: 'Soutien scolaire', categoryTypeId: 2 },
-      { id: 7, name: 'Informatique', categoryTypeId: 3 },
-      { id: 8, name: 'Artisanat', categoryTypeId: 3 },
-      { id: 9, name: 'Marketing', categoryTypeId: 3 },
-      { id: 10, name: 'Cuisine', categoryTypeId: 3 },
-      { id: 11, name: 'Arts', categoryTypeId: 3 },
+      { id: 1, name: 'Orientation professionnelle', categoryTypeId: 11 },
+      { id: 2, name: 'Création d\'entreprise', categoryTypeId: 11 },
+      { id: 3, name: 'Accompagnement et soutien recherche formation/stage/alternance', categoryTypeId: 11 },
+      { id: 4, name: 'Autres', categoryTypeId: 11 },
+      { id: 5, name: 'Démarches administratives', categoryTypeId: 12 },
+      { id: 6, name: 'Soutien scolaire', categoryTypeId: 12 },
+      { id: 7, name: 'Informatique', categoryTypeId: 13 },
+      { id: 8, name: 'Artisanat', categoryTypeId: 13 },
+      { id: 9, name: 'Marketing', categoryTypeId: 13 },
+      { id: 10, name: 'Cuisine', categoryTypeId: 13 },
+      { id: 11, name: 'Arts', categoryTypeId: 13 },
     ],
   });
 
   await prisma.comType.createMany({
     data: [
-      { id: 5, name: 'Visio' },
-      { id: 4, name: 'Téléphone' },
-      { id: 3, name: 'Messagerie' },
-      { id: 2, name: 'Email' },
-      { id: 1, name: 'Personne' },
+      { id: 15, name: 'Visio' },
+      { id: 14, name: 'Téléphone' },
+      { id: 13, name: 'Messagerie' },
+      { id: 12, name: 'Email' },
+      { id: 11, name: 'Personne' },
     ],
   });
 
@@ -58,7 +58,7 @@ async function main() {
         description: 'une description de mentor ...',
         birthdate: '1990-11-08T00:00:00.000Z',
         experiences: null,
-        roleId: 2,
+        roleId: 11,
         registerAt: '2024-05-23T11:44:09.735Z'
       },
       {
@@ -72,7 +72,7 @@ async function main() {
         description: 'une description de mentor ...',
         birthdate: '2024-06-25T00:00:00.000Z',
         experiences: 'Cuisine traditionnelle\nCuisine africaine\nCuisine normande à la créme fraiche',
-        roleId: 2,
+        roleId: 11,
         registerAt: '2024-06-25T09:36:17.984Z'
       },
       {
@@ -86,11 +86,11 @@ async function main() {
         description: 'une description ...',
         birthdate: '1990-11-08T00:00:00.000Z',
         experiences: null,
-        roleId: 2,
+        roleId: 11,
         registerAt: '2024-05-23T11:44:09.735Z'
       },
       {
-        id: 12,
+        id: 11,
         firstname: 'Jean-Jacques',
         lastname: 'GOLDMAN',
         email: 'jjg@test.fr',
@@ -100,7 +100,7 @@ async function main() {
         description: 'une description de mentor ...',
         birthdate: '1990-11-08T00:00:00.000Z',
         experiences: 'Gestion de projet\nLeadership\nCommunication efficace',
-        roleId: 2,
+        roleId: 11,
         registerAt: '2024-05-23T11:44:09.735Z'
       },
       {
@@ -114,7 +114,7 @@ async function main() {
         description: 'une description de mentor ...',
         birthdate: '1990-11-08T00:00:00.000Z',
         experiences: 'Développement web\nBase de données\nSécurité informatique',
-        roleId: 2,
+        roleId: 11,
         registerAt: '2024-05-25T16:29:20.964Z'
       },
       {
@@ -128,7 +128,7 @@ async function main() {
         description: null,
         birthdate: '1990-11-08T00:00:00.000Z',
         experiences: null,
-        roleId: 1,
+        roleId: 10,
         registerAt: '2024-05-23T11:44:09.735Z'
       },
       {
@@ -142,7 +142,7 @@ async function main() {
         description: 'une description de mentor ...',
         birthdate: '2024-06-02T00:00:00.000Z',
         experiences: 'Marketing digital\nSEO/SEA\nAnalyse de données',
-        roleId: 2,
+        roleId: 11,
         registerAt: '2024-06-02T12:35:48.570Z'
       },
       {
@@ -156,7 +156,7 @@ async function main() {
         description: 'une description de mentor ...',
         birthdate: '1990-06-23T10:36:17.450Z',
         experiences: 'Intelligence artificielle\nApprentissage automatique\nTraitement du langage naturel',
-        roleId: 2,
+        roleId: 11,
         registerAt: '1990-06-23T10:36:17.451Z'
       },
       {
@@ -170,7 +170,7 @@ async function main() {
         description: null,
         birthdate: '2024-06-28T08:04:34.981Z',
         experiences: null,
-        roleId: 2,
+        roleId: 11,
         registerAt: '2024-06-28T08:04:36.126Z'
       },
       {
@@ -184,7 +184,7 @@ async function main() {
         description: null,
         birthdate: '2024-06-28T08:36:49.708Z',
         experiences: null,
-        roleId: 2,
+        roleId: 11,
         registerAt: '2024-06-28T08:36:50.839Z'
       },
       {
@@ -198,7 +198,7 @@ async function main() {
         description: null,
         birthdate: '2024-06-28T08:36:56.724Z',
         experiences: null,
-        roleId: 2,
+        roleId: 11,
         registerAt: '2024-06-28T08:36:56.725Z'
       }
     ],
@@ -207,10 +207,10 @@ async function main() {
   await prisma.evaluation.createMany({
     data: [
       {
-        id: 1,
+        id: 11,
         createdAt: '2024-06-26T12:06:31.106Z',
         studentId: 20,
-        mentorId: 12,
+        mentorId: 11,
         value: 3,
         comment: 'Pas terrible ....'
       },
@@ -277,17 +277,17 @@ async function main() {
         content: 'Je souhaite vous guider dans votre création d\'entreprise. La création d\'entreprise peut faire peur mais je serai là pour vous guider si vous le souhaitez.',
         location: 'Versailles',
         status: 1,
-        mentorId: 12,
+        mentorId: 11,
         title: 'Aide à la création d\'entreprise',
         categoryId: 2
       },
       {
-        id: 1,
+        id: 11,
         createdAt: '2024-06-26T12:06:31.106Z',
         content: 'Aide à la gestion de projet pour améliorer vos compétences en leadership et communication.',
         location: 'Paris',
         status: 1,
-        mentorId: 12,
+        mentorId: 11,
         title: 'Mentorat en Gestion de Projet',
         categoryId: 9
       },
@@ -312,7 +312,7 @@ async function main() {
         categoryId: 11
       },
       {
-        id: 2,
+        id: 12,
         createdAt: '2024-06-26T12:06:31.106Z',
         content: 'Développement web front-end et back-end, base de données et sécurité.',
         location: 'Lyon',
@@ -353,7 +353,7 @@ async function main() {
         content: 'Assistance pour les démarches administratives, incluant la préparation des documents et la compréhension des procédures.',
         location: 'Strasbourg',
         status: 2,
-        mentorId: 12,
+        mentorId: 11,
         title: 'Mentorat en Démarches Administratives',
         categoryId: 5
       }, {
@@ -362,7 +362,7 @@ async function main() {
         content: 'Je souhaite vous guider dans votre création d\'entreprise. La création d\'entreprise peut faire peur mais je serais là pour vous guider si vous le souhaitez.',
         location: 'Versailles',
         status: 1,
-        mentorId: 12,
+        mentorId: 11,
         title: 'Aide à la création d\'entreprise.',
         categoryId: 2
       },
@@ -382,7 +382,7 @@ async function main() {
         content: 'Aide à la gestion de projet pour améliorer vos compétences en leadership et communication.',
         location: 'Paris',
         status: 1,
-        mentorId: 12,
+        mentorId: 11,
         title: 'Mentorat en Gestion de Projet',
         categoryId: 9,
       },
@@ -452,7 +452,7 @@ async function main() {
         content: 'Assistance pour les démarches administratives, incluant la préparation des documents et la compréhension des procédures.',
         location: 'Strasbourg',
         status: 2,
-        mentorId: 12,
+        mentorId: 11,
         title: 'Mentorat en Démarches Administratives',
         categoryId: 5,
       },
@@ -462,7 +462,7 @@ async function main() {
         content: 'Je souhaite vous guider dans votre création d\'entreprise. La création d\'entreprise peut faire peur mais je serais là pour vous guider si vous le souhaitez.',
         location: 'Versailles',
         status: 1,
-        mentorId: 12,
+        mentorId: 11,
         title: 'Aide à la création d\'entreprise.',
         categoryId: 2,
       },
@@ -482,7 +482,7 @@ async function main() {
         content: 'Aide à la gestion de projet pour améliorer vos compétences en leadership et communication.',
         location: 'Paris',
         status: 1,
-        mentorId: 12,
+        mentorId: 11,
         title: 'Mentorat en Gestion de Projet',
         categoryId: 9,
       },
@@ -552,7 +552,7 @@ async function main() {
         content: 'Assistance pour les démarches administratives, incluant la préparation des documents et la compréhension des procédures.',
         location: 'Strasbourg',
         status: 2,
-        mentorId: 12,
+        mentorId: 11,
         title: 'Mentorat en Démarches Administratives',
         categoryId: 5,
       },
@@ -673,11 +673,11 @@ async function main() {
 
   await prisma.offerComType.createMany({
     data: [
-      { offerId: 12, comTypeId: 3 },
-      { offerId: 12, comTypeId: 4 },
-      { offerId: 16, comTypeId: 2 },
-      { offerId: 16, comTypeId: 3 },
-      { offerId: 43, comTypeId: 1 },
+      { offerId: 12, comTypeId: 13 },
+      { offerId: 12, comTypeId: 14 },
+      { offerId: 16, comTypeId: 12 },
+      { offerId: 16, comTypeId: 13 },
+      { offerId: 43, comTypeId: 11 },
     ],
   });
 
@@ -686,7 +686,7 @@ async function main() {
       {
         studentId: 21,
         date: '2024-06-23T11:31:46.758Z',
-        offerId: 2,
+        offerId: 12,
         message: 'Bonjour, je voudrais échanger avec vous',
         status: 2
       },
