@@ -104,10 +104,10 @@ jobs:
 
       - name: Set up environment variables
         run: |
-          echo "POSTGRES_PRISMA_URL=b8d84b979ae23b051254" >> $GITHUB_ENV
+          echo "POSTGRES_PRISMA_URL=postgres://postgres:secretpassword@localhost:5432/projet-citoyen" >> $GITHUB_ENV
           echo "NEXTAUTH_SECRET=mySecret" >> $GITHUB_ENV
           echo "NEXTAUTH_URL=http://localhost:3000" >> $GITHUB_ENV
-          echo "NEXT_PUBLIC_PUSHER_APP_KEY=postgres://postgres:secretpassword@localhost:5432/projet-citoyen" >> $GITHUB_ENV
+          echo "NEXT_PUBLIC_PUSHER_APP_KEY=b8d84b979ae23b051254" >> $GITHUB_ENV
           echo "PUSHER_APP_ID=1812146" >> $GITHUB_ENV
           echo "PUSHER_APP_SECRET=9443d6e09ee105744eb1" >> $GITHUB_ENV
           
