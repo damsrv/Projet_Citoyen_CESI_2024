@@ -41,7 +41,7 @@ jobs:
   test:
     name: Create test environment
     runs-on: ubuntu-latest
-    need: audit
+    needs: audit
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
