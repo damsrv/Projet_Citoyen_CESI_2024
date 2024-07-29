@@ -79,7 +79,7 @@ jobs:
         run: |
           psql -h localhost -p 5432 -U postgres -d projet-citoyen -c "SELECT * FROM \"Offer\";"
 
-  unitTest:
+  unit-test:
     name: Run unit test
     runs-on: ubuntu-latest
     needs: db
