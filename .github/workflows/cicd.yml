@@ -92,7 +92,7 @@ jobs:
   e2e-test:
     name: Launch e2e Tests
     runs-on: ubuntu-latest
-    needs: [build]
+    #needs: [build]
     strategy:
       matrix:
         browser: [chrome]
