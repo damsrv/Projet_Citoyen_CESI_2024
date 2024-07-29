@@ -11,9 +11,37 @@ env:
   PUSHER_APP_SECRET: ${{ vars.PUSHER_APP_SECRET }}
 
 jobs:
-  build-project:
+  build:
+    name: Build Project
     runs-on: ubuntu-latest
 
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Install dependencies
+        run: npm install
+
+      - name: Build project
+        run: npm run build
+
+  audit:
+    name: Audit Project
+    runs-on: ubuntu-latest
+    needs: build
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Run npm audit
+        run: npm audit --audit-level=high
+    
+
+  test:
+    name: Create test environment
+    runs-on: ubuntu-latest
+    needs: audit
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
@@ -55,6 +83,51 @@ jobs:
         run: npm run test 
 
 
-      # Uncomment the next lines if you want to run tests with Jest
-      # - name: Run tests
-      #   run: npm run test
+
+  # build-project:
+  #   runs-on: ubuntu-latest
+
+  #   steps:
+  #     - name: Checkout code
+  #       uses: actions/checkout@v4
+
+  #     - name: Set up Docker Compose
+  #       run: docker-compose up --build -d
+
+  #     - name: Set up environment variables
+  #       run: |
+  #         echo "POSTGRES_PRISMA_URL=postgres://postgres:secretpassword@localhost:5432/projet-citoyen" >> $GITHUB_ENV
+
+  #     - name: Install NPM dependencies
+  #       run: npm install
+
+  #     - name: Install Prisma globally
+  #       run: npm install -g prisma
+
+  #     - name: Wait for PostgreSQL to be ready
+  #       run: |
+  #         sudo apt-get install -y postgresql-client
+  #         until pg_isready -h localhost -p 5432 -U postgres; do sleep 1; done
+
+  #     - name: Prisma generate
+  #       run: npx prisma generate
+
+  #     - name: Apply Prisma migrations
+  #       run: npx prisma migrate deploy
+
+  #     - name: seed database
+  #       run: npm run seed
+
+  #     - name: Verify data seeding
+  #       env:
+  #         PGPASSWORD: secretpassword
+  #       run: |
+  #         psql -h localhost -p 5432 -U postgres -d projet-citoyen -c "SELECT * FROM \"Offer\";"
+
+  #     - name: run test !
+  #       run: npm run test 
+
+
+  #     # Uncomment the next lines if you want to run tests with Jest
+  #     # - name: Run tests
+  #     #   run: npm run test

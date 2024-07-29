@@ -1,4 +1,12 @@
+
 services:
+
+  # next:
+  #   build:
+  #     context: .
+  #     dockerfile: Dockerfile.dev
+  #   ports:
+  #     - "3000:3000"
 
   db:
     build:
@@ -18,3 +26,5 @@ services:
       interval: 10s
       timeout: 5s
       retries: 5
+    # depends_on:
+    #   - next

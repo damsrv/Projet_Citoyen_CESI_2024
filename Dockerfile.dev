@@ -13,16 +13,20 @@ RUN npm install
 # Copier le reste des fichiers du projet
 COPY . .
 
+ENV NEXT_PUBLIC_PUSHER_APP_KEY=b8d84b979ae23b051254
+ENV PUSHER_APP_ID=1812146
+ENV PUSHER_APP_SECRET=9443d6e09ee105744eb1
+
+# Générer les fichiers clients Prisma
+RUN npx prisma generate
+
 # Construire l'application Next.js pour la production
 RUN npm run build
 
-COPY .next ./.next
+# COPY .next ./.next
 
 # Exposer le port 3000 utilisé par l'application Next.js
 EXPOSE 3000
 
 # Commande de démarrage pour exécuter l'application Next.js
 CMD ["npm", "run", "dev"]
-
-
-
