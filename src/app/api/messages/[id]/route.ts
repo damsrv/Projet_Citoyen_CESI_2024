@@ -25,7 +25,7 @@ export async function PUT(req: Request, params: Params) {
                 status: 1 
             },
         })
-        return NextResponse.json({ status: 204 });
+        return NextResponse.json(deletedUser, {status: 200});
 
     } catch (e) {
         console.log(e);
@@ -54,7 +54,7 @@ export async function DELETE(req: Request, params: Params) {
             },
             data: { status },
         })
-        return NextResponse.json({ status: 204 });
+        return NextResponse.json(deletedUser, { status: 200 });
 
     } catch (e) {
         console.log(e);

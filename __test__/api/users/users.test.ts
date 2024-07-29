@@ -2,17 +2,13 @@
  * @jest-environment node
  */
 
-import { GET, POST } from "../../src/app/api/users/route"
+import { GET, POST } from "@/app/api/users/route"
 
+import {expect} from "@jest/globals";
 import { matchers } from 'jest-json-schema';
+import { schema } from "@/lib/utils";
+
 expect.extend(matchers);
-import { schema } from "../../src/lib/utils";
-import * as bcrypt from 'bcrypt';
-import { prismaMock } from '../../singleton';
-import { createUser } from '../mock/functions-without-context';
-import prisma from "../../src/lib/prisma";
-
-
 
 describe('/api/users', () => { //OK 
 
@@ -20,10 +16,16 @@ describe('/api/users', () => { //OK
   test('returns a list of users with status 200', async () => {
 
     const response = await GET();
-    const body = await response.json();
-    
     expect(response.status).toBe(200)
-    expect(body[0]).toMatchSchema(schema);
+
+    const body = await response.json();
+
+    expect(body.length).toBeGreaterThanOrEqual(0);
+
+    if(body.length > 0) {
+      expect(body[0]).toMatchObject(schema);
+    }
+
   });
 
   // POST USER

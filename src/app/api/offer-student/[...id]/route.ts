@@ -1,12 +1,8 @@
 import prisma from "@/lib/prisma";
-import { Offer, Room, User } from "@prisma/client";
-import { PrismaClient, Prisma } from "@prisma/client";
-import { NextResponse } from "next/server";
-import * as bcrypt from "bcrypt";
-import PrismaClientKnownRequestError = Prisma.PrismaClientKnownRequestError;
-import { PrismaClientValidationError } from "@prisma/client/runtime/library";
-import { Key } from "react";
-import { isUserOrAdmin } from "@/services/check-authorization";
+import {Prisma, Room} from "@prisma/client";
+import {NextResponse} from "next/server";
+import {PrismaClientValidationError} from "@prisma/client/runtime/library";
+import {isUserOrAdmin} from "@/services/check-authorization";
 
 interface Params {
     params: {
@@ -64,9 +60,7 @@ export async function PUT(req: Request, params: Params) {
                         ],
                     },
                     name: offer!.title,
-                    offer: {
-                        connect: { id: offerId },
-                    },
+                    offerId: offerId,
                 },
                 include: {
                     userRooms: {
