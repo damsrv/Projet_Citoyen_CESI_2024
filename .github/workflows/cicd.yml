@@ -26,11 +26,11 @@ jobs:
         run: npm run build
         
       - uses: actions/cache/save@v3
-            with:
-              path:  |
-                ~/.cache/Cypress
-                node_modules
-              key: ${{ runner.os }}-node-${{ hashFiles('**/package-lock.json') }}
+        with:
+          path:  |
+            ~/.cache/Cypress
+            node_modules
+          key: ${{ runner.os }}-node-${{ hashFiles('**/package-lock.json') }}
 
   # audit:
   #   name: Audit Project
