@@ -1,20 +1,27 @@
 services:
 
-  db:
-    build:
-      context: .
-      dockerfile: Dockerfile.db.dev
-    container_name: db
-    environment:
-      POSTGRES_USER: postgres
-      POSTGRES_PASSWORD: secretpassword
-      POSTGRES_DB: projet-citoyen
+  next:
+    build: .
     ports:
-      - "5432:5432"
-    volumes:
-      - ./script/db/seedData_01-07.sql:/seedData_01-07.sql  # Montage du fichier dans le conteneur
-    healthcheck:
-      test: ["CMD-SHELL", "pg_isready -U postgres"]
-      interval: 10s
-      timeout: 5s
-      retries: 5
+      - "3000:3000"
+
+  # db:
+  #   build:
+  #     context: .
+  #     dockerfile: Dockerfile.db.dev
+  #   container_name: db
+  #   environment:
+  #     POSTGRES_USER: postgres
+  #     POSTGRES_PASSWORD: secretpassword
+  #     POSTGRES_DB: projet-citoyen
+  #   ports:
+  #     - "5432:5432"
+  #   volumes:
+  #     - ./script/db/seedData_01-07.sql:/seedData_01-07.sql  # Montage du fichier dans le conteneur
+  #   healthcheck:
+  #     test: ["CMD-SHELL", "pg_isready -U postgres"]
+  #     interval: 10s
+  #     timeout: 5s
+  #     retries: 5
+  #   depends_on:
+  #     - next
