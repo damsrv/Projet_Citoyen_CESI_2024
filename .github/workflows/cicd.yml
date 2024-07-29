@@ -9,10 +9,6 @@ env:
   NEXT_PUBLIC_PUSHER_APP_KEY: ${{ vars.NEXT_PUBLIC_PUSHER_APP_KEY }}
   PUSHER_APP_ID: ${{ vars.PUSHER_APP_ID }}
   PUSHER_APP_SECRET: ${{ vars.PUSHER_APP_SECRET }}
-  
-
-
-
 
 jobs:
   build:
@@ -145,12 +141,15 @@ jobs:
             node_modules
           key: ${{ runner.os }}-node-${{ hashFiles('**/package-lock.json') }}
 
-      - name: Cypress run
-        uses: cypress-io/github-action@v6
-        with:
-          install: npm install
-          build: npm run build
-          start: npm run start
+      # - name: Cypress run
+      #   uses: cypress-io/github-action@v6
+      #   with:
+      #     install: npm install
+      #     build: npm run build
+      #     start: npm run start
+
+      - name: test
+        run: npm run e2e:headless
       
 
       
