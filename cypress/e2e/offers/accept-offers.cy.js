@@ -23,8 +23,6 @@ describe("Gestion des demandes sur les offres de mentorat", () => {
         cy.contains("Visio").click();
         cy.contains("Téléphone").click();
 
-        cy.get('input[name="location"]').type("Paris");
-
         // selectionner le label avec "Publiée" et cliquer dessus
         cy.contains("Publiée").click();
 

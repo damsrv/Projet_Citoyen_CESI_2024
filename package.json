@@ -3,7 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "dev": "next dev -p 8080",
+    "dev": "next dev -p 3000",
     "postinstall": "prisma generate",
     "build": "next build",
     "start": "next start",
@@ -60,6 +60,7 @@
     "react-hot-toast": "^2.4.1",
     "react-resizable-panels": "^2.0.19",
     "sharp": "^0.33.4",
+    "start-server-and-test": "^2.0.5",
     "tailwind-merge": "^2.3.0",
     "tailwindcss-animate": "^1.0.7",
     "zod": "^3.23.8"
