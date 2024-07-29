@@ -312,7 +312,7 @@ async function main() {
         categoryId: 11
       },
       {
-        id: 12,
+        id: 70,
         createdAt: '2024-06-26T12:06:31.106Z',
         content: 'Développement web front-end et back-end, base de données et sécurité.',
         location: 'Lyon',
