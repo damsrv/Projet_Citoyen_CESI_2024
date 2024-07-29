@@ -13,6 +13,9 @@ RUN npm install
 # Copier le reste des fichiers du projet
 COPY . .
 
+# Générer les fichiers clients Prisma
+RUN npx prisma generate
+
 # Construire l'application Next.js pour la production
 RUN npm run build
 
