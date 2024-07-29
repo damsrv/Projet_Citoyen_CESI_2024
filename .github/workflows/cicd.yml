@@ -83,8 +83,9 @@ jobs:
     name: Run unit test
     runs-on: ubuntu-latest
     needs: db
-    - name: run unit test 
-      run: npm run test 
+    steps:
+      - name: run unit test 
+        run: npm run test 
 
     # functionalTest:
     #   name: Run functional test
