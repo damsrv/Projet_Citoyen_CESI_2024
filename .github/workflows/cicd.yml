@@ -132,7 +132,7 @@ jobs:
         env:
           PGPASSWORD: secretpassword
         run: |
-          psql -h localhost -p 5432 -U postgres -d projet-citoyen -c "SELECT * FROM \"Offer\";"
+          psql -h localhost -p 5432 -U postgres -d projet-citoyen -c "SELECT * FROM \"User\";"
 
       - uses: actions/cache/restore@v3
         with:
