@@ -16,7 +16,7 @@ COPY . .
 # Construire l'application Next.js pour la production
 RUN npm run build
 
-COPY .next ./.next
+# COPY .next ./.next
 
 # Exposer le port 3000 utilisé par l'application Next.js
 EXPOSE 3000
