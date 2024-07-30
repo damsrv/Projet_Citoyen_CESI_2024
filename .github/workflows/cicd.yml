@@ -6,14 +6,6 @@ on:
       - develop
       - main
 
-env:
-  NEXT_PUBLIC_PUSHER_APP_KEY: ${{ vars.NEXT_PUBLIC_PUSHER_APP_KEY }}
-  PUSHER_APP_ID: ${{ vars.PUSHER_APP_ID }}
-  PUSHER_APP_SECRET: ${{ vars.PUSHER_APP_SECRET }}
-  # VERCEL_ORG_ID: ${{ secrets.VERCEL_ORG_ID }}
-  # VERCEL_PROJECT_ID: ${{ secrets.VERCEL_PROJECT_ID }}
-  # VERCEL_TOKEN: ${{ secrets.VERCEL_TOKEN }}
-
 jobs:
 
   audit:
@@ -27,142 +19,143 @@ jobs:
       - name: Run npm audit
         run: npm audit --audit-level=high
     
-  # lint:
-  #   name: Linter
-  #   runs-on: ubuntu-latest
-  #   needs: audit
+  lint:
+    name: Linter
+    runs-on: ubuntu-latest
+    needs: audit
 
-  #   steps:
-  #     - name: Checkout code
-  #       uses: actions/checkout@v4
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
 
-  #     - name: Install dependencies
-  #       run: npm install
+      - name: Install dependencies
+        run: npm install
 
-  #     - name: Install Linter
-  #       run: npm install --save-dev eslint
+      - name: Install Linter
+        run: npm install --save-dev eslint
       
-  #     - name: Launch Linter
-  #       run: npm run lint
+      - name: Launch Linter
+        run: npm run lint
 
-  # build:
-  #   name: Build Project
-  #   runs-on: ubuntu-latest
-  #   needs: lint
+  build:
+    name: Build Project
+    runs-on: ubuntu-latest
+    needs: lint
 
-  #   steps:
-  #     - name: Checkout code
-  #       uses: actions/checkout@v4
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
 
-  #     - name: Install dependencies
-  #       run: npm install
+      - name: Install dependencies
+        run: npm install
 
-  #     - name: Build project
-  #       run: npm run build
+      - name: Build project
+        run: npm run build
 
-  # jest-test:
-  #   name: Launch JEST Tests
-  #   runs-on: ubuntu-latest
-  #   needs: build
-  #   steps:
-  #     - name: Checkout code
-  #       uses: actions/checkout@v4
+  jest-test:
+    name: Launch JEST Tests
+    runs-on: ubuntu-latest
+    environment: preview
+    needs: build
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
 
-  #     - name: Set up Docker Compose
-  #       run: docker-compose up --build -d
+      - name: Set up Docker Compose
+        run: docker-compose up --build -d
 
-  #     - name: Set up environment variables
-  #       run: |
-  #         echo "POSTGRES_PRISMA_URL=postgres://postgres:secretpassword@localhost:5432/projet-citoyen" >> $GITHUB_ENV
-  #         echo "NEXTAUTH_SECRET=mySecret" >> $GITHUB_ENV
-  #         echo "NEXTAUTH_URL=http://localhost:3000" >> $GITHUB_ENV
-  #         echo "NEXT_PUBLIC_PUSHER_APP_KEY=b8d84b979ae23b051254" >> $GITHUB_ENV
-  #         echo "PUSHER_APP_ID=1812146" >> $GITHUB_ENV
-  #         echo "PUSHER_APP_SECRET=9443d6e09ee105744eb1" >> $GITHUB_ENV
+      - name: Set up environment variables
+        run: |
+          echo "POSTGRES_PRISMA_URL=${{ vars.POSTGRES_PRISMA_URL }}" >> $GITHUB_ENV
+          echo "NEXTAUTH_SECRET=${{ vars.NEXTAUTH_SECRET }}" >> $GITHUB_ENV
+          echo "NEXTAUTH_URL=${{ vars.NEXTAUTH_URL }}" >> $GITHUB_ENV
+          echo "NEXT_PUBLIC_PUSHER_APP_KEY=${{ vars.NEXT_PUBLIC_PUSHER_APP_KEY }}" >> $GITHUB_ENV
+          echo "PUSHER_APP_ID=${{ vars.PUSHER_APP_ID }}" >> $GITHUB_ENV
+          echo "PUSHER_APP_SECRET=${{ vars.PUSHER_APP_SECRET }}" >> $GITHUB_ENV
 
-  #     - name: Install NPM dependencies
-  #       run: npm install
+      - name: Install NPM dependencies
+        run: npm install
 
-  #     - name: Install Prisma globally
-  #       run: npm install -g prisma
+      - name: Install Prisma globally
+        run: npm install -g prisma
 
-  #     - name: Wait for PostgreSQL to be ready
-  #       run: |
-  #         sudo apt-get install -y postgresql-client
-  #         until pg_isready -h localhost -p 5432 -U postgres; do sleep 1; done
+      - name: Wait for PostgreSQL to be ready
+        run: |
+          sudo apt-get install -y postgresql-client
+          until pg_isready -h localhost -p 5432 -U postgres; do sleep 1; done
 
-  #     - name: Prisma generate
-  #       run: npx prisma generate
+      - name: Prisma generate
+        run: npx prisma generate
 
-  #     - name: Apply Prisma migrations
-  #       run: npx prisma db push
+      - name: Apply Prisma migrations
+        run: npx prisma db push
 
-  #     - name: seed database
-  #       run: npm run seed
+      - name: seed database
+        run: npm run seed
 
-  #     - name: Verify data seeding
-  #       env:
-  #         PGPASSWORD: secretpassword
-  #       run: |
-  #         psql -h localhost -p 5432 -U postgres -d projet-citoyen -c "SELECT * FROM \"Offer\";"
+      - name: Verify data seeding
+        env:
+          PGPASSWORD: secretpassword
+        run: |
+          psql -h localhost -p 5432 -U postgres -d projet-citoyen -c "SELECT * FROM \"Offer\";"
     
-  #     - name: Run unit test
-  #       run: npm run test
+      - name: Run unit test
+        run: npm run test
 
-  # e2e-test:
-  #   name: Launch e2e Tests
-  #   runs-on: ubuntu-latest
-  #   needs: build
-  #   strategy:
-  #     matrix:
-  #       browser: [chrome]
-  #   steps:
-  #     - uses: actions/checkout@v4
+  e2e-test:
+    name: Launch e2e Tests
+    runs-on: ubuntu-latest
+    needs: build
+    strategy:
+      matrix:
+        browser: [chrome]
+    steps:
+      - uses: actions/checkout@v4
 
-  #     - name: Set up Docker Compose
-  #       run: docker-compose up --build -d
+      - name: Set up Docker Compose
+        run: docker-compose up --build -d
 
-  #     - name: Set up environment variables
-  #       run: |
-  #         echo "POSTGRES_PRISMA_URL=postgres://postgres:secretpassword@localhost:5432/projet-citoyen" >> $GITHUB_ENV
-  #         echo "NEXTAUTH_SECRET=mySecret" >> $GITHUB_ENV
-  #         echo "NEXTAUTH_URL=http://localhost:3000" >> $GITHUB_ENV
-  #         echo "NEXT_PUBLIC_PUSHER_APP_KEY=b8d84b979ae23b051254" >> $GITHUB_ENV
-  #         echo "PUSHER_APP_ID=1812146" >> $GITHUB_ENV
-  #         echo "PUSHER_APP_SECRET=9443d6e09ee105744eb1" >> $GITHUB_ENV
+      - name: Set up environment variables
+        run: |
+          echo "POSTGRES_PRISMA_URL=${{ vars.POSTGRES_PRISMA_URL }}" >> $GITHUB_ENV
+          echo "NEXTAUTH_SECRET=${{ vars.NEXTAUTH_SECRET }}" >> $GITHUB_ENV
+          echo "NEXTAUTH_URL=${{ vars.NEXTAUTH_URL }}" >> $GITHUB_ENV
+          echo "NEXT_PUBLIC_PUSHER_APP_KEY=${{ vars.NEXT_PUBLIC_PUSHER_APP_KEY }}" >> $GITHUB_ENV
+          echo "PUSHER_APP_ID=${{ vars.PUSHER_APP_ID }}" >> $GITHUB_ENV
+          echo "PUSHER_APP_SECRET=${{ vars.PUSHER_APP_SECRET }}" >> $GITHUB_ENV
           
-  #     - name: Install NPM dependencies
-  #       run: npm install
+      - name: Install NPM dependencies
+        run: npm install
 
-  #     - name: Install Prisma globally
-  #       run: npm install -g prisma
+      - name: Install Prisma globally
+        run: npm install -g prisma
 
-  #     - name: Wait for PostgreSQL to be ready
-  #       run: |
-  #         sudo apt-get install -y postgresql-client
-  #         until pg_isready -h localhost -p 5432 -U postgres; do sleep 1; done
+      - name: Wait for PostgreSQL to be ready
+        run: |
+          sudo apt-get install -y postgresql-client
+          until pg_isready -h localhost -p 5432 -U postgres; do sleep 1; done
 
-  #     - name: Prisma generate
-  #       run: npx prisma generate
+      - name: Prisma generate
+        run: npx prisma generate
 
-  #     - name: Apply Prisma migrations
-  #       run: npx prisma db push
+      - name: Apply Prisma migrations
+        run: npx prisma db push
 
-  #     - name: seed database
-  #       run: npm run seed
+      - name: seed database
+        run: npm run seed
 
-  #     - name: Verify data seeding
-  #       env:
-  #         PGPASSWORD: secretpassword
-  #       run: |
-  #         psql -h localhost -p 5432 -U postgres -d projet-citoyen -c "SELECT * FROM \"User\";"
+      - name: Verify data seeding
+        env:
+          PGPASSWORD: secretpassword
+        run: |
+          psql -h localhost -p 5432 -U postgres -d projet-citoyen -c "SELECT * FROM \"User\";"
 
-  #     - name: Cypress run
-  #       uses: cypress-io/github-action@v6
-  #       with:
-  #         install: npm install
-  #         build: npm run build
-  #         start: npm run start
+      - name: Cypress run
+        uses: cypress-io/github-action@v6
+        with:
+          install: npm install
+          build: npm run build
+          start: npm run start
 
   deploy-preview:
     name: Vercel preview deployment
@@ -199,12 +192,12 @@ jobs:
         run: npm install --global vercel@latest
 
       - name: Pull Vercel Environment Information
-        run: vercel pull --yes --environment=production --token=o2PhpLcXfk9RRUORubW8eDME
+        run: vercel pull --yes --environment=production --token=${{ secrets.VERCEL_TOKEN }}
       
       - name: Build Project Artifacts
-        run: vercel build --prod --token=o2PhpLcXfk9RRUORubW8eDME
+        run: vercel build --prod --token=${{ secrets.VERCEL_TOKEN }}
       
       - name: Deploy Project Artifacts to Vercel
-        run: vercel deploy --prebuilt --prod --token=o2PhpLcXfk9RRUORubW8eDME
+        run: vercel deploy --prebuilt --prod --token=${{ secrets.VERCEL_TOKEN }}
 
 
