@@ -10,7 +10,7 @@
     "postinstall": "prisma generate",
     "build": "next build",
     "start": "next start",
-    "lint": "next lint",
+    "lint": "next lint --strict",
     "test": "jest",
     "test:watch": "jest --watchAll",
     "coverage": "jest --coverage",
