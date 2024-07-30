@@ -184,7 +184,7 @@ jobs:
     runs-on: ubuntu-latest
     environment: production
     if: github.ref_name == 'main' 
-    needs: audit
+    needs: [e2e-test, jest-test]
 
     steps:
       - uses: actions/checkout@v2
