@@ -10,6 +10,7 @@ import {Session} from "next-auth"
 import {matchers} from 'jest-json-schema';
 import {getDefaultMockedSession} from "../../mocks/session";
 import {Message} from "@prisma/client";
+import {pusherClient, pusherServer} from "@/lib/pusher";
 
 expect.extend(matchers)
 
@@ -83,5 +84,9 @@ describe('/api/messages', () => {
                 expect(deletedMessage.status).toBe(2);
             },
         });
+    })
+
+    afterAll(() => {
+        pusherClient.disconnect();
     })
 })
