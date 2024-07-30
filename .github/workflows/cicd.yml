@@ -4,14 +4,15 @@ on:
   push:
     branches:
       - develop
+      - main
 
 env:
   NEXT_PUBLIC_PUSHER_APP_KEY: ${{ vars.NEXT_PUBLIC_PUSHER_APP_KEY }}
   PUSHER_APP_ID: ${{ vars.PUSHER_APP_ID }}
   PUSHER_APP_SECRET: ${{ vars.PUSHER_APP_SECRET }}
-  VERCEL_ORG_ID: ${{ secrets.VERCEL_ORG_ID }}
-  VERCEL_PROJECT_ID: ${{ secrets.VERCEL_PROJECT_ID }}
-  VERCEL_TOKEN: ${{ secrets.VERCEL_TOKEN }}
+  # VERCEL_ORG_ID: ${{ secrets.VERCEL_ORG_ID }}
+  # VERCEL_PROJECT_ID: ${{ secrets.VERCEL_PROJECT_ID }}
+  # VERCEL_TOKEN: ${{ secrets.VERCEL_TOKEN }}
 
 jobs:
 
@@ -163,9 +164,10 @@ jobs:
   #         build: npm run build
   #         start: npm run start
 
-  deploy:
-    name: Vercel deployment
+  deploy-preview:
+    name: Vercel preview deployment
     runs-on: ubuntu-latest
+    if: github.ref_name == 'develop' 
     needs: audit
 
     steps:
@@ -173,18 +175,34 @@ jobs:
       - name: Install Vercel CLI
         run: npm install --global vercel@latest
 
-      - name: Set up environment variables
-        run: |
-          echo "VERCEL_TOKEN=o2PhpLcXfk9RRUORubW8eDME" >> $GITHUB_ENV
-
       - name: Pull Vercel Environment Information
-        run: vercel pull --yes --environment=preview --token=o2PhpLcXfk9RRUORubW8eDME
+        run: vercel pull --yes --environment=preview --token=${{ secrets.VERCEL_TOKEN }}
       
       - name: Build Project Artifacts
-        run: vercel build --token=o2PhpLcXfk9RRUORubW8eDME
+        run: vercel build --token=${{ secrets.VERCEL_TOKEN }}
       
       - name: Deploy Project Artifacts to Vercel
-        run: vercel deploy --prebuilt --token=o2PhpLcXfk9RRUORubW8eDME
+        run: vercel deploy --prebuilt --token=${{ secrets.VERCEL_TOKEN }}
 
+
+  deploy-prod :
+    name: Vercel prod deployment
+    runs-on: ubuntu-latest
+    if: github.ref_name == 'main' 
+    needs: audit
+
+    steps:
+      - uses: actions/checkout@v2
+      - name: Install Vercel CLI
+        run: npm install --global vercel@latest
+
+      - name: Pull Vercel Environment Information
+        run: vercel pull --yes --environment=production --token=o2PhpLcXfk9RRUORubW8eDME
+      
+      - name: Build Project Artifacts
+        run: vercel build --prod --token=o2PhpLcXfk9RRUORubW8eDME
+      
+      - name: Deploy Project Artifacts to Vercel
+        run: vercel deploy --prebuilt --prod --token=o2PhpLcXfk9RRUORubW8eDME
 
 
