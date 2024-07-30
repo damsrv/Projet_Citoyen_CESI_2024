@@ -162,7 +162,7 @@ jobs:
     runs-on: ubuntu-latest
     environment: preview
     if: github.ref_name == 'develop' 
-    needs: audit
+    needs: [e2e-test, jest-test]
 
     steps:
       - uses: actions/checkout@v2
