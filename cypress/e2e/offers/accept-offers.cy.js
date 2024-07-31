@@ -5,7 +5,7 @@ describe("Gestion des demandes sur les offres de mentorat", () => {
         cy.get('input[name="email"]').type("dcote@test.fr");
         cy.get('input[name="password"]').type("password");
         cy.get('button[type="submit"]').click();
-        cy.wait(2000);
+        cy.wait(4000);
 
         // Créer une offre de mentorat
         cy.visit("/mon-compte/gerer-offres");
