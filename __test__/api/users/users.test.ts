@@ -40,7 +40,7 @@ describe('/api/users', () => {
             appHandler: UsersHandler,
             test: async ({fetch}) => {
                 const response = await fetch({method: "GET"});
-                expect(response.status).toBe(201);
+                expect(response.status).toBe(200);
 
                 const result = await response.json()
                 expect(result.length).toBeGreaterThanOrEqual(0);

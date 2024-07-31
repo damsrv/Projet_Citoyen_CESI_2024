@@ -109,6 +109,7 @@ jobs:
   e2e-test:
     name: Launch e2e Tests
     runs-on: ubuntu-latest
+    environment: preview
     needs: build
     strategy:
       matrix:
