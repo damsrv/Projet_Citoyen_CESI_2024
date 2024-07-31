@@ -9,7 +9,9 @@ describe("Gestion des demandes sur les offres de mentorat", () => {
 
         // Créer une offre de mentorat
         cy.visit("/mon-compte/gerer-offres");
+        cy.wait(5000);
         cy.contains("Créer une nouvelle offre").click();
+        cy.wait(1000);
         cy.url().should("include", "/offres-mentorat/nouveau");
         cy.get('input[name="title"]').type(
             "Offre de test du management des offres de mentorat"
