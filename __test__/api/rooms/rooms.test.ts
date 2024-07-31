@@ -63,7 +63,7 @@ describe("/api/rooms/[id]", () => {
 
         await testApiHandler({
             appHandler: RoomHandler,
-            params: { id: "7" }, // Assuming room ID 6 exists
+            params: { id: "8" }, // Assuming room ID 6 exists
             test: async ({ fetch }) => {
                 const response = await fetch({ method: "DELETE" });
                 expect(response.status).toBe(200);
