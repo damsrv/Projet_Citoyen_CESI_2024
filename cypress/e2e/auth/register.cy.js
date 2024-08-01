@@ -18,8 +18,10 @@ describe("User Registration", () => {
             .type("Password123!");
         cy.get('button[type="submit"]').click();
 
+        cy.wait(2000);
         // Vérifier que l'utilisateur est redirigé vers la page de connexion après l'inscription réussie
         cy.url().should("include", "/connexion");
+        cy.wait(2000);
         cy.contains("Connexion").should("be.visible");
     });
 
@@ -36,6 +38,7 @@ describe("User Registration", () => {
         cy.get('button[type="submit"]').click();
 
         // Vérifier le message d'erreur
+        cy.wait(2000);
         cy.contains("Utilisateur déjà existant").should("be.visible");
     });
 
@@ -53,6 +56,7 @@ describe("User Registration", () => {
         cy.get('button[type="submit"]').click();
 
         // Vérifier le message d'erreur
+        cy.wait(2000);
         cy.contains("Les mots de passe ne correspondent pas.").should(
             "be.visible"
         );
@@ -89,7 +93,9 @@ describe("User Registration", () => {
         cy.get('input[name="password"]').type("NewPassword123!");
         cy.get('button[type="submit"]').click();
 
+        cy.wait(2000);
         cy.get("button.profile-menu:visible").click();
+        cy.wait(2000);
         cy.contains("Déconnexion").should("be.visible");
     });
 
@@ -129,7 +135,9 @@ describe("User Registration", () => {
         cy.get('input[name="password"]').type("NewPassword123!");
         cy.get('button[type="submit"]').click();
 
+        cy.wait(2000);
         cy.get("button.profile-menu:visible").click();
+        cy.wait(2000);
         cy.contains("Déconnexion").should("be.visible");
     });
 
@@ -148,6 +156,7 @@ describe("User Registration", () => {
         cy.get(
             'button:contains("Supprimer définitivement mon compte")'
         ).click();
+        cy.wait(2000);
 
         cy.contains("Se connecter").should("be.visible");
     });
