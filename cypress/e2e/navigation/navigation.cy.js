@@ -10,6 +10,7 @@ describe("Navigation profil", () => {
 
     it("should display the profile menu", () => {
         cy.get("button.profile-menu:visible").click();
+        cy.wait(2000);
         cy.get(".profile-menu-content").should("be.visible");
     });
 });
